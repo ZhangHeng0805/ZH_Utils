@@ -112,8 +112,6 @@ public class RandomrUtil {
      * @return
      */
     public static int createRandom(int max){
-        Random random = new Random();
-        int i=random.nextInt(max)+1;
-        return i;
+        return createRandom(1,max);
     }
 }
