@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ZH_Utils:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ZH_Utils_jar</output-path>
+    <root id="archive" name="ZH_Utils.jar">
+      <element id="module-output" name="ZH_Utils" />
+    </root>
+  </artifact>
+</component>

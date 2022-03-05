@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_zh_utils" default="compile.module.zh_utils">
+  <dirname property="module.zh_utils.basedir" file="${ant.file.module_zh_utils}"/>
+  
+  <property name="module.jdk.home.zh_utils" value="${jdk.home.1.8}"/>
+  <property name="module.jdk.bin.zh_utils" value="${jdk.bin.1.8}"/>
+  <property name="module.jdk.classpath.zh_utils" value="jdk.classpath.1.8"/>
+  
+  <property name="compiler.args.zh_utils" value="-encoding GBK -source 6 -target 6 ${compiler.args}"/>
+  
+  <property name="zh_utils.output.dir" value="${module.zh_utils.basedir}/out/production/ZH_Utils"/>
+  <property name="zh_utils.testoutput.dir" value="${module.zh_utils.basedir}/out/test/ZH_Utils"/>
+  
+  <path id="zh_utils.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="zh_utils.module.production.classpath">
+    <path refid="${module.jdk.classpath.zh_utils}"/>
+  </path>
+  
+  <path id="zh_utils.runtime.production.module.classpath">
+    <pathelement location="${zh_utils.output.dir}"/>
+  </path>
+  
+  <path id="zh_utils.module.classpath">
+    <path refid="${module.jdk.classpath.zh_utils}"/>
+    <pathelement location="${zh_utils.output.dir}"/>
+  </path>
+  
+  <path id="zh_utils.runtime.module.classpath">
+    <pathelement location="${zh_utils.testoutput.dir}"/>
+    <pathelement location="${zh_utils.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.zh_utils">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.zh_utils">
+    <patternset refid="excluded.from.module.zh_utils"/>
+  </patternset>
+  
+  <path id="zh_utils.module.sourcepath">
+    <dirset dir="${module.zh_utils.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.zh_utils" depends="compile.module.zh_utils.production,compile.module.zh_utils.tests" description="Compile module ZH_Utils"/>
+  
+  <target name="compile.module.zh_utils.production" depends="register.custom.compilers" description="Compile module ZH_Utils; production classes">
+    <mkdir dir="${zh_utils.output.dir}"/>
+    <javac2 destdir="${zh_utils.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.zh_utils}/javac">
+      <compilerarg line="${compiler.args.zh_utils}"/>
+      <bootclasspath refid="zh_utils.module.bootclasspath"/>
+      <classpath refid="zh_utils.module.production.classpath"/>
+      <src refid="zh_utils.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.zh_utils"/>
+    </javac2>
+    
+    <copy todir="${zh_utils.output.dir}">
+      <fileset dir="${module.zh_utils.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.zh_utils.tests" depends="register.custom.compilers,compile.module.zh_utils.production" description="compile module ZH_Utils; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.zh_utils" description="cleanup module">
+    <delete dir="${zh_utils.output.dir}"/>
+    <delete dir="${zh_utils.testoutput.dir}"/>
+  </target>
+</project>
