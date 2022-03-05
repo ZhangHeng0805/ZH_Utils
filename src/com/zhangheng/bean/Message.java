@@ -69,9 +69,13 @@ public class Message {
                 ", obj=" + obj +
                 '}';
     }
-    //控制台打印日志
-    public static void printLog(String msg){
+
+    /**
+     * 控制台打印日志
+     * @param msg
+     */
+    public static void printLog(Object msg){
         String time = TimeUtil.toTime(new Date(),TimeUtil.enDateFormat_Detailed);
-        System.out.println(time+" "+msg);
+        System.out.println(time+" === "+msg.toString());
     }
 }

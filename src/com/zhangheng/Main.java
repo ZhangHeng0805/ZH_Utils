@@ -26,6 +26,6 @@ public class Main {
 
 //        System.out.println(RandomrUtil.createRandom(2));
 
-//        Message.printLog(String.valueOf(MathUtil.twoDecimalPlaces(16.665)));
+//        Message.printLog(MathUtil.twoDecimalPlaces(16.6656));
     }
 }
