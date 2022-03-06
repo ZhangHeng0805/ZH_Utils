@@ -38,7 +38,7 @@ public class EncryptUtil {
         try {
             md5 = MessageDigest.getInstance(algorithm);
         } catch (Exception e) {
-            Message.printError(e.getMessage());
+            e.printStackTrace();
             return "";
         }
         char[] charArray = source.toCharArray();

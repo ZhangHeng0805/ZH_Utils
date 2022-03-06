@@ -1,9 +1,10 @@
 package com.zhangheng;
 
 import com.zhangheng.bean.Message;
+import com.zhangheng.util.EncryptUtil;
 import com.zhangheng.util.FiletypeUtil;
+import com.zhangheng.util.MathUtil;
 
-import java.io.File;
 
 public class Main {
 
@@ -24,8 +25,8 @@ public class Main {
 //        System.out.println(RandomrUtil.createRandom(2));
 
 //        Message.printLog(MathUtil.twoDecimalPlaces(16.6656));
-        File file = new File("D:\\Users\\张恒\\IdeaProjects\\ZH_Utils\\src\\com\\zhangheng\\bean\\Message.java");
-        System.out.println(FiletypeUtil.getFileType(file));
-        Message.printLog(1);
+
+//        Message.printLog(EncryptUtil.getSignature("13733430842","10120812"));
+//        Message.printLog(EncryptUtil.getSignature("13733430842","10120812."));
     }
 }
