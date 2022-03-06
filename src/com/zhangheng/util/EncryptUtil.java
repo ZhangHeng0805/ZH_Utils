@@ -1,6 +1,5 @@
 package com.zhangheng.util;
 
-import com.zhangheng.bean.Message;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
