@@ -78,4 +78,12 @@ public class Message {
         String time = TimeUtil.toTime(new Date(),TimeUtil.enDateFormat_Detailed);
         System.out.println(time+" === "+msg.toString());
     }
+    public static void printError(Object msg){
+        String time = TimeUtil.toTime(new Date(),TimeUtil.enDateFormat_Detailed);
+        try {
+            throw new Exception(time+" === 错误(error)："+msg.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,12 +1,9 @@
 package com.zhangheng;
 
 import com.zhangheng.bean.Message;
-import com.zhangheng.util.FormatUtil;
-import com.zhangheng.util.MathUtil;
-import com.zhangheng.util.RandomrUtil;
-import com.zhangheng.util.TimeUtil;
+import com.zhangheng.util.FiletypeUtil;
 
-import java.util.Date;
+import java.io.File;
 
 public class Main {
 
@@ -27,5 +24,8 @@ public class Main {
 //        System.out.println(RandomrUtil.createRandom(2));
 
 //        Message.printLog(MathUtil.twoDecimalPlaces(16.6656));
+        File file = new File("D:\\Users\\张恒\\IdeaProjects\\ZH_Utils\\src\\com\\zhangheng\\bean\\Message.java");
+        System.out.println(FiletypeUtil.getFileType(file));
+        Message.printLog(1);
     }
 }
