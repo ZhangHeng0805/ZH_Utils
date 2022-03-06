@@ -169,7 +169,7 @@ public class EncryptUtil {
     }
 
     /**
-     * MD5 加密
+     * MD5 加密（UTF-8编码）
      */
     public static String getMd5(String str) {
         MessageDigest messageDigest = null;
@@ -177,7 +177,6 @@ public class EncryptUtil {
             messageDigest = MessageDigest.getInstance(MD5);
             messageDigest.reset();
             messageDigest.update(str.getBytes("UTF-8"));
-
         } catch (NoSuchAlgorithmException e) {
             System.out.println("NoSuchAlgorithmException caught!");
             System.exit(-1);
@@ -217,17 +216,9 @@ public class EncryptUtil {
         return rawHmac;
     }
 
-    private static String byteToHexString(byte ib){
-        char[] Digit={'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
-        char[] ob=new char[2];
-        ob[0]=Digit[(ib>>>4)& 0X0f];
-        ob[1]=Digit[ib & 0X0F];
-        String s=new String(ob);
-        return s;
-    }
 
     /**
-     * 创富md5加密方法
+     * 改造md5加密方法
      */
     public static String getMyMd5(String encodestr)
     {
