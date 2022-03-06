@@ -4,11 +4,8 @@ import com.zhangheng.bean.Message;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -204,27 +201,25 @@ public class EncryptUtil {
      * 生成签名数据
      * @param data 待加密的数据
      * @param key  加密使用的key
-     * @throws InvalidKeyException
-     * @throws NoSuchAlgorithmException
      */
-    public static  byte[] getSignature(String data,String key) throws NoSuchAlgorithmException, InvalidKeyException {
-        byte[] keyBytes=key.getBytes();
-        SecretKeySpec signingKey = new SecretKeySpec(keyBytes, HMAC_SHA1);
-        Mac mac = Mac.getInstance(HMAC_SHA1);
-        mac.init(signingKey);
-        byte[] rawHmac = mac.doFinal((data).getBytes());
-        return rawHmac;
+    public static String getSignature(String data,String key)  {
+        //将key进行SHA1加密
+        StringBuffer stringBuffer = new StringBuffer(encrypt(key, SHA1));
+        //然后使用自制的Md5加密
+        return getMyMd5(data,stringBuffer.substring(12, 28));
     }
 
 
     /**
      * 改造md5加密方法
+     * @param encodestr 加密的字符串
+     * @return
      */
     public static String getMyMd5(String encodestr)
     {
         try
         {
-            char[] hexDigits = { '9', '0', '1', '4', 'g', '2', 'a', '5', 'p', '6', 'l', 'u', '7', '8', '3', 'e' };
+            char[] hexDigits = { '9', '0', '1', '4', 'z', '2', 'h', '5', 'a', '6', 'h', 'g', 'x', '7', '8', '3' };
             byte[] strTemp = encodestr.getBytes();
             MessageDigest mdTemp = MessageDigest.getInstance("MD5");
             mdTemp.update(strTemp);
@@ -245,14 +240,39 @@ public class EncryptUtil {
         return null;
     }
 
-    public static void main(String[] args) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException {
-        String str="13733430842";
-        String str1="10120812zhanghen....";
-        String md5 = getMd5(str1);
-        System.out.println(md5);
-        String myMd5 = getMyMd5(str1);
-        System.out.println(myMd5.length());
-        System.out.println(encrypt(str1,MD5));
-
+    /**
+     * 改造md5加密方法
+     * @param encodestr 加密的字符串
+     * @param key 加密的key（长度16）
+     * @return
+     */
+    public static String getMyMd5(String encodestr,String key)
+    {
+        try
+        {
+            if (key.length()!=16){
+                throw new Exception("The length of the key must be equal to 16（key的长度需要等于16）");
+            }
+            char[] hexDigits = key.toCharArray();
+            byte[] strTemp = encodestr.getBytes();
+            MessageDigest mdTemp = MessageDigest.getInstance("MD5");
+            mdTemp.update(strTemp);
+            byte[] md = mdTemp.digest();
+            int j = md.length;
+            char[] str = new char[j * 2];
+            int k = 0;
+            for (int i = 0; i < j; i++) {
+                byte byte0 = md[i];
+                str[(k++)] = hexDigits[(byte0 >>> 4 & 0xF)];
+                str[(k++)] = hexDigits[(byte0 & 0xF)];
+            }
+            return new String(str);
+        }
+        catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
