@@ -28,5 +28,8 @@ public class Main {
 
 //        Message.printLog(EncryptUtil.getSignature("13733430842","10120812"));
 //        Message.printLog(EncryptUtil.getSignature("13733430842","10120812."));
+//        Message.printLog(EncryptUtil.getMyMd5("888888"));
+//        Message.printLog(EncryptUtil.encrypt("888888",EncryptUtil.SHA1));
+
     }
 }

@@ -24,8 +24,6 @@ public class EncryptUtil {
     public static final String MD5 = "MD5";
 
 
-    private static final String HMAC_SHA1 = "HmacSHA1";
-
     /**
      * 加密
      * @param algorithm 加密算法
