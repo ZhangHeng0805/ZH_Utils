@@ -267,13 +267,13 @@
 * 递归扫描指定文件夹下面的指定文件
 * 例 FormatUtil.isMobilePhone("./imag/") 绝对或相对路径
 * @param folderPath 需要进行文件扫描的文件夹路径
-* @return ArrayList<Object> 文件的绝对路径集合
+* @return ```ArrayList<Object>``` 文件的绝对路径集合
 
 ####  FolderFileScannerUtil.scanFilesWithNoRecursion(String folderPath);
 * 非递归方式扫描指定文件夹下面的所有文件
 * 例 FormatUtil.isMobilePhone("./imag") 绝对或相对路径
 * @param folderPath 需要进行文件扫描的文件夹路径
-* @return ArrayList<Object> 文件的绝对路径集合
+* @return ```ArrayList<Object>``` 文件的绝对路径集合
 
 ## 6.文件类型工具（FiletypeUtil）
 * 类路径：```com.zhangheng.util.FiletypeUtil```
