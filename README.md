@@ -264,16 +264,16 @@
 * 类路径：```com.zhangheng.util.FolderFileScannerUtil```
 ### 具体方法
 ####  FolderFileScannerUtil.scanFilesWithRecursion(String folderPath);
-> * 递归扫描指定文件夹下面的指定文件
-> * 例 FormatUtil.isMobilePhone("./imag/") 绝对或相对路径
-> * @param folderPath 需要进行文件扫描的文件夹路径
-> * @return ArrayList<Object> 文件的绝对路径集合
+* 递归扫描指定文件夹下面的指定文件
+* 例 FormatUtil.isMobilePhone("./imag/") 绝对或相对路径
+* @param folderPath 需要进行文件扫描的文件夹路径
+* @return ArrayList<Object> 文件的绝对路径集合
 
 ####  FolderFileScannerUtil.scanFilesWithNoRecursion(String folderPath);
-> * 非递归方式扫描指定文件夹下面的所有文件
-> * 例 FormatUtil.isMobilePhone("./imag") 绝对或相对路径
-> * @param folderPath 需要进行文件扫描的文件夹路径
-> * @return ArrayList<Object> 文件的绝对路径集合
+* 非递归方式扫描指定文件夹下面的所有文件
+* 例 FormatUtil.isMobilePhone("./imag") 绝对或相对路径
+* @param folderPath 需要进行文件扫描的文件夹路径
+* @return ArrayList<Object> 文件的绝对路径集合
 
 ## 6.文件类型工具（FiletypeUtil）
 * 类路径：```com.zhangheng.util.FiletypeUtil```
@@ -382,24 +382,20 @@ public static final String[][] MIME_MapTable={
 > * @param source 加密对象
 > * @param algorithm 加密算法 （从上面常量选）
 > * @return String
-
 ####  EncryptUtil.getSHA(String source);
 > * SHA加密 并转换为16进制大写字符串
 > * 例 EncryptUtil.getSHA("123")
 > * @param source 加密对象
 > * @return String
-
 ####  EncryptUtil.getSHA1(String source);
 > * SHA1加密 并转换为16进制大写字符串
 > * 例 EncryptUtil.getSHA1("123")
 > * @param source 加密对象
 > * @return String
-
 ####  EncryptUtil.enBase64(byte[] key);
 > * BASE64加密
 > * @param key 加密对象
 > * @return String
-
 ####  EncryptUtil.deBase64(String key);
 > * BASE64解密
 > * @param key 解密对象
