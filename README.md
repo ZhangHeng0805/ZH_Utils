@@ -11,12 +11,12 @@
     * 加密工具
 * 日志
   * 格式 ```2022-03-22 16:26:35:623 [INFO] c.z.u.ArrayUtil.main()[37] --- true```
-  * 日志输出(控制台输出)
+  * 日志输出(控制台输出) ```com.zhangheng.log.Log```
     * Log.info(msg);
     * Log.error(msg);
     * Log.warn(msg);
     * Log.debug(msg);
-  * 生成日志文件（控制台输出和日志文件写入）
+  * 生成日志文件（控制台输出和日志文件写入） ```com.zhangheng.log.printLog.Log```
       * Log.Info(msg);
       * Log.Error(msg);
       * Log.Warn(msg);
