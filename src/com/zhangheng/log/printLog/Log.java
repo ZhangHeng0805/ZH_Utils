@@ -47,4 +47,5 @@ public class Log extends com.zhangheng.log.Log {
         Print.print(debug);
         return debug;
     }
+
 }

@@ -86,4 +86,5 @@ public class Log extends Logger{
         System.out.println(log.toString());
         return log.toString();
     }
+
 }
