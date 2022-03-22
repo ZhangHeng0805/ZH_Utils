@@ -1,5 +1,6 @@
 package com.zhangheng.util;
 
+import com.zhangheng.log.printLog.Log;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -91,7 +92,7 @@ public class EncryptUtil {
     }
 
     /**
-     * SHA加密 并转换为16进制大写字符串
+     * SHA1加密 并转换为16进制大写字符串
      * @param source
      * @return
      */

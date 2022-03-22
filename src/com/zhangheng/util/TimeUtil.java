@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 时间帮助类
@@ -36,7 +38,15 @@ public class TimeUtil {
     /**
      * 日期格式数组{"年","月","日","时","分","秒","毫秒"}
      */
-    public static final String[] dateFormatArr={"yyyy","MM","dd","HH","mm","ss","SSS"};
+    public static final Map<Integer,String> dateFormatArr=new HashMap<Integer, String>(){{
+        put(Year,"yyyy");
+        put(Month,"MM");
+        put(Day,"dd");
+        put(Hour,"HH");
+        put(Minutes,"mm");
+        put(Second,"ss");
+        put(MilliSecond,"SSS");
+    }};
 
     /**
      * Type（类型）

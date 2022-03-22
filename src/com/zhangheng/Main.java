@@ -1,9 +1,10 @@
 package com.zhangheng;
 
 import com.zhangheng.bean.Message;
-import com.zhangheng.util.EncryptUtil;
-import com.zhangheng.util.FiletypeUtil;
-import com.zhangheng.util.MathUtil;
+
+import com.zhangheng.file.TxtOperation;
+import com.zhangheng.log.printLog.Log;
+import com.zhangheng.util.*;
 
 
 public class Main {
@@ -30,6 +31,18 @@ public class Main {
 //        Message.printLog(EncryptUtil.getSignature("13733430842","10120812."));
 //        Message.printLog(EncryptUtil.getMyMd5("888888"));
 //        Message.printLog(EncryptUtil.encrypt("888888",EncryptUtil.SHA1));
+
+//        String datformat=TimeUtil.dateFormatArr.get(TimeUtil.Month)+"-"+TimeUtil.dateFormatArr.get(TimeUtil.Day);
+//        String s = TimeUtil.toTime(TimeUtil.toDate("2022年03月18日 11:08:25", TimeUtil.cnDateFormat), datformat);
+//        Message.printLog(s);
+//        int i=0;
+//        while (i<100){
+//            Log.Info("张恒"+i);
+//            i++;
+//        }
+
+        String passWord = RandomrUtil.createPassWord(32, "012");
+        Log.Info(passWord);
 
     }
 }

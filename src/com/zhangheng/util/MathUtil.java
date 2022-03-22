@@ -1,5 +1,7 @@
 package com.zhangheng.util;
 
+import com.zhangheng.log.printLog.Log;
+
 import java.text.DecimalFormat;
 
 /**
@@ -16,9 +18,30 @@ public class MathUtil {
      * @return
      */
     public static double twoDecimalPlaces(double num){
-        DecimalFormat df   = new DecimalFormat("######0.00");
+        DecimalFormat df   = new DecimalFormat("#########.00");
         String format = df.format(num);
         Double aDouble = Double.valueOf(format);
         return aDouble;
     }
+
+    /**
+     * 数字格式化
+     * 当数字大于10000时 以 100,000 展示
+     * 小于等于10000时 保留两位小数显示
+     * @param num
+     * @return
+     */
+    public static String numerFormat(double num){
+        String format;
+        if (num>10000) {
+            DecimalFormat df = new DecimalFormat(",###");
+             format= df.format(num);
+        }else {
+            double v = twoDecimalPlaces(num);
+            format=String.valueOf(v);
+
+        }
+        return format;
+    }
+
 }

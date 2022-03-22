@@ -8,9 +8,10 @@
 * 随机字段及数字
 * 数学工具
 * 加密工具
-
-# 时间工具（TimeUtil）
-* 类型路径：```com.zhangheng.util```
+# 一、工具
+## 1.时间工具（TimeUtil）
+* 类路径：```com.zhangheng.util.TimeUtil```
+### 常量及格式
 ```java
 	/**
      * 英文的时间格式（默认格式）
@@ -83,32 +84,36 @@
      */
     public static final int Day_Of_Year=0x0008;//一年的第几天
 ```
-
+### 具体方法
 > ####  TimeUtil.toTime(Date date);
 > > * 将日期转换为默认格式[yyyy-MM-dd HH:mm:ss]时间
+> > * 例 TimeUtil.toTime(new Date()) 获取当前[yyyy-MM-dd HH:mm:ss]时间
 > > * @param date 日期
 > > * @return String
 
 > ####  TimeUtil.toTime(Date date,String dateFormat);
 > > * 将日期转换为指定格式时间
+> > * 例 TimeUtil.toTime(new Date(),TimeUtil.cnDateFormat) 获取当前[yyyy年MM月dd日 HH:mm:ss]时间
 > > * @param date 日期
-> > * @param dateFormat 指定的时间格式
+> > * @param dateFormat 指定的时间格式 类似[yyyy年MM月dd日 HH:mm:ss]
 > > * @return String
 
 > ####  TimeUtil.toDate(String time);
 > > * 将默认格式的时间[yyyy-MM-dd HH:mm:ss]转换为日期
+> > * 例 TimeUtil.toDate("2022-03-04 12:00:00") 将时间转为日期
 > > * @param time 默认格式的时间
 > > * @return Date
 
 > ####  TimeUtil.Date toDate(String time,String dateFormat);
 > > * 将指定格式的时间转换为日期
-> > * @param time 默认格式的时间
-> > * @param dateFormat 指定的时间格式 
+> > * @param time 指定格式的时间（2022年03月04日 12:00:00）
+> > * @param dateFormat 指定的时间格式 （TimeUtil.cnDateFormat[yyyy年MM月dd日 HH:mm:ss]）
 > > * @return Date
 
 > ####  TimeUtil.getTime(int Type);
 > > * 根据类型获取当前时间信息
-> > * @param Type 不同类型的时间（年、月、日）
+> > * 例 TimeUtil.getTime(TimeUtil.Week) 获取当前星期
+> > * @param Type 不同类型的时间（年、月、日...）
 > > * @return String
 
 > ####  TimeUtil.timeDifference(String time,int Type);
@@ -157,6 +162,7 @@
 
 > ####  TimeUtil.fewDaysAgo(String time,int i);
 > > * 计算某个时间前半个月前某一天的时间 （默认格式）
+> > * 例 imeUtil.fewDaysAgo("2022-03-04 12:00:00", 10) 计算2022-03-04 12:00:00 十天前的时间
 > > * @param time 默认格式的时间
 > > * @param i [0,15] 前几天
 > > * @return String
@@ -167,3 +173,260 @@
 > > * * @param dateFormat 指定的时间格式
 > > * @param i [0,15] 前几天
 > > * @return String
+
+## 2.随机工具（RandomrUtil）
+* 类路径：```com.zhangheng.util.RandomrUtil```
+### 常量及格式
+```java
+    /**
+     * 数字类型
+     */
+    public static final String Number="0";
+    /**
+     * 小写英文类型
+     */
+    public static final String Lowercase="1";
+    /**
+     * 大写英文类型
+     */
+    public static final String Capital="2";
+    /**
+     * 英文符号类型
+     */
+    public static final String Symbol="3";
+    /**
+     * 英文符号
+     */
+    private static final String SYMBOLS_EN_STR="~!@#$%^&_*-+=()[]{}<>./?";
+``` 
+### 具体方法
+> ####  RandomrUtil.createPassWord(int length,String type);
+> > * 生成大小写字母、数字、特殊符号组合的指定长度的密码
+> > * 例 RandomrUtil.createPassWord(12, "012") 生成由数字、小写和大写字母组成的12位随机码
+> > * @param length 生成的字符长度
+> > * @param type 
+> > *             [0:纯数字(0~9)]
+> > *             [1:小写字母(a~z)]
+> > *             [2:大写字母(A~Z)]
+> > *             [3:英文符号]
+> > *             [例："123"(小写字母+大写字母+英文符号)]
+> > * @return String
+
+> ####  RandomrUtil.createRandom(int min,int max);
+> > * 生成指定范围的随机数
+> > * 例 createRandom(3, 33)  生成3(包含)到33(包含)的随机数 [3,33]
+> > * @param min 最小值（包含）
+> > * @param max 最大值（包含）
+> > * @return int
+
+> ####  RandomrUtil.createRandom(int max);
+> > * 生成1~max范围的随机数
+> > * 例 createRandom(33)  生成1(包含)到33(包含)的随机数 [1,33]
+> > * @param max 最大值（包含）
+> > * @return int
+
+## 3.数学工具（MathUtil）
+* 类路径：```com.zhangheng.util.MathUtil```
+### 具体方法
+> ####  MathUtil.twoDecimalPlaces(double num);
+> > * 五舍六入 保留两位小数
+> > * 例 MathUtil.twoDecimalPlaces(3.1461186) //3.15
+> > * @param num 数字
+> > * @return double
+
+> ####  MathUtil.numerFormat(double num);
+> > * 根据数字长度返回不同格式的数字
+> > * 当数字大于10000时 以 100,000 展示，小于等于10000时 保留两位小数显示
+> > * 例 MathUtil.twoDecimalPlaces(100000) //100,000
+> > * @param num 数字
+> > * @return String
+
+## 4.格式工具（FormatUtil）
+* 类路径：```com.zhangheng.util.FormatUtil```
+### 具体方法
+> ####  FormatUtil.isLetterDigit(String str);
+> > * 字符串是否包含大小写字母及数字长度在6-18位(不含符号)
+> > * 例 FormatUtil.isLetterDigit("1ads5aAffsdw") //true
+> > * @param str 判断的字符串
+> > * @return boolean
+
+> ####  FormatUtil.isMobilePhone(String str);
+> > * 手机号格式验证（11位手机号）
+> > * 例 FormatUtil.isMobilePhone("13733430842") //true
+> > * @param str 判断的手机号
+> > * @return boolean
+
+## 5.文件扫描工具（FolderFileScannerUtil）
+* 类路径：```com.zhangheng.util.FolderFileScannerUtil```
+### 具体方法
+> ####  FolderFileScannerUtil.scanFilesWithRecursion(String folderPath);
+> > * 递归扫描指定文件夹下面的指定文件
+> > * 例 FormatUtil.isMobilePhone("./imag/") 绝对或相对路径
+> > * @param folderPath 需要进行文件扫描的文件夹路径
+> > * @return ArrayList<Object> 文件的绝对路径集合
+
+> ####  FolderFileScannerUtil.scanFilesWithNoRecursion(String folderPath);
+> > * 非递归方式扫描指定文件夹下面的所有文件
+> > * 例 FormatUtil.isMobilePhone("./imag") 绝对或相对路径
+> > * @param folderPath 需要进行文件扫描的文件夹路径
+> > * @return ArrayList<Object> 文件的绝对路径集合
+
+## 6.文件类型工具（FiletypeUtil）
+* 类路径：```com.zhangheng.util.FiletypeUtil```
+### 常量格式
+```java
+public static final String[][] MIME_MapTable={
+            //{后缀名，    类型}
+            {".3gp",   "video"},
+            {".m4u",   "video"},
+            {".m4v",   "video"},
+            {".mov",   "video"},
+            {".mpe",   "video"},
+            {".mpeg",  "video"},
+            {".mpg",   "video"},
+            {".mpg4",  "video"},
+            {".mp4",   "video"},
+            {".asf",   "video"},
+            {".avi",   "video"},
+
+            {".m3u8",   "audio"},
+            {".m4a",   "audio"},
+            {".m4b",   "audio"},
+            {".m4p",   "audio"},
+            {".mp2",   "audio"},
+            {".mp3",   "audio"},
+            {".mpga",  "audio"},
+            {".rmvb",  "audio"},
+            {".aac",   "audio"},
+            {".ogg",   "audio"},
+            {".wav",   "audio"},
+            {".wma",   "audio"},
+            {".wmv",   "audio"},
+
+            {".gif",   "image"},
+            {".bmp",   "image"},
+            {".jpeg",  "image"},
+            {".png",   "image"},
+            {".jpg",   "image"},
+
+            {".txt",   "text"},
+            {".c",     "text"},
+            {".xml",   "text"},
+            {".conf",  "text"},
+            {".cpp",   "text"},
+            {".doc",   "text"},
+            {".pdf",   "text"},
+            {".h",     "text"},
+            {".ppt",   "text"},
+            {".xls",   "text"},
+            {".xlsx",  "text"},
+            {".docx",  "text"},
+            {".md",    "text"},
+            {".prop",  "text"},
+            {".htm",   "text"},
+            {".html",  "text"},
+            {".java",  "text"},
+            {".js",    "text"},
+            {".rc",    "text"},
+            {".log",   "text"},
+            {".sh",    "text"},
+
+            {".class",  "application"},
+            {".apk",    "application"},
+            {".bin",    "application"},
+            {".exe",    "application"},
+            {".gtar",   "application"},
+            {".gz",     "application"},
+            {".jar",    "application"},
+            {".mpc",    "application"},
+            {".msg",    "application"},
+            {".pps",    "application"},
+            {".rar",    "application"},
+            {".rtf",    "application"},
+            {".tar",    "application"},
+            {".tgz",    "application"},
+            {".wps",    "application"},
+            {".z",      "application"},
+            {".zip",    "application"},
+
+            {"",        "unknown"}
+    };
+```
+### 具体方法
+> ####  FiletypeUtil.getFileType(File file);
+> > * 判断文件类型
+> > * 例 FiletypeUtil.getFileType(new File(./img.png)) 绝对或相对路径 //image
+> > * @param file 判断的文件
+> > * @return String
+> ####  FiletypeUtil.getFileType(String filename);
+> > * 判断文件类型
+> > * 例 FiletypeUtil.getFileType("img.png") 绝对或相对路径 //image
+> > * @param file 判断的文件全称（含后缀名）
+> > * @return String
+## 7.加密工具（EncryptUtil）
+* 类路径：```com.zhangheng.util.EncryptUtil```
+### 常量格式
+```java
+    public static final String SHA = "SHA";
+    public static final String SHA1 = "SHA1";
+    public static final String MD5 = "MD5";
+```
+### 具体方法
+> ####  EncryptUtil.encrypt(String source,String algorithm);
+> > * 加密
+> > * 例 EncryptUtil.encrypt("123",EncryptUtil.MD5) 对123进行md5加密
+> > * @param source 加密对象
+> > * @param algorithm 加密算法 （从上面常量选）
+> > * @return String
+
+> ####  EncryptUtil.getSHA(String source);
+> > * SHA加密 并转换为16进制大写字符串
+> > * 例 EncryptUtil.getSHA("123")
+> > * @param source 加密对象
+> > * @return String
+
+> ####  EncryptUtil.getSHA1(String source);
+> > * SHA1加密 并转换为16进制大写字符串
+> > * 例 EncryptUtil.getSHA1("123")
+> > * @param source 加密对象
+> > * @return String
+
+> ####  EncryptUtil.enBase64(byte[] key);
+> > * BASE64加密
+> > * @param key 加密对象
+> > * @return String
+
+> ####  EncryptUtil.deBase64(String key);
+> > * BASE64解密
+> > * @param key 解密对象
+> > * @return byte[]
+> ####  EncryptUtil.getMd5(String str);
+> > * MD5 加密（UTF-8编码）
+> > * 例 EncryptUtil.getMd5("123")
+> > * @param str 加密对象
+> > * @return String
+> ####  EncryptUtil.getSignature(String data,String key);
+> > * 生成签名数据
+> > * 例 EncryptUtil.getSignature("123","456")
+> > * @param data 待加密的数据
+> > * @param key  加密使用的key
+> > * @return String
+> ####  EncryptUtil.getMyMd5(String encodestr);
+> > * 改造md5加密方法
+> > * 例 EncryptUtil.getMyMd5("123")
+> > * @param encodestr 加密的字符串
+> > * @return String
+> ####  EncryptUtil.getMyMd5(String encodestr,String key);
+> > * 改造md5加密方法
+> > * 例 EncryptUtil.getMyMd5("123","adsfgwhy12345678");
+> > * @param encodestr 加密的字符串
+> > * @param key 加密的key（长度16）
+> > * @return String
+## 8.数组工具（ArrayUtil）
+* 类路径：```com.zhangheng.util.ArrayUtil```
+### 具体方法
+> ####  ArrayUtil.exist(Object[] arr,Object obj);
+> > * 检查数组里是否存在对象
+> > * @param arr 目标数组
+> > * @param obj 检查对象
+> > * @return boolean

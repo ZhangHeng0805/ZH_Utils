@@ -87,9 +87,19 @@ public class FiletypeUtil {
             {"",        "unknown"}
     };
 
+    /**
+     * 获取文件类型
+     * @param file 判断文件
+     * @return
+     */
     public static String getFileType(File file){
         return getFileType(file.getName());
     }
+    /**
+     * 获取文件类型
+     * @param filename 文件全称（含后缀名）
+     * @return
+     */
     public static String getFileType(String filename)
     {
         String type="unknown";
