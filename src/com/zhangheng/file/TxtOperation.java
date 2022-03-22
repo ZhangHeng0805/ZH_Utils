@@ -1,7 +1,5 @@
 package com.zhangheng.file;
 
-import com.zhangheng.Main;
-import com.zhangheng.log.printLog.Log;
 import com.zhangheng.util.ArrayUtil;
 
 import java.io.*;
@@ -9,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * txt文本文件操作
+ * 文本文件操作（创建，读写）
  * @author 张恒
  * @program: ZH_Utils
  * @email zhangheng.0805@qq.com
@@ -17,6 +15,7 @@ import java.util.List;
  */
 public class TxtOperation {
 
+    //允许的创建的文件类型
     private static final String[] fileType={"txt","log"};
     /**
      * 读取txt文件
@@ -192,7 +191,7 @@ public class TxtOperation {
     }
 
     /**
-     *
+     * 写入txt文件
      * @param newStr 写入的字符串
      * @param path 文件路径
      * @return
@@ -205,20 +204,5 @@ public class TxtOperation {
             e.printStackTrace();
         }
         return f;
-    }
-
-    public static void main(String[] args) throws IOException {
-        String path="./res/all-hanzi.txt";
-        String path1="D:\\卓面\\账号秘钥.txt";
-        String path2="D:\\卓面\\测试.log";
-//        boolean b = writeTxtFile("张恒666", path2);
-//        System.out.println(creatTxtFile(path).length()/1024);
-//        List<String> list = readTxtFile(creatTxtFile(path2),"UTF-8");
-//        for (String s : list) {
-//            System.out.println(s);
-//        }
-//        System.out.println(list.size());
-        String t=path2.substring(path2.lastIndexOf(".")+1);
-        Log.Info(t);
     }
 }

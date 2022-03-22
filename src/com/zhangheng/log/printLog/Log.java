@@ -3,6 +3,7 @@ package com.zhangheng.log.printLog;
 import com.zhangheng.log.Logger;
 
 /**
+ * 日志输出（控制台输出同时写入日志文件中）
  * @author 张恒
  * @program: ZH_Utils
  * @email zhangheng.0805@qq.com

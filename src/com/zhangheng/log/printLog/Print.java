@@ -7,14 +7,16 @@ import java.io.File;
 import java.util.Date;
 
 /**
+ * 将输出的日志保存为日志文件
  * @author 张恒
  * @program: ZH_Utils
  * @email zhangheng.0805@qq.com
  * @date 2022-03-21 16:48
  */
 class Print {
-    //单个log文件的最大值Mb
-    private static final double MaxSize=0.01;
+    //单个log文件的最大值(Mb)
+    private static final double MaxSize=3;
+    //日志文件的存储位置
     private static final String baseDir="./log日志/";
     private static String fileName;
 

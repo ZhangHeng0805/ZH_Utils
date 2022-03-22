@@ -1,6 +1,5 @@
 package com.zhangheng.util;
 
-import com.zhangheng.log.printLog.Log;
 
 /**
  * @author 张恒

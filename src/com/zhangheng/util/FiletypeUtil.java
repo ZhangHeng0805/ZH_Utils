@@ -89,7 +89,7 @@ public class FiletypeUtil {
 
     /**
      * 获取文件类型
-     * @param file 判断文件
+     * @param file 文件
      * @return
      */
     public static String getFileType(File file){

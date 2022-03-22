@@ -1,7 +1,5 @@
 package com.zhangheng.util;
 
-import com.zhangheng.log.printLog.Log;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;

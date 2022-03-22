@@ -1,6 +1,7 @@
 package com.zhangheng.log;
 
 /**
+ * 日志输出（控制台输出）
  * @author 张恒
  * @program: ZH_Utils
  * @email zhangheng.0805@qq.com

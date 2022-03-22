@@ -5,19 +5,20 @@ import com.zhangheng.util.TimeUtil;
 import java.util.Date;
 
 /**
+ * 日志对象
  * @author 张恒
  * @program: ZH_Utils
  * @email zhangheng.0805@qq.com
  * @date 2022-03-21 15:55
  */
 public class Logger {
-    private String time;
-    private Integer code;
-    private String type;
-    private String classPath;
-    private String method;
-    private int lineNumber;
-    private Object msg;
+    private String time;//时间
+    private Integer code;//状态码
+    private String type;//类型
+    private String classPath;//调用的类路径
+    private String method;//调用的方法名
+    private int lineNumber;//调用的文件行数
+    private Object msg;//消息对象
 
     public String getTime() {
         return time;

@@ -1,7 +1,5 @@
 package com.zhangheng.util;
 
-import com.zhangheng.log.printLog.Log;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
