@@ -66,7 +66,7 @@ public class Message {
                 ", code=" + code +
                 ", title='" + title + '\'' +
                 ", message='" + message + '\'' +
-                ", obj=" + obj +
+                ", obj=" + obj.toString() +
                 '}';
     }
 
