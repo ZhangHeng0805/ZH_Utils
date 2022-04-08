@@ -23,7 +23,7 @@ public class KillServer {
      * @throws InterruptedException
      */
     public static void kill_server() throws InterruptedException {
-        System.out.println("请输入要杀掉的windows进程的端口号，如果有多个，则以逗号相隔<Please input kill port>:");
+        System.out.println("请输入要关闭的windows进程的端口号，如果有多个，则以逗号相隔<Please input kill port>:");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
         scanner.close();
@@ -45,7 +45,7 @@ public class KillServer {
         }
         KillServer kill = new KillServer();
         kill.ports = ports;
-        System.out.println("need kill " + ports.size() + " num");
+        System.out.println("一共有" + ports.size() + "个端口需要关闭");
         for (Integer pid : ports) {
             kill.start(pid);
         }

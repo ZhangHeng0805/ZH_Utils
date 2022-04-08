@@ -108,7 +108,7 @@ public class Main {
 //        Log.Info(NetUtil.isLocalPortUsing(8888));
 
         //关闭服务进程
-//        KillServer.kill_server();
+        KillServer.kill_server();
     }
 
 

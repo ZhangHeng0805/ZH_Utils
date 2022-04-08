@@ -25,7 +25,7 @@
       * Log.Warn(msg);
       * Log.Debug(msg);
 * 系统
-    
+    * windows关闭服务进程
 * 文件  
     * 文件类型判断
     * 文本文件操作（创建，读写）
