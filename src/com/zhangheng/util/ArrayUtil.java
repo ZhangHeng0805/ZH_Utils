@@ -14,7 +14,7 @@ public class ArrayUtil {
      * 检查数组里是否存在
      * @param arr
      * @param obj
-     * @return
+     * @return 如果存在则返回true，否则返回false
      */
     public static boolean exist(Object[] arr,Object obj){
         if (obj!=null) {

@@ -1,34 +1,34 @@
 # ZH_Utils
 个人java开发工具包（持续更新中。。。）
 * 实体类
-    * 消息实体
-    * 常量实体（没有上传）
+    * 消息实体```com.zhangheng.bean.Message```
+    * 常量实体（没有上传）```com.zhangheng.bean.Const```
 * 工具
-    * 时间工具
-    * 文件扫描
-    * 格式校验
-    * 随机字段及数字
-    * 数学工具
-    * 加密工具
-    * 网络工具
-    * 数组工具
+    * 时间工具```com.zhangheng.util.TimeUtil```
+    * 文件扫描```com.zhangheng.util.FolderFileScannerUtil```
+    * 格式校验```com.zhangheng.util.FormatUtil```
+    * 随机字段及数字```com.zhangheng.util.RandomrUtil```
+    * 数学工具```com.zhangheng.util.MathUtil```
+    * 加密工具```com.zhangheng.util.EncryptUtil```
+    * 网络工具```com.zhangheng.util.NetUtil```
+    * 数组工具```com.zhangheng.util.ArrayUtil```
 * 日志
-  * 格式 ```2022-03-22 16:26:35:623 [INFO] c.z.u.ArrayUtil.main()[37] --- true```
+  * 格式: ```2022-03-22 16:26:35:623 [INFO] c.z.u.ArrayUtil.main()[37] --- true```
   * 日志输出(控制台输出) [```com.zhangheng.log.Log```和```com.zhangheng.log.printLog.Log```]
     * Log.info(msg);
     * Log.error(msg);
     * Log.warn(msg);
     * Log.debug(msg);
-  * 生成日志文件（控制台输出和日志文件写入） [```com.zhangheng.log.printLog.Log```]
+  * 生成日志文件（控制台输出和日志文件生成） [```com.zhangheng.log.printLog.Log```]
       * Log.Info(msg);
       * Log.Error(msg);
       * Log.Warn(msg);
       * Log.Debug(msg);
 * 系统
-    * windows关闭服务进程
+    * windows关闭服务进程```com.zhangheng.system.KillServer```
 * 文件  
-    * 文件类型判断
-    * 文本文件操作（创建，读写）
+    * 文件类型判断```com.zhangheng.file.FiletypeUtil```
+    * 文本文件操作（创建，读写）```com.zhangheng.file.TxtOperation```
 # 一、工具
 ## 1.时间工具（TimeUtil）
 * 类路径：```com.zhangheng.util.TimeUtil```
