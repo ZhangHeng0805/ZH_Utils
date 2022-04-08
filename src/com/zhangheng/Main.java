@@ -105,10 +105,15 @@ public class Main {
 //        writer.flush(file);
 //        writer.close();
 
+        //检查端口是否占用
 //        Log.Info(NetUtil.isLocalPortUsing(8888));
 
         //关闭服务进程
-        KillServer.kill_server();
+//        KillServer.kill_server();
+
+        //验证格式
+//        Log.Info(FormatUtil.isIP("218.89.171.135"));
+//        Log.Info(FormatUtil.isPort("6666"));
     }
 
 
