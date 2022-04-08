@@ -16,7 +16,8 @@ import java.util.List;
 public class TxtOperation {
 
     //允许的创建的文件类型
-    private static final String[] fileType={"txt","log"};
+//    private static final String[] fileType={"txt","log","html","js","css","xml","json","java"};
+
     /**
      * 读取txt文件
      * @param file 文件
@@ -80,7 +81,9 @@ public class TxtOperation {
                 .replace("/","")
                 .replace("\\","");
         String filenameTemp="";
-        if (ArrayUtil.exist(fileType,type)){
+
+        String fileType = FiletypeUtil.getFileType(name + "." + type);
+        if ("text".equals(fileType)){
             filenameTemp= path + name + "."+type;
         }else {
             filenameTemp= path + name + ".txt";
@@ -130,12 +133,13 @@ public class TxtOperation {
 
     /**
      * 写入txt文件
-     * @param newStr
-     * @param file
+     * @param newStr 写入字符
+     * @param file 写入文件
+     * @param isContinuation 是否续写
      * @return
      * @throws IOException
      */
-    public static boolean writeTxtFile(String newStr,File file) throws IOException {
+    public static boolean writeTxtFile(String newStr,File file,boolean isContinuation) throws IOException {
         // 先读取原有文件内容，然后进行写入操作
         boolean flag = false;
         String filein = newStr + "\r\n";
@@ -154,12 +158,14 @@ public class TxtOperation {
             br = new BufferedReader(isr);
             StringBuffer buf = new StringBuffer();
 
-            // 保存该文件原有的内容
-            for (int j = 1; (temp = br.readLine()) != null; j++) {
-                buf = buf.append(temp);
-                // System.getProperty("line.separator")
-                // 行与行之间的分隔符 相当于“\n”
-                buf = buf.append(System.getProperty("line.separator"));
+            if (isContinuation) {
+                // 保存该文件原有的内容
+                for (int j = 1; (temp = br.readLine()) != null; j++) {
+                    buf = buf.append(temp);
+                    // System.getProperty("line.separator")
+                    // 行与行之间的分隔符 相当于“\n”
+                    buf = buf.append(System.getProperty("line.separator"));
+                }
             }
             buf.append(filein);
 
@@ -191,7 +197,7 @@ public class TxtOperation {
     }
 
     /**
-     * 写入txt文件
+     * 写入txt文件(追加)
      * @param newStr 写入的字符串
      * @param path 文件路径
      * @return
@@ -199,7 +205,24 @@ public class TxtOperation {
     public static boolean writeTxtFile(String newStr,String path){
         boolean f=false;
         try {
-            f = writeTxtFile(newStr, creatTxtFile(path));
+            f = writeTxtFile(newStr, creatTxtFile(path),true);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return f;
+    }
+
+    /**
+     * 写入txt文件
+     * @param newStr 写入的字符串
+     * @param path 文件路径
+     * @param isContinuation 是否续写
+     * @return
+     */
+    public static boolean writeTxtFile(String newStr,String path,boolean isContinuation){
+        boolean f=false;
+        try {
+            f = writeTxtFile(newStr, creatTxtFile(path),isContinuation);
         }catch (Exception e){
             e.printStackTrace();
         }

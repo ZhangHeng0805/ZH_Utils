@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * 文件扫描帮助类
+ * 文件扫描工具类
  * @author 张恒
  * @program: ZH_Utils
  * @email zhangheng.0805@qq.com

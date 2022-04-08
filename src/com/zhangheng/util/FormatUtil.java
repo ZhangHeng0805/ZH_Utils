@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 格式帮助类
+ * 格式工具类
  * @author 张恒
  * @program: ZH_Utils
  * @email zhangheng.0805@qq.com

@@ -2,6 +2,7 @@ package com.zhangheng.util;
 
 
 /**
+ * 数组工具
  * @author 张恒
  * @program: ZH_Utils
  * @email zhangheng.0805@qq.com

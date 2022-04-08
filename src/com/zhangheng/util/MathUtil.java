@@ -4,7 +4,7 @@ package com.zhangheng.util;
 import java.text.DecimalFormat;
 
 /**
- * 数学帮助类
+ * 数学工具类
  * @author 张恒
  * @program: ZH_Utils
  * @email zhangheng.0805@qq.com

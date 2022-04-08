@@ -3,7 +3,8 @@ package com.zhangheng.util;
 import java.util.Random;
 
 /**
- * @program: My Application
+ *
+ * 随机工具类
  * @description: 随机操作
  * @author: 张恒
  * @create: 2022-01-14 14:17

@@ -100,8 +100,11 @@ public class Logger {
     public String toString() {
         String s=null;
         String classPathName = hadnleClassName(classPath);
-        if (time==null) {
-           time= TimeUtil.toTime(new Date(),TimeUtil.enDateFormat_Detailed);
+
+        time= TimeUtil.toTime(new Date(),TimeUtil.enDateFormat_Detailed);
+
+        if (msg==null){
+            msg="null";
         }
         s =time+" ["+type+"] "+classPathName+"."+method+"()["+lineNumber+"] --- "+msg.toString();
         return s;

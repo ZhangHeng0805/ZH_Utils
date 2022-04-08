@@ -21,8 +21,14 @@ class Print {
     private static String fileName;
 
     static void print(String str){
-        String name = getPath();
-        TxtOperation.writeTxtFile(str, name);
+        final String s=str;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String name = getPath();
+                TxtOperation.writeTxtFile(s, name);
+            }
+        }).start();
     }
     private static String getPath(){
         int i=0;

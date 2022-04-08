@@ -1,4 +1,4 @@
-package com.zhangheng.util;
+package com.zhangheng.file;
 
 import java.io.File;
 
@@ -65,6 +65,8 @@ public class FiletypeUtil {
             {".rc",    "text"},
             {".log",   "text"},
             {".sh",    "text"},
+            {".css",    "text"},
+            {".json",    "text"},
 
             {".class",  "application"},
             {".apk",    "application"},

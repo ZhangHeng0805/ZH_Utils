@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 时间帮助类
+ * 时间工具类
  * @author 张恒
  * @program: ZH_Utils
  * @email zhangheng.0805@qq.com

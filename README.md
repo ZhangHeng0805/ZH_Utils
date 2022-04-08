@@ -1,14 +1,17 @@
 # ZH_Utils
 个人java开发工具包（持续更新中。。。）
-* 工具
+* 实体类
     * 消息实体
-    * 时间帮助
+    * 常量实体（没有上传）
+* 工具
+    * 时间工具
     * 文件扫描
-    * 文件类型
     * 格式校验
     * 随机字段及数字
     * 数学工具
     * 加密工具
+    * 网络工具
+    * 数组工具
 * 日志
   * 格式 ```2022-03-22 16:26:35:623 [INFO] c.z.u.ArrayUtil.main()[37] --- true```
   * 日志输出(控制台输出) [```com.zhangheng.log.Log```和```com.zhangheng.log.printLog.Log```]
@@ -21,8 +24,11 @@
       * Log.Error(msg);
       * Log.Warn(msg);
       * Log.Debug(msg);
-  
+* 系统
     
+* 文件  
+    * 文件类型判断
+    * 文本文件操作（创建，读写）
 # 一、工具
 ## 1.时间工具（TimeUtil）
 * 类路径：```com.zhangheng.util.TimeUtil```
@@ -287,7 +293,7 @@
 * @return ```ArrayList<Object>``` 文件的绝对路径集合
 
 ## 6.文件类型工具（FiletypeUtil）
-* 类路径：```com.zhangheng.util.FiletypeUtil```
+* 类路径：```com.zhangheng.file.FiletypeUtil```
 ### 常量格式
 ```java
 public static final String[][] MIME_MapTable={
