@@ -1,7 +1,10 @@
 package com.zhangheng;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.NumberUtil;
+import cn.hutool.extra.mail.MailAccount;
+import cn.hutool.extra.mail.MailUtil;
 import cn.hutool.extra.ssh.JschUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONArray;
@@ -114,6 +117,12 @@ public class Main {
         //验证格式
 //        Log.Info(FormatUtil.isIP("218.89.171.135"));
 //        Log.Info(FormatUtil.isPort("6666"));
+//        Log.info(FormatUtil.isEmail("zhangheng.0805@qq.com"));
+//        Log.info(FormatUtil.isIDCard(""));
+
+
+        //邮箱发送
+//        Log.Info(EmailUtil.send(CollUtil.newArrayList("zhangheng.0805@qq.com"),"测试","邮件来自ZH_Utils发送",false,new File("D:\\卓面\\学习资料.txt")));
     }
 
 
