@@ -27,25 +27,29 @@ public class Log extends com.zhangheng.log.Log {
     public static String Info(Object msg){
         Logger init = init(msg);
         String info = Info(init);
-        Print.print(info);
+        StringBuffer buffer=new StringBuffer(info);
+        Print.print(buffer);
         return info;
     }
     public static String Error(Object msg){
         Logger init = init(msg);
         String error = Error(init);
-        Print.print(error);
+        StringBuffer buffer=new StringBuffer(error);
+        Print.print(buffer);
         return error;
     }
     public static String Warn(Object msg){
         Logger init = init(msg);
         String warn = Warn(init);
-        Print.print(warn);
+        StringBuffer buffer=new StringBuffer(warn);
+        Print.print(buffer);
         return warn;
     }
     public static String Debug(Object msg){
         Logger init = init(msg);
         String debug = Debug(init);
-        Print.print(debug);
+        StringBuffer buffer=new StringBuffer(debug);
+        Print.print(buffer);
         return debug;
     }
 

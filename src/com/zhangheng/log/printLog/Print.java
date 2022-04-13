@@ -20,13 +20,12 @@ class Print {
     private static final String baseDir="./log日志/";
     private static String fileName;
 
-    static void print(String str){
-        final String s=str;
+    static void print(final StringBuffer buffer){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 String name = getPath();
-                TxtOperation.writeTxtFile(s, name);
+                TxtOperation.writeTxtFile(buffer.toString(), name);
             }
         }).start();
     }

@@ -23,6 +23,7 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/hutool-all-5.7.22.jar" path-in-jar="/" />
       <element id="library" level="project" name="Maven: com.github.virtuald:curvesapi:1.06" />
       <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.2" />
+      <element id="library" level="project" name="lib" />
     </root>
   </artifact>
 </component>

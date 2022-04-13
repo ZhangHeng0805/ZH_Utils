@@ -14,6 +14,7 @@ import cn.hutool.poi.excel.*;
 import com.zhangheng.bean.Const;
 import com.zhangheng.bean.Message;
 
+import com.zhangheng.file.FileParse;
 import com.zhangheng.file.TxtOperation;
 import com.zhangheng.log.printLog.Log;
 import com.zhangheng.system.KillServer;
@@ -56,7 +57,7 @@ public class Main {
 //        Message.printLog(s);
 //        int i=0;
 //        while (i<100){
-//            Log.Info("张恒"+i);
+//            Log.Info("制作中"+i);
 //            i++;
 //        }
 
@@ -120,11 +121,43 @@ public class Main {
 //        Log.info(FormatUtil.isEmail("zhangheng.0805@qq.com"));
 //        Log.info(FormatUtil.isIDCard(""));
 
-
         //邮箱发送
 //        Log.Info(EmailUtil.send(CollUtil.newArrayList("zhangheng.0805@qq.com"),"测试","邮件来自ZH_Utils发送",false,new File("D:\\卓面\\学习资料.txt")));
+
+//        findWord("二氧杂环己烷");
+        List<String> list = FileParse.parseVCF("./res/00001.vcf","UTF-8");
+        for (String s : list) {
+            Log.Info(s);
+        }
+
     }
 
+
+    /**
+     * 控制台输出list
+     * @param list
+     */
+    public static void printList(List<String> list){
+        for (Object o : list) {
+            System.out.println(o.toString());
+        }
+    }
+
+    /**
+     * 获取文本文件中文本的位置
+     * @param str
+     */
+    public static void findWord(String str){
+        String path="./res/百度分词词库.txt";
+        File file = new File(path);
+        List<String> list = TxtOperation.readTxtFile(file,"UTF-8");
+        int i = list.indexOf(str);
+        if (i >-1){
+            Log.info("["+str+"]存在于"+(i+1)+"行");
+        }else {
+            Log.info("["+str+"]不存在");
+        }
+    }
 
     /**
      * 构造Excel表格数据

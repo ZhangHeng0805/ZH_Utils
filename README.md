@@ -12,6 +12,7 @@
     * 加密工具```com.zhangheng.util.EncryptUtil```
     * 网络工具```com.zhangheng.util.NetUtil```
     * 数组工具```com.zhangheng.util.ArrayUtil```
+    * 邮件工具```com.zhangheng.util.EmailUtil```
 * 日志
   * 格式: ```2022-03-22 16:26:35:623 [INFO] c.z.u.ArrayUtil.main()[37] --- true```
   * 日志输出(控制台输出) [```com.zhangheng.log.Log```和```com.zhangheng.log.printLog.Log```]
