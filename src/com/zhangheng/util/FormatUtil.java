@@ -93,4 +93,57 @@ public class FormatUtil {
         Pattern compile = Pattern.compile(Reg);
         return compile.matcher(idCard).matches();
     }
+
+    /**
+     * 判断网址格式是否正确
+     * @param url
+     * @return
+     */
+    public static boolean isWebUrl(String url){
+        String Reg="^(((ht|f)tps?):\\/\\/)?[\\w-]+(\\.[\\w-]+)+([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?$";
+        Pattern compile = Pattern.compile(Reg);
+        return compile.matcher(url).matches();
+    }
+
+    /**
+     * 判断字符串是否为数字格式（包含正负、小数）
+     * @param number
+     * @return
+     */
+    public static boolean isNumber(String number){
+        //判断字符串是否为空
+        if (number!=null&&number.length()>0) {
+            //判断字付串开头是否以（-、+、数字）开头
+            if (number.startsWith("-") || number.startsWith("+") || Character.isDigit(number.charAt(0))) {
+                //+出现次数小于2
+                if (MathUtil.strCountNum(number,'+')<2) {
+                    //-出现次数小于2
+                    if (MathUtil.strCountNum(number, '-') < 2) {
+                        //.出现次数小于2
+                        if (MathUtil.strCountNum(number, '.') < 2) {
+                            //判断是否有小数点
+                            if (number.indexOf(".")>0){
+                                //判断小数点前一个字符是否为数字
+                                if (!Character.isDigit(number.charAt(number.indexOf(".")-1))){
+                                    return false;
+                                }
+                            }
+                            //遍历字符串
+                            for (int i=1;i<number.length();i++) {
+                                //若字符不为数字
+                                if (!Character.isDigit(number.charAt(i))){
+                                    //若字符不为小数点
+                                    if (number.charAt(i)!='.'){
+                                        return false;
+                                    }
+                                }
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

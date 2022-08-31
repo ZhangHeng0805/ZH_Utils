@@ -2,8 +2,6 @@
   <artifact type="jar" name="ZH_Utils:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/ZH_Utils_jar</output-path>
     <root id="archive" name="ZH_Utils.jar">
-      <element id="module-output" name="ZH_Util" />
-      <element id="module-output" name="ZH_Utils" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/virtuald/curvesapi/1.06/curvesapi-1.06.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.15/commons-codec-1.15.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar" path-in-jar="/" />
@@ -24,6 +22,10 @@
       <element id="library" level="project" name="Maven: com.github.virtuald:curvesapi:1.06" />
       <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.2" />
       <element id="library" level="project" name="lib" />
+      <element id="module-output" name="ZH_Utils" />
+      <element id="module-output" name="ZH_Util" />
+      <element id="library" level="project" name="Maven: com.google.zxing:core:3.3.0" />
+      <element id="library" level="project" name="QRcodeUtil" />
     </root>
   </artifact>
 </component>

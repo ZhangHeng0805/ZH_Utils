@@ -43,4 +43,20 @@ public class MathUtil {
         return format;
     }
 
+    /**
+     * 统计字符串中的字符个数
+     * @param str 字符串
+     * @param s 统计的字符
+     * @return
+     */
+    public static int strCountNum(String str,char s){
+        int count=0;
+        for (int i=0;i<str.length();i++){
+         if (str.charAt(i)==s){
+             count++;
+         }
+        }
+        return count;
+    }
+
 }

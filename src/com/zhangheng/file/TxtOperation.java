@@ -77,9 +77,11 @@ public class TxtOperation {
      */
     public static File creatTxtFile(String path,String name,String type) throws IOException {
         File flag = null;
-        name=name.replace(".","")
-                .replace("/","")
-                .replace("\\","");
+        name=name.replace("\\","").replace("/","")
+                .replace(":","").replace("*","")
+                .replace("?","").replace("\"","")
+                .replace("<","").replace(">","")
+                .replace("|","");
         String filenameTemp="";
 
         String fileType = FiletypeUtil.getFileType(name + "." + type);
@@ -91,7 +93,7 @@ public class TxtOperation {
         File filename = new File(filenameTemp);
         flag=filename;
         if (!filename.exists()) {
-            mkdirs(path);
+            FileOperation.mkdirs(path);
             filename.createNewFile();
         }
         return flag;
@@ -119,17 +121,7 @@ public class TxtOperation {
         }
         return f;
     }
-    /**
-     * 自动创建多层目录
-     * @param destPath
-     */
-    public static void mkdirs(String destPath) {
-        File file = new File(destPath);
-        // 当文件夹不存在时，mkdirs会自动创建多层目录，区别于mkdir．(mkdir如果父目录不存在则会抛出异常)
-        if (!file.exists() && !file.isDirectory()) {
-            file.mkdirs();
-        }
-    }
+
 
     /**
      * 写入txt文件

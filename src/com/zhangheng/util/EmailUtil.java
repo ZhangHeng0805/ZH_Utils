@@ -48,7 +48,7 @@ public class EmailUtil {
      * @return
      */
     public static boolean send(List<String> recipient, String title, String content,boolean isHtml){
-        String send = MailUtil.send(recipient, title, content, isHtml);
+        String send = MailUtil.send(mailAccount,recipient, title, content, isHtml);
         return true;
     }
     /**
@@ -59,7 +59,7 @@ public class EmailUtil {
      * @return
      */
     public static boolean send(List<String> recipient, String title, String content){
-        String send = MailUtil.send(recipient, title, content, false);
+        String send = MailUtil.send(mailAccount,recipient, title, content, false);
         return true;
     }
 }

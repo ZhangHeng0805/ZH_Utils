@@ -5,7 +5,10 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
+import cn.hutool.extra.pinyin.PinyinUtil;
 import cn.hutool.extra.ssh.JschUtil;
+import cn.hutool.http.Header;
+import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
@@ -14,22 +17,29 @@ import cn.hutool.poi.excel.*;
 import com.zhangheng.bean.Const;
 import com.zhangheng.bean.Message;
 
+import com.zhangheng.file.FileOperation;
 import com.zhangheng.file.FileParse;
 import com.zhangheng.file.TxtOperation;
 import com.zhangheng.log.printLog.Log;
 import com.zhangheng.system.KillServer;
+import com.zhangheng.test.Request;
 import com.zhangheng.util.*;
+import com.zhangheng.util.QRcode.QRCodeUtil;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.dom4j.Document;
+import org.dom4j.Node;
+import org.dom4j.io.SAXReader;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.*;
 
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Exception {
 
 //        String now = TimeUtil.toTime(new Date(),TimeUtil.enDateFormat_Detailed);
 ////        System.out.println(now);
@@ -122,13 +132,71 @@ public class Main {
 //        Log.info(FormatUtil.isIDCard(""));
 
         //邮箱发送
-//        Log.Info(EmailUtil.send(CollUtil.newArrayList("zhangheng.0805@qq.com"),"测试","邮件来自ZH_Utils发送",false,new File("D:\\卓面\\学习资料.txt")));
+//        Log.Info(EmailUtil.send(CollUtil.newArrayList("zhangheng.0805@qq.com"),"测试","邮件来自ZH_Utils发送"));
 
 //        findWord("二氧杂环己烷");
-        List<String> list = FileParse.parseVCF("./res/00001.vcf","UTF-8");
-        for (String s : list) {
-            Log.Info(s);
-        }
+
+//        List<String> list = FileParse.parseVCF("./res/00003.vcf","UTF-8");
+//        for (String s : list) {
+//            Log.Info(s);
+//        }
+
+//        String path="D:\\Users\\张恒\\IdeaProjects\\happy_shopping\\files\\Goods_Images\\1\\乐在购物网4a5c8_12.png";
+//        Log.info(TxtOperation.creatTxtFile(path));
+//        String name = FileOperation.filterFileName(path);
+//        Log.info(name);
+//        FileOperation.deleteFile(name);
+
+//        String s = PinyinUtil.getFirstLetter("12手术ah中风*1", "");
+//        Log.info(s);
+
+//        String dyUrl1="https://v.douyin.com/FhHCWKG/";
+//        String dyUrl1_1="https://www.iesdouyin.com/share/video/7082368143749860646/?region=CN&amp;mid=7082368286524017421&amp;u_code=ela4lf9h&amp;did=MS4wLjABAAAAgniQwlwTf1Oa4q-PZwdipICKgtkZBOu5U9YnIzyCOuj4Zrw-lXzpclV6KWiecvCd&amp;iid=MS4wLjABAAAA9M5-r8HNz-oJybMGlt43b-aMjFWqnTy0MQsHwFFidoL1eXIMBaiL3l_InIK_0kL4&amp;with_sec_did=1&amp;titleType=title&amp;utm_source=copy&amp;utm_campaign=client_share&amp;utm_medium=android&amp;app=aweme";
+//        String dyUrl1_2="https://www.douyin.com/video/7082368143749860646?previous_page=app_code_link";
+//        String dyUrl1_3="https://www.douyin.com/video/7082368143749860646";
+//        String video_url_1="https://www.dadagui.com/vodsearch/-------------.html?wd=你好&submit=";
+//        System.setProperty("https.protocols", "TLSv1.2,TLSv1.1,SSLv3");
+//        String user_agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36";
+//        String body = HttpRequest.get(video_url_1)
+//                .header(Header.USER_AGENT, user_agent)
+//                .execute().body();
+//        String s = HttpUtil.get(dyUrl1_2);
+//        System.out.println(body);
+//        try {
+//            body=body.substring(body.indexOf("<body>"),body.lastIndexOf("</body>"));
+//            Document doc = new SAXReader().read(new ByteArrayInputStream(body.getBytes("UTF-8")));
+//            String xpath = "";
+//            xpath = "//a";
+//            List<Node> nodes = doc.selectNodes(xpath);
+//            for (Node n : nodes) {
+//                System.out.println(n);
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+
+//        String a="65665623532353.2";
+//        System.out.println(FormatUtil.isNumber(a));
+
+//        String encode = QRCodeUtil.encode("124");
+//        System.out.println(encode);
+
+//        boolean webUrl = FormatUtil.isWebUrl("https://www.baidu.com");
+//        System.out.println(webUrl);
+
+//        String url="http://bmy82.com";
+//        String url="https://www.baidu.com/s?ie=UTF-8&wd="+"手机";
+//        String url="http://xh.5156edu.com/html3/10088.html";
+//        String s = HttpUtil.get(url);
+//        System.out.println(s);
+
+//        //获取首字母
+//        String firstLetter = PinyinUtil.getFirstLetter("张恒", "");
+//        System.out.println(firstLetter);
+//
+//        //获取全拼
+//        String pinyin = PinyinUtil.getPinyin("张恒","-");
+//        System.out.println(pinyin);
 
     }
 
