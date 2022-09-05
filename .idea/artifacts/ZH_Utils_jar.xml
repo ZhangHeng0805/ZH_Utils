@@ -26,6 +26,8 @@
       <element id="module-output" name="ZH_Util" />
       <element id="library" level="project" name="Maven: com.google.zxing:core:3.3.0" />
       <element id="library" level="project" name="QRcodeUtil" />
+      <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.15.3" />
+      <element id="library" level="project" name="Maven: io.github.biezhi:TinyPinyin:2.0.3.RELEASE" />
     </root>
   </artifact>
 </component>
