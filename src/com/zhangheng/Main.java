@@ -25,6 +25,8 @@ import com.zhangheng.system.KillServer;
 import com.zhangheng.test.Request;
 import com.zhangheng.util.*;
 import com.zhangheng.util.QRcode.QRCodeUtil;
+import net.sourceforge.tess4j.ITesseract;
+import net.sourceforge.tess4j.Tesseract;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
@@ -32,9 +34,12 @@ import org.dom4j.Document;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 
+import java.awt.*;
+import java.awt.event.InputEvent;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.*;
+import java.util.List;
 
 
 public class Main {
@@ -195,8 +200,33 @@ public class Main {
 //        System.out.println(firstLetter);
 //
 //        //获取全拼
-//        String pinyin = PinyinUtil.getPinyin("张恒","-");
-//        System.out.println(pinyin);
+        String pinyin = PinyinUtil.getPinyin("张恒","");
+        System.out.println(pinyin);
+
+//        Robot rob = new Robot();
+//        rob.delay(1000);
+//        rob.mouseMove(820,710);
+//        rob.delay(500);
+//        rob.mouseMove(820,710);
+//        rob.delay(500);
+//        rob.mouseMove(820,710);
+////        rob.delay(1000);
+//        rob.mousePress(InputEvent.BUTTON1_MASK );
+//        for (int i=1;i<280;i++){
+//            rob.mouseMove(820+i,710);
+//            rob.delay(10);
+//        }
+//        rob.mouseRelease(InputEvent.BUTTON1_MASK);
+
+
+//        ITesseract tesseract = new Tesseract();
+//        tesseract.setDatapath("./res/tessdata");
+//        tesseract.setLanguage("eng");
+//        File file = new File("./res/img/文字识别.png");
+//        System.out.println(file.exists());
+//        String s = tesseract.doOCR(file);
+//        System.out.println(s);
+
 
     }
 
@@ -205,7 +235,7 @@ public class Main {
      * 控制台输出list
      * @param list
      */
-    public static void printList(List<String> list){
+    public static void printList(List<Object> list){
         for (Object o : list) {
             System.out.println(o.toString());
         }

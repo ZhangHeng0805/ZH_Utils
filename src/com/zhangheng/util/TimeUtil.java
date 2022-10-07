@@ -1,5 +1,7 @@
 package com.zhangheng.util;
 
+import cn.hutool.core.date.DateUtil;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -149,6 +151,16 @@ public class TimeUtil {
         return date;
     }
 
+    /**
+     * 将Unix时间戳转换为Date
+     * @param unix
+     * @return
+     */
+    public static Date UnixToDate(String unix){
+        Long unixLong = Long.valueOf(unix)*1000;
+        Date UnixDate = DateUtil.date(unixLong);
+        return UnixDate;
+    }
     /**
      * 获取当前时间信息
      * @param Type
