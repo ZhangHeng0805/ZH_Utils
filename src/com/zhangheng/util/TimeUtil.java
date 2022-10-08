@@ -376,4 +376,37 @@ public class TimeUtil {
         }
         return day;
     }
+    /**
+     * 将毫秒格式化时间格式
+     * @param ms
+     * @return
+     */
+    public static String formatMS(int ms){
+        if(ms<60000){
+            return "00:"+getString((ms % 60000 )/1000);
+        }else if((ms>=60000)&&(ms<3600000)){
+            return getString((ms % 3600000)/60000)+":"+getString((ms % 60000 )/1000);
+        }else {
+            return getString(ms / 3600000)+":"+getString((ms % 3600000)/60000)+":"+getString((ms % 60000 )/1000);
+        }
+    }
+
+    /**
+     * formatMS()的内置方法
+     * @param t
+     * @return
+     */
+    private static String getString(int t){
+        String m="";
+        if(t>0){
+            if(t<10){
+                m="0"+t;
+            }else{
+                m=t+"";
+            }
+        }else{
+            m="00";
+        }
+        return m;
+    }
 }

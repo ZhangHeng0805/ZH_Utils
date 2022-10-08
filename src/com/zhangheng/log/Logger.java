@@ -12,6 +12,20 @@ import java.util.Date;
  * @date 2022-03-21 15:55
  */
 public class Logger {
+
+    /**
+     * \033[30-39m 设置控制台文字颜色
+     * \033[40-49m 设置控制台文字背景颜色
+     * \033[90-99m 设置控制台文字高亮颜色
+     * \033[m 清除控制台所有颜色，恢复默认
+     */
+    public final static String Default_Color="\033[m";
+    public final static String Info_Color ="\033[32m";
+    public final static String Error_Color ="\033[31m";
+    public final static String Debug_Color ="\033[34m";
+    public final static String Warn_Color ="\033[33m";
+
+
     private String time;//时间
     private Integer code;//状态码
     private String type;//类型

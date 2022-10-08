@@ -12,12 +12,16 @@ import com.zhangheng.log.Logger;
 public class Log extends com.zhangheng.log.Log {
 
     private static Logger log=new Logger();
+    private static String className;
+    private static String methodName;
+    private static Integer lineNumber;
+
 
     private static Logger init(Object object) {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        String className = stackTrace[stackTrace.length-1].getClassName();
-        String methodName = stackTrace[stackTrace.length-1].getMethodName();
-        int lineNumber = stackTrace[stackTrace.length-1].getLineNumber();
+        className = stackTrace[stackTrace.length - 1].getClassName();
+        methodName = stackTrace[stackTrace.length - 1].getMethodName();
+        lineNumber = stackTrace[stackTrace.length - 1].getLineNumber();
         log.setClassPath(className);
         log.setMethod(methodName);
         log.setLineNumber(lineNumber);

@@ -46,6 +46,11 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+        com.zhangheng.log.Log.info("123");
+        com.zhangheng.log.Log.error("123");
+        com.zhangheng.log.Log.debug("123");
+        com.zhangheng.log.Log.warn("123");
+
 //        String now = TimeUtil.toTime(new Date(),TimeUtil.enDateFormat_Detailed);
 ////        System.out.println(now);
 ////        String now1 = TimeUtil.toTime(new Date(),TimeUtil.enDateFormat_Detailed);
@@ -200,8 +205,8 @@ public class Main {
 //        System.out.println(firstLetter);
 //
 //        //获取全拼
-        String pinyin = PinyinUtil.getPinyin("张恒","");
-        System.out.println(pinyin);
+//        String pinyin = PinyinUtil.getPinyin("张恒","");
+//        System.out.println(pinyin);
 
 //        Robot rob = new Robot();
 //        rob.delay(1000);
