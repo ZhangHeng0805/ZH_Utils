@@ -126,6 +126,13 @@ public class TimeUtil {
     }
 
     /**
+     * 获取当前时间
+     * @return
+     */
+    public static String getNowTime(){
+        return toTime(new Date());
+    }
+    /**
      * 将默认格式的时间转换为日期
      * @param time
      * @return
