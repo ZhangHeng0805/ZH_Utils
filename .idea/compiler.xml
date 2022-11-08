@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ZH_Util" />
+        <module name="ZH_Utils" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ZH_Util" target="1.5" />
+      <module name="ZH_Utils" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
