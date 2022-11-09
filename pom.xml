@@ -7,9 +7,7 @@
     <artifactId>ZH_Utils</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
     <dependencies>
-
         <!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
         <!--二维码 API-->
         <dependency>
@@ -41,7 +39,6 @@
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
         </dependency>
-
         <!-- javax.servlet-api -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -59,30 +56,30 @@
         </dependency>
     </dependencies>
     <build>
-        <resources>
-            <!--引入外部jar-->
-            <resource>
-                <directory>lib</directory>
+<!--        <resources>-->
+<!--            &lt;!&ndash;引入外部jar&ndash;&gt;-->
+<!--            <resource>-->
+<!--                <directory>lib</directory>-->
 
-                <includes>
-                    <include>**/*.jar</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory><!--java文件的路径-->
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-                <!-- <filtering>false</filtering>-->
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory><!--资源文件的路径-->
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-                <!-- <filtering>false</filtering>-->
-            </resource>
-        </resources>
+<!--                <includes>-->
+<!--                    <include>**/*.jar</include>-->
+<!--                </includes>-->
+<!--            </resource>-->
+<!--            <resource>-->
+<!--                <directory>src/main/java</directory>&lt;!&ndash;java文件的路径&ndash;&gt;-->
+<!--                <includes>-->
+<!--                    <include>**/*.*</include>-->
+<!--                </includes>-->
+<!--                &lt;!&ndash; <filtering>false</filtering>&ndash;&gt;-->
+<!--            </resource>-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>&lt;!&ndash;资源文件的路径&ndash;&gt;-->
+<!--                <includes>-->
+<!--                    <include>**/*.*</include>-->
+<!--                </includes>-->
+<!--                &lt;!&ndash; <filtering>false</filtering>&ndash;&gt;-->
+<!--            </resource>-->
+<!--        </resources>-->
         <plugins>
             <!--配置打包带上依赖-->
             <!--配置生成Javadoc包-->

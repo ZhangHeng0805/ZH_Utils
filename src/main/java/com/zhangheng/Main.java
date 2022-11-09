@@ -15,10 +15,9 @@ import java.io.File;
 import java.util.*;
 
 
-public class Main {
+class Main {
 
     public static void main(String[] args) throws Exception {
-
 
 
 //        List<String> list=new ArrayList<>();
