@@ -21,7 +21,7 @@ public class FileChange {
      * @param bufferedImage 图片的BufferedImage
      * @return base64数据
      */
-    public static String BufferedImageToBase64(BufferedImage bufferedImage) {
+    public static String bufferedImageToBase64(BufferedImage bufferedImage) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();//io流
         try {
             ImageIO.write(bufferedImage, "png", baos);//写入流中
@@ -62,7 +62,7 @@ public class FileChange {
     }
 
     /**
-     * 文件转byte数组
+     * 文件转换byte数组
      * @param file 文件
      * @return byte[]
      */
@@ -91,7 +91,7 @@ public class FileChange {
     }
 
     /**
-     * byte数组转文件
+     * byte数组转换文件
      * @param bytes byte数组
      * @param filePath 文件路径
      * @param fileName 文件名称(带后缀)
