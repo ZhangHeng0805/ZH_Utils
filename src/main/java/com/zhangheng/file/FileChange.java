@@ -5,9 +5,7 @@ import cn.hutool.core.codec.Base64Encoder;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * 文件转换
@@ -63,4 +61,73 @@ public class FileChange {
         return null;
     }
 
+    /**
+     * 文件转byte数组
+     * @param file 文件
+     * @return byte[]
+     */
+    public static byte[] fileToBytes(File file){
+        FileInputStream is = null;
+        byte[] fileBytes=null;
+        try {
+            is = new FileInputStream(file);
+            long length = file.length();
+             fileBytes= new byte[(int) length];
+            is.read(fileBytes);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (is!=null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return fileBytes;
+    }
+
+    /**
+     * byte数组转文件
+     * @param bytes byte数组
+     * @param filePath 文件路径
+     * @param fileName 文件名称(带后缀)
+     * @return
+     */
+    public static File bytesToFile(byte[] bytes, String filePath, String fileName) {
+        BufferedOutputStream bos = null;
+        FileOutputStream fos = null;
+        File file = null;
+        try {
+            file = new File(filePath + fileName);
+            if (!file.getParentFile().exists()){
+                //文件夹不存在 生成
+                file.getParentFile().mkdirs();
+            }
+            fos = new FileOutputStream(file);
+            bos = new BufferedOutputStream(fos);
+            bos.write(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (bos != null) {
+                try {
+                    bos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return file;
+    }
 }

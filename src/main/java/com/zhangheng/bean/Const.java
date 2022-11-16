@@ -13,6 +13,9 @@ import java.io.IOException;
  * @date 2022-03-25 15:55
  */
 public class Const {
+    private Const(){
+
+    }
     /**
      * 高德地图天气查询key
      */

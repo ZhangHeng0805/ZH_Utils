@@ -5,20 +5,33 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import com.zhangheng.file.FileChange;
 import com.zhangheng.file.TxtOperation;
 import com.zhangheng.log.printLog.Log;
 import com.zhangheng.util.EmailUtil;
 import com.zhangheng.util.EncryptUtil;
 import com.zhangheng.util.TimeUtil;
 
+import java.awt.*;
+import java.awt.image.ImageProducer;
 import java.io.File;
+import java.io.FileInputStream;
+import java.net.URI;
 import java.util.*;
+import java.util.List;
 
 
 class Main {
 
     public static void main(String[] args) throws Exception {
 
+//        File file = new File("./res/all-hanzi.txt");
+//        byte[] fileBytes = FileChange.fileToBytes(file);
+//        String s = EncryptUtil.enBase64(fileBytes);
+//        System.out.println(s);
+//        byte[] bytes = EncryptUtil.deBase64(s);
+//        File file1 = FileChange.bytesToFile(bytes, "./res/", "1.txt");
+//        System.out.println(file1);
 
 //        List<String> list=new ArrayList<>();
 //        list.add("zhangheng.0805@qq.com");
