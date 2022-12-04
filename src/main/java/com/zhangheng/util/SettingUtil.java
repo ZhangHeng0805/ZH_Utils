@@ -22,7 +22,7 @@ public class SettingUtil {
     private Map<String, Object> map;
 
     /**
-     * 根据配置文件路劲构造
+     * 根据配置文件路径构造
      * @param path 配置文件的路径
      */
     public SettingUtil(String path) {
