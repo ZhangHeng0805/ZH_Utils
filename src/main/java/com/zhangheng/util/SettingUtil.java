@@ -11,7 +11,8 @@ import java.util.Map;
 /**
  *
  * 解析读取配置文件
- *
+ * 每行配置格式:key=value
+ * 注释前加#
  * @author 张恒
  * @program: ZH_Utils
  * @email zhangheng.0805@qq.com
@@ -29,7 +30,15 @@ public class SettingUtil {
         List<String> data = TxtOperation.readTxtFile(path);
         analysis();
     }
-
+    /**
+     * 根据配置文件路经合文件编码构造
+     * @param path 配置文件的路径
+     * @param encoding 配置文件的编码格式
+     */
+    public SettingUtil(String path,String encoding){
+        data = TxtOperation.readTxtFile(path,encoding);
+        analysis();
+    }
     /**
      * 解析配置
      */
@@ -37,7 +46,7 @@ public class SettingUtil {
         map = new HashMap<>();
         if (data != null) {
             for (String d : data) {
-                if (!d.startsWith("#")) {
+                if (!StrUtil.isEmpty(d)&&!d.startsWith("#")) {
                     String[] split = d.split("=");
                     int length = split.length;
                     if (length >= 2) {
@@ -45,7 +54,6 @@ public class SettingUtil {
                             StringBuilder sb = new StringBuilder();
                             for (int i = 1; i < length; i++) {
                                 if (i == length - 1) {
-
                                     if (StrUtil.isEmpty(split[i].trim())) {
                                         sb.append("=");
                                     } else {
