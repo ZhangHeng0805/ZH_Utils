@@ -4,10 +4,13 @@ package com.zhangheng.util;
 import cn.hutool.core.codec.Base64Decoder;
 import cn.hutool.core.codec.Base64Encoder;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.*;
+import java.util.List;
 
 
 /**
@@ -25,16 +28,17 @@ public class EncryptUtil {
     /**
      * （加密类型）SHA
      */
-    public static final String SHA = "SHA";
+    public final static String SHA = "SHA";
     /**
      * （加密类型）SHA1
      */
-    public static final String SHA1 = "SHA1";
+    public final static  String SHA256 = "SHA-256";
     /**
      * （加密类型）MD5
      */
-    public static final String MD5 = "MD5";
+    public final static String MD5 = "MD5";
 
+    private final static String MyMd5HexDigits = "OTAxNHoyaDVhNmhneDc4Mw==";
 
     /**
      * 加密
@@ -43,14 +47,8 @@ public class EncryptUtil {
      * @param source    加密内容
      * @return 加密结果
      */
-    public static String encrypt(String source, String algorithm) {
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance(algorithm);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
+    public static String encrypt(String source, String algorithm) throws Exception {
+        MessageDigest md = MessageDigest.getInstance(algorithm);
         char[] charArray = source.toCharArray();
         byte[] byteArray = new byte[charArray.length];
 
@@ -77,8 +75,8 @@ public class EncryptUtil {
      * @param source 加密内容
      * @return 加密结果
      */
-    public static String getSHA(String source) {
-        return encrypt(source, SHA).toUpperCase();
+    public static String getSHA(String source) throws Exception {
+        return encrypt(source, SHA);
     }
 
     /**
@@ -87,39 +85,16 @@ public class EncryptUtil {
      * @param source 加密内容
      * @return 加密结果
      */
-    public static String getSHA1(String source) {
-        try {
-            MessageDigest sha = MessageDigest.getInstance(SHA1);
-            sha.update(source.getBytes());
-            byte[] bytes = sha.digest();
-
-            StringBuilder stringBuilder = new StringBuilder("");
-            if (bytes == null || bytes.length <= 0) {
-                return null;
-            }
-            for (int i = 0; i < bytes.length; i++) {
-                int v = bytes[i] & 0xFF;
-                String hv = Integer.toHexString(v);
-                if (hv.length() < 2) {
-                    stringBuilder.append(0);
-                }
-                stringBuilder.append(hv);
-            }
-            return stringBuilder.toString().toUpperCase();
-
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        return "";
+    public static String getSHA256(String source) throws Exception {
+        return encrypt(source, SHA256);
     }
+
 
     /**
      * BASE64加密
      *
      * @param key 加密数据数组
      * @return 加密内容
-     * @throws Exception
      */
     public static String enBase64(byte[] key) {
         return filter(Base64Encoder.encode(key));
@@ -132,7 +107,7 @@ public class EncryptUtil {
      * @return 解密的数据数组
      * @throws IOException
      */
-    public static byte[] deBase64(String key) throws IOException {
+    public static byte[] deBase64(String key) {
         return Base64Decoder.decode(key);
     }
 
@@ -155,24 +130,23 @@ public class EncryptUtil {
         return output;
     }
 
+    public static String getMd5(String str) throws Exception {
+        return getMd5(str, "UTF-8");
+    }
+
     /**
      * MD5 加密（UTF-8编码）
      *
-     * @param str 加密内容
+     * @param str      加密内容
+     * @param encoding 编码格式
+     *                 The name of a supported {{@linkplain java.nio.charset.Charset encoding}
      * @return 加密结果
      */
-    public static String getMd5(String str) {
+    public static String getMd5(String str, String encoding) throws Exception {
         MessageDigest messageDigest = null;
-        try {
-            messageDigest = MessageDigest.getInstance(MD5);
-            messageDigest.reset();
-            messageDigest.update(str.getBytes("UTF-8"));
-        } catch (NoSuchAlgorithmException e) {
-            System.out.println("NoSuchAlgorithmException caught!");
-            System.exit(-1);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        messageDigest = MessageDigest.getInstance(MD5);
+        messageDigest.reset();
+        messageDigest.update(str.getBytes(encoding));
 
         byte[] byteArray = messageDigest.digest();
 
@@ -185,7 +159,6 @@ public class EncryptUtil {
             else
                 md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
         }
-
         return md5StrBuff.toString();
     }
 
@@ -197,11 +170,26 @@ public class EncryptUtil {
      * @param key  加密使用的key
      * @return 签名数据
      */
-    public static String getSignature(String data, String key) {
+    public static String getSignature(String data, String key) throws Exception {
         //将key进行SHA1加密
-        StringBuffer stringBuffer = new StringBuffer(encrypt(key, SHA1));
+        String encrypt = encrypt(key + data + key, SHA256);
+        List<Character> set = new ArrayList<>();
+        char[] chars = encrypt.toCharArray();
+        for (int i = chars.length - 1; i >= 0; i--) {
+            char c = chars[i];
+            if (set.indexOf(c) < 0) {
+                set.add(c);
+            }
+            if (set.size() == 16) {
+                break;
+            }
+        }
+        StringBuffer sb = new StringBuffer();
+        for (Character c : set) {
+            sb.append(c);
+        }
         //然后使用自制的Md5加密
-        return getMyMd5(data, stringBuffer.substring(12, 28));
+        return getMyMd5(data, sb.toString());
     }
 
 
@@ -211,48 +199,37 @@ public class EncryptUtil {
      * @param encodestr 加密的字符串
      * @return 加密内容
      */
-    public static String getMyMd5(String encodestr) {
-        String hexDigits = "OTAxNHoyaDVhNmhneDc4Mw==";
-        try {
-            String s = new String(deBase64(hexDigits));
-            return getMyMd5(encodestr, s);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static String getMyMd5(String encodestr) throws Exception {
+        String s = new String(deBase64(MyMd5HexDigits));
+        return getMyMd5(encodestr, s);
     }
 
     /**
      * 改造md5加密方法
      *
      * @param encodestr 加密的字符串
-     * @param key 加密的key（长度16）
+     * @param key       加密的key（长度16）
      * @return 加密内容
      */
-    public static String getMyMd5(String encodestr, String key) {
-        try {
-            if (key.length() != 16) {
-                throw new Exception("The length of the key must be equal to 16（key的长度需要等于16）");
-            }
-            char[] hexDigits = key.toCharArray();
-            byte[] strTemp = encodestr.getBytes();
-            MessageDigest mdTemp = MessageDigest.getInstance("MD5");
-            mdTemp.update(strTemp);
-            byte[] md = mdTemp.digest();
-            int j = md.length;
-            char[] str = new char[j * 2];
-            int k = 0;
-            for (int i = 0; i < j; i++) {
-                byte byte0 = md[i];
-                str[(k++)] = hexDigits[(byte0 >>> 4 & 0xF)];
-                str[(k++)] = hexDigits[(byte0 & 0xF)];
-            }
-            return new String(str);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static String getMyMd5(String encodestr, String key) throws Exception {
+
+        if (key.length() != 16) {
+            throw new Exception("The length of the key must be equal to 16（key的长度需要等于16）");
         }
-        return null;
+        char[] hexDigits = key.toCharArray();
+        byte[] strTemp = encodestr.getBytes();
+        MessageDigest mdTemp = MessageDigest.getInstance("MD5");
+        mdTemp.update(strTemp);
+        byte[] md = mdTemp.digest();
+        int j = md.length;
+        char[] str = new char[j * 2];
+        int k = 0;
+        for (int i = 0; i < j; i++) {
+            byte byte0 = md[i];
+            str[(k++)] = hexDigits[(byte0 >>> 4 & 0xF)];
+            str[(k++)] = hexDigits[(byte0 & 0xF)];
+        }
+        return new String(str);
+
     }
 }

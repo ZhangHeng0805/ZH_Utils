@@ -17,7 +17,14 @@ import java.util.List;
  */
 public class EmailUtil {
 
-    private static MailAccount mailAccount = Const.getMailAccount();
+    private static MailAccount mailAccount163 = Const.getMailAccount_163();
+    private static MailAccount mailAccountqq = Const.getMailAccount_qq();
+
+    private MailAccount mailAccount;
+
+    public EmailUtil(MailAccount mailAccount) {
+        this.mailAccount = mailAccount;
+    }
 
     static {
         //解决邮件标题、附件名称中文乱码问题
@@ -34,7 +41,7 @@ public class EmailUtil {
      * @param files 邮件附件
      * @return 是否发送成功
      */
-    public static boolean send(List<String> recipient, String title, String content, boolean isHtml, File[] files){
+    public boolean send(List<String> recipient, String title, String content, boolean isHtml, File... files){
         String send = MailUtil.send(mailAccount, recipient, title, content, isHtml, files);
         return true;
     }
@@ -47,7 +54,7 @@ public class EmailUtil {
      * @param isHtml 内容是否为html格式
      * @return 是否发送成功
      */
-    public static boolean send(List<String> recipient, String title, String content,boolean isHtml){
+    public boolean send(List<String> recipient, String title, String content,boolean isHtml){
         String send = MailUtil.send(mailAccount,recipient, title, content, isHtml);
         return true;
     }
@@ -58,8 +65,10 @@ public class EmailUtil {
      * @param content 邮件内容
      * @return 是否发送成功
      */
-    public static boolean send(List<String> recipient, String title, String content){
+    public boolean send(List<String> recipient, String title, String content){
         String send = MailUtil.send(mailAccount,recipient, title, content, false);
+
         return true;
     }
+
 }
