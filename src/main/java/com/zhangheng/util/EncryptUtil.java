@@ -4,18 +4,15 @@ package com.zhangheng.util;
 import cn.hutool.core.codec.Base64Decoder;
 import cn.hutool.core.codec.Base64Encoder;
 
-import java.awt.*;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
 /**
  * 加密工具类
- * (SHA加密 ， SHA1加密 ， Md5加密 ， Base64加密和解密，自制的md5)
+ * (SHA加密 ， SHA256加密 ， Md5加密 ， Base64加密和解密，改造的md5)
  *
  * @author 张恒
  * @program: ZH_Utils
@@ -30,7 +27,7 @@ public class EncryptUtil {
      */
     public final static String SHA = "SHA";
     /**
-     * （加密类型）SHA1
+     * （加密类型）SHA256
      */
     public final static  String SHA256 = "SHA-256";
     /**
@@ -70,7 +67,7 @@ public class EncryptUtil {
     }
 
     /**
-     * SHA加密 并转换为16进制大写字符串
+     * SHA加密
      *
      * @param source 加密内容
      * @return 加密结果
@@ -80,7 +77,7 @@ public class EncryptUtil {
     }
 
     /**
-     * SHA1加密 并转换为16进制大写字符串
+     * SHA256加密
      *
      * @param source 加密内容
      * @return 加密结果

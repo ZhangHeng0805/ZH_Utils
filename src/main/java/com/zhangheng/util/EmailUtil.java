@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * 邮件直接发送工具
- * 使用作者本人的网易邮箱进行发送
+ * 使用作者本人的邮箱进行发送
  * @author 张恒
  * @program: ZH_Utils
  * @email zhangheng.0805@qq.com
@@ -67,7 +67,6 @@ public class EmailUtil {
      */
     public boolean send(List<String> recipient, String title, String content){
         String send = MailUtil.send(mailAccount,recipient, title, content, false);
-
         return true;
     }
 
