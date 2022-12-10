@@ -3,6 +3,7 @@ package com.zhangheng.util;
 
 import cn.hutool.core.codec.Base64Decoder;
 import cn.hutool.core.codec.Base64Encoder;
+import cn.hutool.core.util.CharsetUtil;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -88,7 +89,7 @@ public class EncryptUtil {
 
 
     /**
-     * BASE64加密
+     * BASE64编码
      *
      * @param key 加密数据数组
      * @return 加密内容
@@ -98,16 +99,52 @@ public class EncryptUtil {
     }
 
     /**
-     * BASE64解密
-     *
-     * @param key 解密的Base64
-     * @return 解密的数据数组
-     * @throws IOException
+     * BASE64编码(UTF-8)
+     * @param key 加密的字符串
+     * @return
      */
-    public static byte[] deBase64(String key) {
-        return Base64Decoder.decode(key);
+    public static String enBase64Str(String key){
+        return enBase64Str(key, "UTF-8");
     }
 
+    /**
+     * BASE64编码
+     * @param key  加密的字符串
+     * @param charset 字符串的编码名
+     * @return
+     */
+    public static String enBase64Str(String key,String charset){
+        return Base64Encoder.encode(key,CharsetUtil.charset(charset));
+    }
+    /**
+     * BASE64解码
+     *
+     * @param base64 解密的Base64
+     * @return 解密的字节数组
+     * @throws IOException
+     */
+    public static byte[] deBase64(String base64) {
+        return Base64Decoder.decode(base64);
+    }
+
+    /**
+     * BASE64解码为字符串(UTF-8)
+     * @param base64 解密的Base64
+     * @return
+     */
+    public static String deBase64Str(String base64){
+        return deBase64Str(base64, "UTF-8");
+    }
+
+    /**
+     * BASE64解码为字符串
+     * @param base64 解密的Base64
+     * @param charset 字符串的编码名
+     * @return
+     */
+    public static String deBase64Str(String base64,String charset){
+        return Base64Decoder.decodeStr(base64, CharsetUtil.charset(charset));
+    }
     /**
      * 删除BASE64加密时出现的换行符
      *
@@ -127,12 +164,18 @@ public class EncryptUtil {
         return output;
     }
 
+    /**
+     * MD5 加密（UTF-8编码）
+     * @param str 加密内容
+     * @return
+     * @throws Exception
+     */
     public static String getMd5(String str) throws Exception {
         return getMd5(str, "UTF-8");
     }
 
     /**
-     * MD5 加密（UTF-8编码）
+     * MD5 加密
      *
      * @param str      加密内容
      * @param encoding 编码格式
@@ -193,38 +236,37 @@ public class EncryptUtil {
     /**
      * 改造md5加密方法
      *
-     * @param encodestr 加密的字符串
+     * @param str 加密的字符串
      * @return 加密内容
      */
-    public static String getMyMd5(String encodestr) throws Exception {
+    public static String getMyMd5(String str) throws Exception {
         String s = new String(deBase64(MyMd5HexDigits));
-        return getMyMd5(encodestr, s);
+        return getMyMd5(str, s);
     }
 
     /**
      * 改造md5加密方法
      *
-     * @param encodestr 加密的字符串
-     * @param key       加密的key（长度16）
+     * @param str 加密的字符串
+     * @param key 加密的key（长度16）
      * @return 加密内容
      */
-    public static String getMyMd5(String encodestr, String key) throws Exception {
-
+    public static String getMyMd5(String str, String key) throws Exception {
         if (key.length() != 16) {
             throw new Exception("The length of the key must be equal to 16（key的长度需要等于16）");
         }
         char[] hexDigits = key.toCharArray();
-        byte[] strTemp = encodestr.getBytes();
+        byte[] strTemp = str.getBytes();
         MessageDigest mdTemp = MessageDigest.getInstance("MD5");
         mdTemp.update(strTemp);
         byte[] md = mdTemp.digest();
         int j = md.length;
-        char[] str = new char[j * 2];
+        char[] strs = new char[j * 2];
         int k = 0;
         for (int i = 0; i < j; i++) {
             byte byte0 = md[i];
-            str[(k++)] = hexDigits[(byte0 >>> 4 & 0xF)];
-            str[(k++)] = hexDigits[(byte0 & 0xF)];
+            strs[(k++)] = hexDigits[(byte0 >>> 4 & 0xF)];
+            strs[(k++)] = hexDigits[(byte0 & 0xF)];
         }
         return new String(str);
 
