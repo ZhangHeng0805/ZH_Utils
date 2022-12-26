@@ -104,7 +104,7 @@ public class EncryptUtil {
      * @return
      */
     public static String enBase64Str(String key){
-        return enBase64Str(key, "UTF-8");
+        return enBase64Str(key, CharsetUtil.defaultCharsetName());
     }
 
     /**
@@ -133,7 +133,7 @@ public class EncryptUtil {
      * @return
      */
     public static String deBase64Str(String base64){
-        return deBase64Str(base64, "UTF-8");
+        return deBase64Str(base64, CharsetUtil.defaultCharsetName());
     }
 
     /**
@@ -171,7 +171,7 @@ public class EncryptUtil {
      * @throws Exception
      */
     public static String getMd5(String str) throws Exception {
-        return getMd5(str, "UTF-8");
+        return getMd5(str, CharsetUtil.defaultCharsetName());
     }
 
     /**

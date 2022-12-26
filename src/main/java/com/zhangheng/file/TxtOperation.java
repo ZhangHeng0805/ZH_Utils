@@ -1,6 +1,6 @@
 package com.zhangheng.file;
 
-import com.zhangheng.util.ArrayUtil;
+import cn.hutool.core.util.CharsetUtil;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -47,12 +47,12 @@ public class TxtOperation {
     }
 
     /**
-     * 读取txt文件（GBK编码）
+     * 读取txt文件（默认编码）
      * @param filePath 文件路径
      * @return 文本每行数据集合
      */
     public static List<String> readTxtFile(String filePath){
-        String encoding="GBK";
+        String encoding= CharsetUtil.defaultCharsetName();
         File file=new File(filePath);
         return readTxtFile(file,encoding);
     }
@@ -142,7 +142,7 @@ public class TxtOperation {
         try {
             // 将文件读入输入流
             fis = new FileInputStream(file);
-            isr = new InputStreamReader(fis);
+            isr = new InputStreamReader(fis,CharsetUtil.defaultCharsetName());
             br = new BufferedReader(isr);
             StringBuffer buf = new StringBuffer();
 
