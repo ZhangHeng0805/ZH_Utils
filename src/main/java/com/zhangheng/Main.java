@@ -1,25 +1,19 @@
 package com.zhangheng;
 
 import cn.hutool.core.util.NumberUtil;
+import cn.hutool.http.HttpRequest;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
-import com.zhangheng.file.FileChange;
 import com.zhangheng.file.TxtOperation;
 import com.zhangheng.log.printLog.Log;
-import com.zhangheng.util.EmailUtil;
 import com.zhangheng.util.EncryptUtil;
 import com.zhangheng.util.TimeUtil;
 
-import java.awt.*;
-import java.awt.image.ImageProducer;
 import java.io.File;
-import java.io.FileInputStream;
-import java.net.URI;
+import java.text.ParseException;
 import java.util.*;
-import java.util.List;
-
 
 
 class Main {
@@ -246,15 +240,76 @@ class Main {
 
 
 //        System.out.println(TimeUtil.getNowUnix());
+//        while (true) {
+//            CpuInfo cpuInfo = OshiUtil.getCpuInfo();//
+////            CentralProcessor processor = OshiUtil.getProcessor();
+//            GlobalMemory memory = OshiUtil.getMemory();
+//            HardwareAbstractionLayer hardware = OshiUtil.getHardware();
+//            List<HWDiskStore> diskStores = OshiUtil.getDiskStores();
+////            System.out.println(processor);
+//            System.out.println();
+//            System.out.println("CPU利用率：" + cpuInfo.getUsed() + "% - " + "CPU空闲率：" + cpuInfo.getFree() + "%");
+//            System.out.println("内存：[可用:"+ FileUtil.getFileSizeString(memory.getAvailable())+"/总计:"+FileUtil.getFileSizeString(memory.getTotal())+"]");
+//            for (HWDiskStore diskStore : diskStores) {
+//                String name = diskStore.getModel();
+//                boolean b = diskStore.updateAttributes();
+//                if (b) {
+//                    long writeBytes = diskStore.getWriteBytes();
+//                    long readBytes = diskStore.getReadBytes();
+//                    long size = diskStore.getSize();
+//                    System.out.println("硬盘：" + name + " [" + FileUtil.fileSizeFormat(writeBytes) + "/" + FileUtil.fileSizeFormat(size) + "]");
+//                }
+//            }
+//        }
+//        JSONObject data = JSONUtil.createObj()
+//                .set("name", "张恒")
+//                .set("email", "zhangheng_0805@163.com")
+//                .set("version","23.01.31")
+//                ;
+//        String encode = EncryptUtil.signEncodeJson(data, EncryptUtil.getPrivateKey(),EncryptUtil.getPublicKey());
+//        System.out.println(encode);
+//        JSONObject entries = JSONUtil.parseObj(encode);
+//        entries.set("data",data.set("version","23.01.31"));
+//        encode=entries.toString();
+//        System.out.println(EncryptUtil.signDecodeJson(encode));
+
+
+//        File src = new File("./log日志/5oiR5rWL6K+VMQ==.log");
+//        String s = FileUtil.mainName(src);
+//        System.out.println(s);
+//        if (Validator.hasChinese(s))
+//            s = Base64Encoder.encode(s, Charset.forName("UTF-8"));
+//        src = FileUtil.rename(src, s, true, true);
+//        System.out.println(src.getName());
+//        s = FileUtil.mainName(src);
+//        if (Base64.isBase64(s))
+//            s = Base64.decodeStr(s, Charset.forName("UTF-8"));
+//        System.out.println(s);
+//        src = FileUtil.rename(src, s, true, true);
+
+        long time = new Date().getTime();
+//        long time = 1675238189768L;
+        System.out.println(time);
+        String path="src";
+        String key="654321";
+        String signature = EncryptUtil.getSignature(path + time, key);
+
+        String body = HttpRequest.post("http://127.0.0.1:8089/folder/scan")
+                .body("path="+path+"&token=" + signature )
+                .header("_t",time+"")
+                .execute().body();
+        System.out.println(body);
+
 
     }
 
 
     /**
      * 控制台输出list
+     *
      * @param list
      */
-    public static void printList(List<Object> list){
+    public static void printList(List<Object> list) {
         for (Object o : list) {
             System.out.println(o.toString());
         }
@@ -262,32 +317,34 @@ class Main {
 
     /**
      * 获取文本文件中文本的位置
+     *
      * @param str
      */
-    public static void findWord(String str){
-        String path="./res/百度分词词库.txt";
+    public static void findWord(String str) {
+        String path = "./res/百度分词词库.txt";
         File file = new File(path);
-        List<String> list = TxtOperation.readTxtFile(file,"UTF-8");
+        List<String> list = TxtOperation.readTxtFile(file, "UTF-8");
         int i = list.indexOf(str);
-        if (i >-1){
-            Log.info("["+str+"]存在于"+(i+1)+"行");
-        }else {
-            Log.info("["+str+"]不存在");
+        if (i > -1) {
+            Log.info("[" + str + "]存在于" + (i + 1) + "行");
+        } else {
+            Log.info("[" + str + "]不存在");
         }
     }
 
     /**
      * 构造Excel表格数据
+     *
      * @return
      */
-    private static List<Map<String,Object>> structExcel(String name,int rows){
-        List<Map<String,Object>> lists=new LinkedList<Map<String, Object>>();
-        Map<String,Object> row=null;
-        for (int i=1;i<=rows;i++){
-            row=new LinkedHashMap<String, Object>();
-            row.put("编号",NumberUtil.decimalFormat("000",i));
-            row.put("名称",name+"【"+i+"】");
-            row.put("数字",NumberUtil.decimalFormat("###",i));
+    private static List<Map<String, Object>> structExcel(String name, int rows) {
+        List<Map<String, Object>> lists = new LinkedList<Map<String, Object>>();
+        Map<String, Object> row = null;
+        for (int i = 1; i <= rows; i++) {
+            row = new LinkedHashMap<String, Object>();
+            row.put("编号", NumberUtil.decimalFormat("000", i));
+            row.put("名称", name + "【" + i + "】");
+            row.put("数字", NumberUtil.decimalFormat("###", i));
             lists.add(row);
         }
         return lists;
@@ -296,25 +353,26 @@ class Main {
 
     /**
      * 通过读取Excel表格获取城市code
+     *
      * @param index
      * @return
      */
-    public static String fingAdcode(String index){
-        String weather_xml="D:\\我的下载\\AMap_adcode_citycode_20210406.xlsx";
+    public static String fingAdcode(String index) {
+        String weather_xml = "D:\\我的下载\\AMap_adcode_citycode_20210406.xlsx";
         ExcelReader reader = null;
         try {
             reader = ExcelUtil.getReader(weather_xml);
             List<List<Object>> objects = reader.read();
             for (List<Object> obj : objects) {
-                if (obj!=null&&obj.size()>0){
-                    if (obj.get(0).toString().equals(index)){
+                if (obj != null && obj.size() > 0) {
+                    if (obj.get(0).toString().equals(index)) {
                         return obj.get(1).toString();
                     }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             reader.close();
         }
         return null;
@@ -322,12 +380,13 @@ class Main {
 
     /**
      * 解析返回的天气JSON信息
+     *
      * @param json
      * @return
      */
-    public static String printWeather(String json) {
+    public static String printWeather(String json) throws ParseException {
         JSONObject jsonObject1 = JSONUtil.parseObj(json);
-        List<JSONObject> lives = jsonObject1.getBeanList("lives",JSONObject.class);
+        List<JSONObject> lives = jsonObject1.getBeanList("lives", JSONObject.class);
         if (lives != null && lives.size() > 0) {
             JSONObject jsonObject = lives.get(0);
             String province = jsonObject.get("province").toString();//省份
@@ -338,7 +397,7 @@ class Main {
             String windpower = jsonObject.get("windpower").toString();//风力
             String humidity = jsonObject.get("humidity").toString();//湿度
             String reporttime = jsonObject.get("reporttime").toString();//更新时间
-            return province+"["+ city + "]当前天气：" + weather + " " + temperature + "℃，" + winddirection + "风" + windpower + "级,湿度：" + humidity + "%（更新与：" + TimeUtil.timeDifference(reporttime, TimeUtil.Minutes) + "分钟前）";
+            return province + "[" + city + "]当前天气：" + weather + " " + temperature + "℃，" + winddirection + "风" + windpower + "级,湿度：" + humidity + "%（更新与：" + TimeUtil.timeDifference(reporttime, TimeUtil.Minutes) + "分钟前）";
         }
         return null;
     }

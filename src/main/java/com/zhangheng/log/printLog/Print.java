@@ -4,6 +4,7 @@ import com.zhangheng.util.TimeUtil;
 import com.zhangheng.file.TxtOperation;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -24,12 +25,21 @@ class Print {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String name = getPath();
-                TxtOperation.writeTxtFile(buffer.toString(), name);
+                String name = null;
+                try {
+                    name = getPath();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    TxtOperation.writeTxtFile(buffer.toString(), name);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
     }
-    private static String getPath(){
+    private static String getPath() throws IOException {
         int i=0;
         while (true) {
             String name=TimeUtil.toTime(new Date(),"yyyy-MM-dd")+"_"+i+".log";

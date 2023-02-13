@@ -46,6 +46,7 @@ public class FiletypeUtil {
             {".jpeg",  "image"},
             {".png",   "image"},
             {".jpg",   "image"},
+            {".svg",   "image"},
 
             //文本
             {".txt",   "text"},
@@ -93,7 +94,6 @@ public class FiletypeUtil {
 
             //未知类型
             {"",        "unknown"},
-            {"",        "unknown"}
     };
 
     /**

@@ -2,14 +2,16 @@ package com.zhangheng.file;
 
 /**
  * 文件工具类
+ *
  * @author 张恒
  * @program: ZH_Utils
  * @email zhangheng.0805@qq.com
  * @date 2022-11-20 19:02
  */
-public class FileUtil {
+public class FileUtil extends cn.hutool.core.io.FileUtil {
     /**
-     * 文件字节转KB/MB/GB 保留两位小数四舍五入
+     * 文件字节转B/KB/MB/GB/TB 保留两位小数四舍五入
+     *
      * @param size 字节长度
      * @return 文件大小
      */
@@ -34,7 +36,40 @@ public class FileUtil {
             return Math.round(length * 100) / 100.0 + "MB";
         } else {
             //否则如果要以为单位的，先除于1024再作同样的处理 GB
-            return Math.round(length / 1024 * 100) / 100.0 + "GB";
+//            return Math.round(length / 1024 * 100) / 100.0 + "GB";
+            length = length / 1024.0;
+        }
+        if (length < 1024) {
+            return Math.round(length * 100) / 100.0 + "GB";
+        } else {
+            length = length / 1024.0;
+        }
+        if (length < 1024) {
+            return Math.round(length * 100) / 100.0 + "GB";
+        } else {
+            return Math.round(length / 1024 * 100) / 100.0 + "TB";
+        }
+    }
+
+    /**
+     * 文件大小格式化
+     * @param size 文件字节
+     * @return 格式化字符串
+     */
+    public static String fileSizeFormat(Long size) {
+        double length = Double.valueOf(String.valueOf(size));
+        String[] unit = new String[]{"B", "KB", "MB", "GB", "TB"};
+        int i = 0;
+        while (true) {
+            if (length < 1024) {
+                if (i == 0)
+                    return length + unit[i];
+                else
+                    return Math.round(length * 100) / 100.0+unit[i];
+            } else {
+                length = length / 1024.0;
+            }
+            i++;
         }
     }
 }

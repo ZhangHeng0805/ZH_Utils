@@ -1,12 +1,13 @@
 package com.zhangheng.file;
 
+import cn.hutool.core.util.StrUtil;
 import com.zhangheng.log.printLog.Log;
 import com.zhangheng.util.FolderFileScannerUtil;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 文件(夹)操作
@@ -51,7 +52,7 @@ public class FileOperation {
                     }
                     File dir = new File(dirPath);
                     //删除文件后判断文件夹内是否还有文件
-                    ArrayList<Object> list = FolderFileScannerUtil.scanFilesWithRecursion(dirPath);
+                    List<String> list = FolderFileScannerUtil.scanFilesWithRecursion(dirPath);
                     if (list.size() <= 0) {
                         boolean b = deleteDir(dirPath);
                         if (b) {
@@ -61,8 +62,8 @@ public class FileOperation {
                         }
                     } else {
                         boolean flag = true;
-                        for (Object f : list) {
-                            if (new File(f.toString()).isFile()) {
+                        for (String f : list) {
+                            if (new File(f).isFile()) {
                                 flag = false;
                                 break;
                             }
@@ -82,7 +83,7 @@ public class FileOperation {
                 Log.error("文件删除失败："+path);
             }
         }else {
-            Log.error("删除文件的不存在："+path);
+            throw new Exception("删除文件的不存在："+path);
         }
         return false;
     }
@@ -91,19 +92,18 @@ public class FileOperation {
      * @param path 文件夹路径
      * @return 是否删除成功
      */
-    public static boolean deleteDir(String path){
+    public static boolean deleteDir(String path) throws Exception{
         File file = new File(path);
         if (file.isDirectory()) {
             try {
                 FileUtils.deleteDirectory(file);
                 return true;
             } catch (IOException e) {
-                Log.error(e.getMessage());
+                throw e;
             }
         }else {
-            Log.warn("删除文件夹失败:"+file.toString());
+            throw new Exception("删除文件夹失败:"+file.toString());
         }
-        return false;
     }
 
     /**
@@ -112,22 +112,20 @@ public class FileOperation {
      * @return 过滤后的文件名
      */
     public static String filterFileName(String fileName){
-        String name=null;
+        String[] illegal={"\\","/",":","*","?","\"","<",">","|"};
+//        String name=null;
+        StringBuilder name=new StringBuilder();
         fileName=fileName.replace("\\","/");
         String[] split = fileName.split("/");
         if (split.length>1){
-            name= fileName.substring(0,fileName.lastIndexOf("/")+1)+split[split.length-1].replace("\\","").replace("/","")
-                    .replace(":","").replace("*","")
-                    .replace("?","").replace("\"","")
-                    .replace("<","").replace(">","")
-                    .replace("|","");
+            name.append(fileName.substring(0,fileName.lastIndexOf("/")+1)+split[split.length-1]);
         }else {
-            name= split[0].replace("\\","").replace("/","")
-                    .replace(":","").replace("*","")
-                    .replace("?","").replace("\"","")
-                    .replace("<","").replace(">","")
-                    .replace("|","");
+            name.append(split[0]);
         }
-        return name;
+
+        for (String s : illegal) {
+            name.replace(0,name.length(),StrUtil.removeAll(name,s));
+        }
+        return name.toString();
     }
 }

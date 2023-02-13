@@ -1,11 +1,14 @@
 package com.zhangheng.util;
 
+import com.zhangheng.bean.MyException;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
- * 文件扫描工具类
+ * 文件夹扫描工具类
  * @author 张恒
  * @program: ZH_Utils
  * @email zhangheng.0805@qq.com
@@ -13,7 +16,7 @@ import java.util.LinkedList;
  */
 public class FolderFileScannerUtil {
 
-    private static ArrayList<Object> scanFiles = new ArrayList<Object>();
+    private static List<String> scanFiles = new ArrayList<>();
 
     /**linkedList实现**/
     private static LinkedList<File> queueFiles = new LinkedList<File>();
@@ -24,13 +27,15 @@ public class FolderFileScannerUtil {
      * @return ArrayList<Object> 文件夹中所有文件的绝对路径
      * @throws Exception
      */
-    public static ArrayList<Object> scanFilesWithRecursion(String folderPath) throws Exception {
-        ArrayList<String> dirctorys = new ArrayList<String>();
+    public static List<String> scanFilesWithRecursion(String folderPath) throws Exception {
+        List<String> dirctorys = new ArrayList<>();
         File directory = new File(folderPath);
-        if(!directory.isDirectory()){
-            throw new Exception('"' + folderPath + '"' + "(路径错误或没有此文件夹) input path is not a Directory , please input the right path of the Directory. ^_^...^_^");
+        if (!directory.exists()){
+            throw new MyException("路径错误",'"' + folderPath + '"' + "(文件夹路径不存在) input path is not a Directory , please input the right path of the Directory. ^_^...^_^");
         }
-        if(directory.isDirectory()){
+        if(!directory.isDirectory()){
+            throw new MyException("文件类型错误",'"' + folderPath + '"' + "(不是文件夹路径) input path is not a Directory , please input the right path of the Directory. ^_^...^_^");
+        } else {
             File[] filelist = directory.listFiles();
             for(int i = 0; i < filelist.length; i ++){
                 //如果当前是文件夹，进入递归扫描文件夹
@@ -41,7 +46,7 @@ public class FolderFileScannerUtil {
                 }
                 //非文件夹
                 else{
-                    scanFiles.add(filelist[i].getAbsolutePath());
+                    scanFiles.add(filelist[i].getCanonicalPath());
                 }
             }
         }
@@ -55,10 +60,13 @@ public class FolderFileScannerUtil {
      * @return ArrayList<Object> 文件夹中所有文件的绝对路径
      * @throws Exception
      */
-    public static ArrayList<Object> scanFilesWithNoRecursion(String folderPath) throws Exception {
+    protected static List<String> scanFilesWithNoRecursion(String folderPath) throws Exception {
         File directory = new File(folderPath);
+        if (!directory.exists()){
+            throw new MyException("路径错误",'"' + folderPath + '"' + "(文件夹路径不存在) input path is not a Directory , please input the right path of the Directory. ^_^...^_^");
+        }
         if(!directory.isDirectory()){
-            throw new Exception('"' + folderPath + '"' + "(路径错误或没有此文件夹) input path is not a Directory , please input the right path of the Directory. ^_^...^_^");
+            throw new MyException("文件类型错误",'"' + folderPath + '"' + "(不是文件夹路径) input path is not a Directory , please input the right path of the Directory. ^_^...^_^");
         }
         else{
             //首先将第一层目录扫描一遍

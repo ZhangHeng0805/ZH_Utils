@@ -24,7 +24,8 @@ public class CusAccessObjectUtil {
             "HTTP_FORWARDED",
             "HTTP_VIA",
             "REMOTE_ADDR",
-            "X-Real-IP"};
+            "X-Real-IP"
+    };
 
     /**
      * 获取用户真实IP地址，不使用request.getRemoteAddr();的原因是有可能用户使用了代理软件方式避免真实IP地址,
@@ -54,6 +55,7 @@ public class CusAccessObjectUtil {
         }
         return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip;
     }
+
 
     /**
      * 获取请求对象中的信息

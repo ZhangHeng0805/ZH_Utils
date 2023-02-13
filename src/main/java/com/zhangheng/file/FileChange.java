@@ -21,17 +21,17 @@ public class FileChange {
      * @param bufferedImage 图片的BufferedImage
      * @return base64数据
      */
-    public static String bufferedImageToBase64(BufferedImage bufferedImage) {
+    public static String bufferedImageToBase64(BufferedImage bufferedImage) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();//io流
         try {
             ImageIO.write(bufferedImage, "png", baos);//写入流中
         } catch (IOException e) {
-            e.printStackTrace();
+            throw e;
         }finally {
             try {
                 baos.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                throw e;
             }
         }
         byte[] bytes = baos.toByteArray();//转换成字节
@@ -48,7 +48,7 @@ public class FileChange {
      * @param base64 图片的base64
      * @return BufferedImage数据
      */
-    public  static BufferedImage base64ToBufferedImage(String base64) {
+    public static BufferedImage base64ToBufferedImage(String base64) throws IOException {
 //        BASE64Decoder decoder = new sun.misc.BASE64Decoder();
         try {
 //            byte[] bytes1 = decoder.decodeBuffer(base64);
@@ -56,9 +56,8 @@ public class FileChange {
             ByteArrayInputStream bais = new ByteArrayInputStream(bytes1);
             return ImageIO.read(bais);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw e;
         }
-        return null;
     }
 
     /**
@@ -66,7 +65,7 @@ public class FileChange {
      * @param file 文件
      * @return byte[]
      */
-    public static byte[] fileToBytes(File file){
+    public static byte[] fileToBytes(File file) throws IOException {
         FileInputStream is = null;
         byte[] fileBytes=null;
         try {
@@ -74,17 +73,15 @@ public class FileChange {
             long length = file.length();
              fileBytes= new byte[(int) length];
             is.read(fileBytes);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw e;
         } finally {
             try {
                 if (is!=null) {
                     is.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                throw e;
             }
         }
         return fileBytes;
@@ -97,7 +94,7 @@ public class FileChange {
      * @param fileName 文件名称(带后缀)
      * @return
      */
-    public static File bytesToFile(byte[] bytes, String filePath, String fileName) {
+    public static File bytesToFile(byte[] bytes, String filePath, String fileName) throws IOException {
         BufferedOutputStream bos = null;
         FileOutputStream fos = null;
         File file = null;
@@ -111,20 +108,20 @@ public class FileChange {
             bos = new BufferedOutputStream(fos);
             bos.write(bytes);
         } catch (Exception e) {
-            e.printStackTrace();
+           throw e;
         } finally {
             if (bos != null) {
                 try {
                     bos.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    throw e;
                 }
             }
             if (fos != null) {
                 try {
                     fos.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    throw e;
                 }
             }
         }
