@@ -1,6 +1,7 @@
 package com.zhangheng.util;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,7 +18,7 @@ import java.util.*;
 public class TimeUtil {
 
     /**
-     * 北京时区
+     * 格林威治时间-北京时区
      */
     public static final String TimeZoneID = "GMT+8";
     /**
@@ -132,7 +133,7 @@ public class TimeUtil {
      * @return 指定格式时间
      */
     public static String toTime(Date date, String dateFormat) {
-        return toTime(date, DefaultDateFormat, TimeZoneID);
+        return toTime(date, dateFormat, null);
     }
 
     /**
@@ -145,7 +146,8 @@ public class TimeUtil {
      */
     public static String toTime(Date date, String dateFormat, String timeZoneID) {
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-        sdf.setTimeZone(TimeZone.getTimeZone(timeZoneID));
+        if (!StrUtil.isBlank(timeZoneID))
+            sdf.setTimeZone(TimeZone.getTimeZone(timeZoneID));
         return sdf.format(date);
     }
 
@@ -186,7 +188,7 @@ public class TimeUtil {
      * @throws ParseException
      */
     public static Date toDate(String time, String dateFormat) throws ParseException {
-        return toDate(time, DefaultDateFormat, TimeZoneID);
+        return toDate(time, dateFormat, null);
     }
 
     /**
@@ -201,7 +203,8 @@ public class TimeUtil {
     public static Date toDate(String time, String dateFormat, String timeZoneID) throws ParseException {
         Date date = null;
         SimpleDateFormat simpleFormat = new SimpleDateFormat(dateFormat);
-        simpleFormat.setTimeZone(TimeZone.getTimeZone(timeZoneID));
+        if (!StrUtil.isBlank(timeZoneID))
+            simpleFormat.setTimeZone(TimeZone.getTimeZone(timeZoneID));
         try {
             date = simpleFormat.parse(time);
         } catch (ParseException e) {
@@ -361,7 +364,7 @@ public class TimeUtil {
      * @return 正确返回差值 错误返回-1
      */
     public static long timeDifference(String time1, String dateFormat1, String time2, String dateFormat2, int Type) throws ParseException {
-        Date fromDate =toDate(time1, dateFormat1);
+        Date fromDate = toDate(time1, dateFormat1);
         Date toDate = toDate(time2, dateFormat2);
         return calDifference(fromDate, toDate, Type);
     }
