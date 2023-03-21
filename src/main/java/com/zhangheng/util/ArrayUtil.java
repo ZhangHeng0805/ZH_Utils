@@ -8,7 +8,7 @@ package com.zhangheng.util;
  * @email zhangheng.0805@qq.com
  * @date 2022-03-22 11:19
  */
-public class ArrayUtil {
+public class ArrayUtil extends cn.hutool.core.util.ArrayUtil {
 
     /**
      * 判断数组里是否存在

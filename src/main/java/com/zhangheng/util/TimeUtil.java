@@ -15,12 +15,12 @@ import java.util.*;
  * @email zhangheng.0805@qq.com
  * @date 2022-03-04 13:24
  */
-public class TimeUtil {
+public class TimeUtil extends DateUtil{
 
     /**
      * 格林威治时间-北京时区
      */
-    public static final String TimeZoneID = "GMT+8";
+    public static final String TimeZoneID_GMT8 = "GMT+8";
     /**
      * 英文的时间格式（默认格式）
      * yyyy-MM-dd HH:mm:ss
@@ -40,7 +40,8 @@ public class TimeUtil {
      * 默认的时间格式
      * EnDateFormat
      */
-    private static final String DefaultDateFormat = EnDateFormat;
+    protected static String DefaultDateFormat = EnDateFormat;
+
     /**
      * 星期名数组
      * {"星期日","星期一","星期二","星期三","星期四","星期五","星期六"}
@@ -205,11 +206,7 @@ public class TimeUtil {
         SimpleDateFormat simpleFormat = new SimpleDateFormat(dateFormat);
         if (!StrUtil.isBlank(timeZoneID))
             simpleFormat.setTimeZone(TimeZone.getTimeZone(timeZoneID));
-        try {
-            date = simpleFormat.parse(time);
-        } catch (ParseException e) {
-            throw e;
-        }
+        date = simpleFormat.parse(time);
         return date;
     }
 
