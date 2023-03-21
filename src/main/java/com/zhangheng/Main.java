@@ -1,19 +1,25 @@
 package com.zhangheng;
 
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.CircleCaptcha;
+import cn.hutool.captcha.generator.MathGenerator;
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.NumberUtil;
-import cn.hutool.http.HttpRequest;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.script.ScriptUtil;
 import com.zhangheng.file.TxtOperation;
 import com.zhangheng.log.printLog.Log;
-import com.zhangheng.util.EncryptUtil;
 import com.zhangheng.util.TimeUtil;
 
 import java.io.File;
 import java.text.ParseException;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 
 class Main {
@@ -287,20 +293,49 @@ class Main {
 //        System.out.println(s);
 //        src = FileUtil.rename(src, s, true, true);
 
-        long time = new Date().getTime();
+//        long time = new Date().getTime();
 //        long time = 1675238189768L;
-        System.out.println(time);
-        String path="src";
-        String key="654321";
-        String signature = EncryptUtil.getSignature(path + time, key);
+//        System.out.println(time);
+//        String path="src";
+//        String key="654321";
+//        String signature = EncryptUtil.getSignature(path + time, key);
+//        String body = HttpRequest.post("http://127.0.0.1:8089/folder/scan")
+//                .body("path="+path+"&token=" + signature )
+//                .header("_t",time+"")
+//                .execute().body();
+//        System.out.println(body);
 
-        String body = HttpRequest.post("http://127.0.0.1:8089/folder/scan")
-                .body("path="+path+"&token=" + signature )
-                .header("_t",time+"")
-                .execute().body();
-        System.out.println(body);
+
+//        String s = Rot.encode13("zh12345678.@#9恒");
+//        System.out.println(s);
+//        System.out.println(Rot.decode13(s));
 
 
+//        EmailUtil proxy = ProxyUtil.proxy(new EmailUtil(), TimeIntervalAspect.class);
+//        proxy.setMailAccount(Const.getMailAccount_qq());
+//        proxy.send(ListUtil.of("3052847663@qq.com"),"测试","这是测试邮件");
+
+
+        //定义图形验证码的长、宽、验证码字符数、干扰线宽度
+//        ShearCaptcha captcha = CaptchaUtil.createShearCaptcha(200, 100, 4, 5);
+        CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(200, 100, 6, 200);
+//        LineCaptcha captcha = CaptchaUtil.createLineCaptcha(200, 100);
+        //图形验证码写出，可以写出到文件，也可以写出到流
+        // 自定义验证码内容为四则运算方式
+        captcha.setGenerator(new MathGenerator());
+//
+//        String random=new String(RandomUtil.CAPITAL_LETTER)+new String(RandomUtil.LOWERCASE_LETTER)+new String(RandomUtil.NUMBER);
+//        captcha.setGenerator(new RandomGenerator(random, 5));
+        captcha.createCode();
+        captcha.write("res/shear.png");
+        String code = captcha.getCode();
+            Integer eval = Convert.toInt(ScriptUtil.eval(code.replace("=","")));
+        System.out.println(code);
+        //验证图形验证码的有效性，返回boolean值
+//        System.out.println(captcha.verify("1234"));
+
+
+        System.out.println(eval);
     }
 
 

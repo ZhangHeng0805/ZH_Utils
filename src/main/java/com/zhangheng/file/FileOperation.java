@@ -1,12 +1,13 @@
 package com.zhangheng.file;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.codec.Base64Decoder;
+import cn.hutool.core.codec.Base64Encoder;
 import com.zhangheng.log.printLog.Log;
-import com.zhangheng.util.FolderFileScannerUtil;
 import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -105,27 +106,116 @@ public class FileOperation {
             throw new Exception("删除文件夹失败:"+file.toString());
         }
     }
+    /**
+     * BufferedImage 编码转换为 base64
+     * @param bufferedImage 图片的BufferedImage
+     * @return base64数据
+     */
+    public static String bufferedImageToBase64(BufferedImage bufferedImage) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();//io流
+        try {
+            ImageIO.write(bufferedImage, "png", baos);//写入流中
+        } catch (IOException e) {
+            throw e;
+        }finally {
+            try {
+                baos.close();
+            } catch (IOException e) {
+                throw e;
+            }
+        }
+        byte[] bytes = baos.toByteArray();//转换成字节
+//        BASE64Encoder encoder = new BASE64Encoder();
+//        String png_base64 = encoder.encodeBuffer(bytes).trim();//转换成base64串
+        String png_base64= Base64Encoder.encode(bytes).trim();
+        png_base64 = png_base64.replaceAll("\n", "").replaceAll("\r", "");//删除 \r\n
+//        System.out.println("值为：" + "data:image/jpg;base64," + png_base64);
+        return "data:image/jpg;base64," + png_base64;
+    }
 
     /**
-     * 过滤文件名中的非法字符（Windows）
-     * @param fileName 文件名/文件路径
-     * @return 过滤后的文件名
+     * base64 编码转换为 BufferedImage
+     * @param base64 图片的base64
+     * @return BufferedImage数据
      */
-    public static String filterFileName(String fileName){
-        String[] illegal={"\\","/",":","*","?","\"","<",">","|"};
-//        String name=null;
-        StringBuilder name=new StringBuilder();
-        fileName=fileName.replace("\\","/");
-        String[] split = fileName.split("/");
-        if (split.length>1){
-            name.append(fileName.substring(0,fileName.lastIndexOf("/")+1)+split[split.length-1]);
-        }else {
-            name.append(split[0]);
+    public static BufferedImage base64ToBufferedImage(String base64) throws IOException {
+//        BASE64Decoder decoder = new sun.misc.BASE64Decoder();
+        try {
+//            byte[] bytes1 = decoder.decodeBuffer(base64);
+            byte[] bytes1 = Base64Decoder.decode(base64);
+            ByteArrayInputStream bais = new ByteArrayInputStream(bytes1);
+            return ImageIO.read(bais);
+        } catch (IOException e) {
+            throw e;
         }
-
-        for (String s : illegal) {
-            name.replace(0,name.length(),StrUtil.removeAll(name,s));
-        }
-        return name.toString();
     }
+
+    /**
+     * 文件转换byte数组
+     * @param file 文件
+     * @return byte[]
+     */
+    public static byte[] fileToBytes(File file) throws IOException {
+        FileInputStream is = null;
+        byte[] fileBytes=null;
+        try {
+            is = new FileInputStream(file);
+            long length = file.length();
+            fileBytes= new byte[(int) length];
+            is.read(fileBytes);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                if (is!=null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                throw e;
+            }
+        }
+        return fileBytes;
+    }
+
+    /**
+     * byte数组转换文件
+     * @param bytes byte数组
+     * @param filePath 文件路径
+     * @param fileName 文件名称(带后缀)
+     * @return
+     */
+    public static File bytesToFile(byte[] bytes, String filePath, String fileName) throws IOException {
+        BufferedOutputStream bos = null;
+        FileOutputStream fos = null;
+        File file = null;
+        try {
+            file = new File(filePath + fileName);
+            if (!file.getParentFile().exists()){
+                //文件夹不存在 生成
+                file.getParentFile().mkdirs();
+            }
+            fos = new FileOutputStream(file);
+            bos = new BufferedOutputStream(fos);
+            bos.write(bytes);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (bos != null) {
+                try {
+                    bos.close();
+                } catch (IOException e) {
+                    throw e;
+                }
+            }
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    throw e;
+                }
+            }
+        }
+        return file;
+    }
+
 }

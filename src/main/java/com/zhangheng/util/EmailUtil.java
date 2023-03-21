@@ -22,7 +22,18 @@ public class EmailUtil {
 
     private MailAccount mailAccount;
 
+
+
     public EmailUtil(MailAccount mailAccount) {
+        this.mailAccount = mailAccount;
+    }
+    public EmailUtil(){}
+
+    public MailAccount getMailAccount() {
+        return mailAccount;
+    }
+
+    public void setMailAccount(MailAccount mailAccount) {
         this.mailAccount = mailAccount;
     }
 

@@ -112,7 +112,7 @@ public class TimeUtil {
     public static final int Day_Of_Year = 0x0008;//一年的第几天
 
 
-    private static Calendar cal = Calendar.getInstance();
+    private static Calendar cal;
 
 
     /**
@@ -243,6 +243,7 @@ public class TimeUtil {
      * @return
      */
     public static String getTimeInfo(Integer Type) {
+        cal=Calendar.getInstance();
         String t;
         int i = -1;
         switch (Type) {

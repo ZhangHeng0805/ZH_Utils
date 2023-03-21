@@ -386,6 +386,7 @@ public static final String[][] MIME_MapTable={
 > * 例 FiletypeUtil.getFileType("img.png") 绝对或相对路径 //image
 > * @param file 判断的文件全称（含后缀名）
 > * @return String
+
 ## 7.加密工具（EncryptUtil）
 * 类路径：```com.zhangheng.util.EncryptUtil```
 ### 常量格式
@@ -441,6 +442,7 @@ public static final String[][] MIME_MapTable={
 > * @param encodestr 加密的字符串
 > * @param key 加密的key（长度16）
 > * @return String
+
 ## 8.数组工具（ArrayUtil）
 * 类路径：```com.zhangheng.util.ArrayUtil```
 ### 具体方法

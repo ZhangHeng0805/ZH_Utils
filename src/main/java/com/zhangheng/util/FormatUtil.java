@@ -1,5 +1,7 @@
 package com.zhangheng.util;
 
+import cn.hutool.core.lang.Validator;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,7 +12,7 @@ import java.util.regex.Pattern;
  * @email zhangheng.0805@qq.com
  * @date 2022-03-04 17:00
  */
-public class FormatUtil {
+public class FormatUtil extends Validator {
 
     /**
      * 字符串是否包含大小写字母及数字长度在6-18位(不含符号)

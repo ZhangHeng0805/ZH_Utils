@@ -98,7 +98,7 @@ public class TxtOperation {
      */
     public static File creatTxtFile(String path, String name, String type, boolean isCheckType) throws IOException {
 //        File flag = null;
-        name = FileOperation.filterFileName(name);
+        name = FileUtil.filterFileName(name);
         String filenameTemp = "";
         String fileType = FiletypeUtil.getFileType(name + "." + type);
         if (isCheckType) {

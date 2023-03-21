@@ -9,7 +9,18 @@ import java.util.Random;
  * @author: 张恒
  * @create: 2022-01-14 14:17
  */
-public class RandomrUtil {
+public class RandomUtil {
+
+//    enum Type{
+//        //数字类型（type）
+//        Number,
+//        //小写英文类型（type）
+//        Lowercase,
+//        //大写英文类型（type）
+//        Capital,
+//        //英文符号类型（type）
+//        Symbol,
+//    }
     /**
      * 数字类型（type）
      */
@@ -29,20 +40,20 @@ public class RandomrUtil {
     /**
      * 大写字母字符数组
      */
-    private static final char[] CAPITAL_LETTER=new char[]{
+    public static final char[] CAPITAL_LETTER=new char[]{
       'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
     };
     /**
      * 小写字母字符数组
      */
-    private static final char[] LOWERCASE_LETTER=new char[]{
+    public static final char[] LOWERCASE_LETTER=new char[]{
             'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
     };
     /**
      * 英文符号字符数组
      * ~!@#$%^&*()_-+=[]{}:|<>./?
      */
-    private static final char[] SYMBOLS_EN=new char[]{
+    public static final char[] SYMBOLS_EN=new char[]{
       '~','!','@','#','$','%','^','&','*','(',')','_','-','+','=','[',']','{','}',':','|','<','>',
             '.','/','?'
     };
@@ -54,9 +65,10 @@ public class RandomrUtil {
     /**
      * 数字字符数组
      */
-    private static final char[] NUMBER=new char[]{
+    public static final char[] NUMBER=new char[]{
             '1','2','3','4','5','6','7','8','9','0',
     };
+
 
     /**
      * 生成字母数字特殊符号不同长度的密码组合

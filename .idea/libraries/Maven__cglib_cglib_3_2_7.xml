@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: cglib:cglib:3.2.7">
+    <CLASSES>
+      <root url="jar://E:/Program Files/Apache Software Foundation/apache-maven-3.5.4/local_repository/cglib/cglib/3.2.7/cglib-3.2.7.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://E:/Program Files/Apache Software Foundation/apache-maven-3.5.4/local_repository/cglib/cglib/3.2.7/cglib-3.2.7-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://E:/Program Files/Apache Software Foundation/apache-maven-3.5.4/local_repository/cglib/cglib/3.2.7/cglib-3.2.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

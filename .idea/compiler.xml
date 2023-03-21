@@ -10,6 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="ZH" target="1.8" />
       <module name="ZH_Util" target="1.5" />
       <module name="ZH_Utils" target="1.8" />
     </bytecodeTargetLevel>

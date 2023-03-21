@@ -1,5 +1,7 @@
 package com.zhangheng.file;
 
+import cn.hutool.core.util.StrUtil;
+
 /**
  * 文件工具类
  *
@@ -56,7 +58,7 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
      * @param size 文件字节
      * @return 格式化字符串
      */
-    public static String fileSizeFormat(Long size) {
+    public static String fileSizeStr(Long size) {
         double length = Double.valueOf(String.valueOf(size));
         String[] unit = new String[]{"B", "KB", "MB", "GB", "TB"};
         int i = 0;
@@ -71,5 +73,26 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
             }
             i++;
         }
+    }
+    /**
+     * 过滤文件名中的非法字符（Windows）
+     * @param fileName 文件名/文件路径
+     * @return 过滤后的文件名
+     */
+    public static String filterFileName(String fileName){
+        String[] illegal={"\\","/",":","*","?","\"","<",">","|"};
+        StringBuilder name=new StringBuilder();
+        fileName=fileName.replace("\\","/");
+        String[] split = fileName.split("/");
+        if (split.length>1){
+            name.append(fileName.substring(0,fileName.lastIndexOf("/")+1)+split[split.length-1]);
+        }else {
+            name.append(split[0]);
+        }
+
+        for (String s : illegal) {
+            name.replace(0,name.length(), StrUtil.removeAll(name,s));
+        }
+        return name.toString();
     }
 }
