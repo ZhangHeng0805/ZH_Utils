@@ -9,6 +9,7 @@
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar" path-in-jar="/" />
       <element id="module-output" name="ZH_Utils" />
       <element id="library" level="project" name="Maven: com.github.oshi:oshi-core:5.6.1" />
+      <element id="file-copy" path="$PROJECT_DIR$/使用说明.txt" />
     </root>
   </artifact>
 </component>
