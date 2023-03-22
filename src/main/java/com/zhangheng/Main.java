@@ -1,15 +1,10 @@
 package com.zhangheng;
 
-import cn.hutool.captcha.CaptchaUtil;
-import cn.hutool.captcha.CircleCaptcha;
-import cn.hutool.captcha.generator.MathGenerator;
-import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.script.ScriptUtil;
 import com.zhangheng.file.TxtOperation;
 import com.zhangheng.log.printLog.Log;
 import com.zhangheng.util.TimeUtil;
@@ -318,24 +313,23 @@ class Main {
 
         //定义图形验证码的长、宽、验证码字符数、干扰线宽度
 //        ShearCaptcha captcha = CaptchaUtil.createShearCaptcha(200, 100, 4, 5);
-        CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(200, 100, 6, 200);
+//        CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(200, 100, 6, 200);
 //        LineCaptcha captcha = CaptchaUtil.createLineCaptcha(200, 100);
         //图形验证码写出，可以写出到文件，也可以写出到流
         // 自定义验证码内容为四则运算方式
-        captcha.setGenerator(new MathGenerator());
+//        captcha.setGenerator(new MathGenerator());
 //
 //        String random=new String(RandomUtil.CAPITAL_LETTER)+new String(RandomUtil.LOWERCASE_LETTER)+new String(RandomUtil.NUMBER);
 //        captcha.setGenerator(new RandomGenerator(random, 5));
-        captcha.createCode();
-        captcha.write("res/shear.png");
-        String code = captcha.getCode();
-            Integer eval = Convert.toInt(ScriptUtil.eval(code.replace("=","")));
-        System.out.println(code);
+//        captcha.createCode();
+//        captcha.write("res/shear.png");
+//        String code = captcha.getCode();
+//        Integer eval = Convert.toInt(ScriptUtil.eval(code.replace("=", "")));
+//        System.out.println(code);
         //验证图形验证码的有效性，返回boolean值
 //        System.out.println(captcha.verify("1234"));
+//        System.out.println(eval);
 
-
-        System.out.println(eval);
     }
 
 

@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class EmailUtil {
 
-    private static MailAccount mailAccount163 = Const.getMailAccount_163();
-    private static MailAccount mailAccountqq = Const.getMailAccount_qq();
+    public static MailAccount mailAccount163 = Const.getMailAccount_163();
+    public static MailAccount mailAccountqq = Const.getMailAccount_qq();
 
     private MailAccount mailAccount;
 

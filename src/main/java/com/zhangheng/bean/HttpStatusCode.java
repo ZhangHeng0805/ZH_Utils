@@ -7,7 +7,7 @@ package com.zhangheng.bean;
  * @email zhangheng.0805@qq.com
  * @date 2022-11-26 23:34
  */
-public class StatusCode {
+public class HttpStatusCode {
     /**
      * 400
      */

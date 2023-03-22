@@ -95,4 +95,19 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
         }
         return name.toString();
     }
+
+    /**
+     * 获取文件名（不带后缀）
+     * @param fileName
+     * @return
+     */
+    public static String getMainName(String fileName){
+        String[] p={"tar.bz2", "tar.Z", "tar.gz", "tar.xz"};
+        for (String s : p) {
+            if (fileName.indexOf(s)>0){
+                return fileName.replace("."+s,"");
+            }
+        }
+        return fileName.substring(0,fileName.lastIndexOf("."));
+    }
 }

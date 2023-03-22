@@ -12,7 +12,6 @@ import java.io.File;
 public class FiletypeUtil {
     public static final String[][] MIME_MapTable={
             //{后缀名，    类型}
-            //视频
             {".3gp",   "video"},
             {".m4u",   "video"},
             {".m4v",   "video"},
@@ -25,7 +24,6 @@ public class FiletypeUtil {
             {".asf",   "video"},
             {".avi",   "video"},
 
-            //音频
             {".m3u8",   "audio"},
             {".m4a",   "audio"},
             {".m4b",   "audio"},
@@ -40,15 +38,12 @@ public class FiletypeUtil {
             {".wma",   "audio"},
             {".wmv",   "audio"},
 
-            //图片
             {".gif",   "image"},
             {".bmp",   "image"},
             {".jpeg",  "image"},
             {".png",   "image"},
             {".jpg",   "image"},
-            {".svg",   "image"},
 
-            //文本
             {".txt",   "text"},
             {".c",     "text"},
             {".xml",   "text"},
@@ -70,10 +65,9 @@ public class FiletypeUtil {
             {".rc",    "text"},
             {".log",   "text"},
             {".sh",    "text"},
-            {".css",    "text"},
-            {".json",    "text"},
+            {".wsdl",  "text"},
+            {".xsd",   "text"},
 
-            //应用
             {".class",  "application"},
             {".apk",    "application"},
             {".bin",    "application"},
@@ -92,24 +86,69 @@ public class FiletypeUtil {
             {".z",      "application"},
             {".zip",    "application"},
 
-            //未知类型
-            {"",        "unknown"},
+            {"",        "unknown"}
+    };
+
+    public static final String[][] Content_Type={
+            {".txt",  "text/plain"},
+
+            {".html",  "text/html"},
+            {".jsp",  "text/html"},
+
+            {".xml",   "text/xml"},
+            {".wsdl",  "text/xml"},
+            {".xsd",  "text/xml"},
+            {".xsl",  "text/xml"},
+
+            {".json",  "application/json"},
+            {".pdf",  "application/pdf"},
+            {".word",  "application/msword"},
+            {".ppt",  "application/application/vnd.ms-powerpoint"},
+            {".apk",  "application/vnd.android.package-archive"},
+            {".js",  "application/x-javascript"},
+
+            {".mp4",  "video/mpeg4"},
+            {".avi",  "video/avi"},
+
+            {".mp3",  "audio/mp3"},
+
+            {".png",  "image/png"},
+            {".jpg",  "image/jpeg"},
+            {".jpeg",  "image/jpeg"},
+
+
+            //二进制流，不知道下载文件类型
+            {"",        "application/octet-stream"}
     };
 
     /**
      * 获取文件类型
      * @param file 文件
-     * @return 文件类型
+     * @return
      */
     public static String getFileType(File file){
         return getFileType(file.getName());
     }
+
+    public static String getFileType(String filename){
+        return getFileType(filename,MIME_MapTable);
+    }
+
+    /**
+     * 获取文件的ContentType
+     * @param filename 文件全称（含后缀名）
+     * @return
+     */
+    public static String getFileContentType(String filename){
+        return getFileType(filename,Content_Type);
+    }
     /**
      * 获取文件类型
      * @param filename 文件全称（含后缀名）
-     * @return 文件类型
+     * @param MIME_MapTable 类型映射二维数值
+     * @return
      */
-    public static String getFileType(String filename)
+    public static String getFileType(String filename,String[][] MIME_MapTable)
     {
         String type="unknown";
         String fName=filename;
@@ -130,6 +169,5 @@ public class FiletypeUtil {
         }
         return type;
     }
-
 
 }

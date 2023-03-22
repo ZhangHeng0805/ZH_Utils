@@ -1,10 +1,7 @@
 package com.zhangheng.bean;
 
 import cn.hutool.extra.mail.MailAccount;
-import com.zhangheng.util.EmailUtil;
 import com.zhangheng.util.EncryptUtil;
-
-import java.io.IOException;
 
 /**
  * 常量类
@@ -40,8 +37,8 @@ public class Const {
     /**
      * 邮件发件人
      */
-    private static final String Email_from_163 = "zhangheng_0805@163.com";//网易邮件发件人
-    private static final String Email_from_qq="zhangheng.0805@qq.com";//qq邮件发件人
+    private static final String Email_from_163 = "星曦向荣<zhangheng_0805@163.com>";//网易邮件发件人
+    private static final String Email_from_qq="星曦向荣<zhangheng.0805@qq.com>";//qq邮件发件人
     /**
      * 网易邮件用户名
      */
