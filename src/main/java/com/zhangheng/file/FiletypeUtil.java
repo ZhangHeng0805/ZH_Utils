@@ -91,30 +91,81 @@ public class FiletypeUtil {
 
     public static final String[][] Content_Type={
             {".txt",  "text/plain"},
-
+            {".htm",  "text/html"},
             {".html",  "text/html"},
+            {".shtml",  "text/html"},
             {".jsp",  "text/html"},
-
             {".xml",   "text/xml"},
             {".wsdl",  "text/xml"},
             {".xsd",  "text/xml"},
             {".xsl",  "text/xml"},
+            {".css",  "text/css"},
+            {".vcf",  "text/x-vcard"},
 
             {".json",  "application/json"},
             {".pdf",  "application/pdf"},
-            {".word",  "application/msword"},
+            {".doc",  "application/msword"},
+            {".docx",  "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
+            {".xls",  "application/vnd.ms-excel"},
+            {".xlsx",  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
             {".ppt",  "application/application/vnd.ms-powerpoint"},
+            {".pptx",  "application/vnd.openxmlformats-officedocument.presentationml.presentation"},
             {".apk",  "application/vnd.android.package-archive"},
             {".js",  "application/x-javascript"},
+            {".gz",  "application/x-gzip"},
+            {".gzip",  "application/x-gzip"},
+            {".zip",  "application/zip"},
+            {".7zip",  "application/zip"},
+            {".rar",  "application/rar"},
+            {".tar",  "application/x-tar"},
+            {".tgz",  "application/x-tar"},
+            {".rtf",  "application/rtf"},
+            {".wps",  "application/kswps"},
+            {".psd",  "application/x-photoshop"},
+            {".swf",  "application/x-shockwave-flash"},
+            {".xht",  "application/xhtml+xml"},
+            {".xhtml",  "application/xhtml+xml"},
+            {".php",  "application/x-httpd-php"},
+            {".php3",  "application/x-httpd-php"},
+            {".php4",  "application/x-httpd-php"},
+            {".phtml",  "application/x-httpd-php"},
+            {".jar",  "application/java-archive"},
+            {".exe",  "application/octet-stream"},
 
-            {".mp4",  "video/mpeg4"},
+            {".mp4",  "video/mp4"},
             {".avi",  "video/avi"},
+            {".mpg",  "video/mpeg"},
+            {".mpe",  "video/mpeg"},
+            {".mpeg",  "video/mpeg"},
+            {".qt",  "video/quicktime"},
+            {".mov",  "video/quicktime"},
+            {".m4v",  "video/x-m4v"},
+            {".wmv",  "video/x-ms-wmv"},
+            {".avi",  "video/x-msvideo"},
+            {".webm",  "video/webm"},
+            {".flv",  "video/x-flv"},
 
             {".mp3",  "audio/mp3"},
+            {".mpeg",  "audio/mpeg"},
+            {".mid",  "audio/midi"},
+            {".midi",  "audio/midi"},
+            {".wav",  "audio/x-wav"},
+            {".m3u",  "audio/x-mpegurl"},
+            {".m4a",  "audio/x-m4a"},
+            {".ogg",  "audio/ogg"},
+            {".ra",  "audio/x-realaudio"},
+            {".ra",  "audio/x-realaudio"},
 
             {".png",  "image/png"},
             {".jpg",  "image/jpeg"},
             {".jpeg",  "image/jpeg"},
+            {".gif",  "image/gif"},
+            {".tif",  "image/tiff"},
+            {".tiff",  "image/tiff"},
+            {".bmp",  "image/bmp"},
+            {".svg",  "image/svg+xml"},
+            {".svgz",  "image/svg+xml"},
+            {".webp",  "image/webp"},
 
 
             //二进制流，不知道下载文件类型
@@ -131,7 +182,7 @@ public class FiletypeUtil {
     }
 
     public static String getFileType(String filename){
-        return getFileType(filename,MIME_MapTable);
+        return getFileType(filename,MIME_MapTable,"unknown");
     }
 
     /**
@@ -140,7 +191,7 @@ public class FiletypeUtil {
      * @return
      */
     public static String getFileContentType(String filename){
-        return getFileType(filename,Content_Type);
+        return getFileType(filename,Content_Type,"application/octet-stream");
     }
     /**
      * 获取文件类型
@@ -148,9 +199,9 @@ public class FiletypeUtil {
      * @param MIME_MapTable 类型映射二维数值
      * @return
      */
-    public static String getFileType(String filename,String[][] MIME_MapTable)
+    public static String getFileType(String filename,String[][] MIME_MapTable,String defaultType)
     {
-        String type="unknown";
+        String type=defaultType;
         String fName=filename;
         //获取后缀名前的分隔符"."在fName中的位置。
         int dotIndex = fName.lastIndexOf(".");
@@ -162,7 +213,7 @@ public class FiletypeUtil {
         if(end=="")return type;
         //在MIME和文件类型的匹配表中找到对应的MIME类型。
         for(int i=0;i<MIME_MapTable.length;i++){
-            if(end.equals(MIME_MapTable[i][0])) {
+            if(end.equalsIgnoreCase(MIME_MapTable[i][0])) {
                 type = MIME_MapTable[i][1];
                 break;
             }
