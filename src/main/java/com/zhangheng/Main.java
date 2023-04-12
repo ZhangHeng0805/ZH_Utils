@@ -7,9 +7,11 @@ import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.zhangheng.file.TxtOperation;
 import com.zhangheng.log.printLog.Log;
+import com.zhangheng.util.MathUtil;
 import com.zhangheng.util.TimeUtil;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -329,6 +331,53 @@ class Main {
         //验证图形验证码的有效性，返回boolean值
 //        System.out.println(captcha.verify("1234"));
 //        System.out.println(eval);
+
+
+//        SimpleServer server = HttpUtil.createServer(8888)
+//                .addAction("/1", (request, response) -> {
+//                    String body1 = request.getBody();
+////                    String url = request.getParam("url");
+//                    String url = "http://127.0.0.1:8082/HttpService/JSONTest";
+//                    HttpRequest httpRequest = HttpRequest.get(url);
+//                    for (Map.Entry<String, List<String>> entry : request.getHeaders().entrySet()) {
+//                        String key = entry.getKey();
+//                        String value = request.getHeader(key);
+//                        httpRequest=httpRequest.header(key, value);
+//                    }
+//                    HttpResponse execute = httpRequest.body(body1).execute();
+//                    String body = execute.body();
+//                    response.write(body, ContentType.JSON.toString());
+//                });
+//        server.start();
+
+//        String body = HttpRequest.get("https://dashboard.cpolar.com/status").
+//                execute().body();
+////        System.out.println(body);
+//        if (body.startsWith("<a href=\"/login\">")){
+//            HttpResponse execute1 = HttpRequest.get("https://dashboard.cpolar.com/login").
+//                    execute();
+//            String login = execute1.body();
+//            String token = Jsoup.parse(login).select("input").select("[name=csrf_token]").attr("value");
+////            System.out.println(login);
+//            System.out.println(token);
+//            String cookieStr1 = execute1.getCookieStr();
+//            System.out.println(cookieStr1);
+//            HttpResponse execute2 = HttpRequest.post("https://dashboard.cpolar.com/login")
+//                    .header("origin","https://dashboard.cpolar.com")
+//                    .header("referer","https://dashboard.cpolar.com/login")
+//                    .header("cookie", cookieStr1)
+//                    .header("content-type","application/x-www-form-urlencoded")
+//                    .form("csrf_token", token)
+//                    .form("login", "zhangheng_0805@163.com")
+//                    .form("password", "dashboard.cpolar.com")
+//                    .execute();
+//            String content = execute2.body();
+//            System.out.println(execute2.getCookieStr());
+//            System.out.println(content);
+//        }
+
+        BigDecimal bigDecimal = MathUtil.simpleOperation("600000003*900002=");
+        System.out.println(bigDecimal.toString());
 
     }
 
