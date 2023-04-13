@@ -70,8 +70,8 @@ public class MathUtil extends NumberUtil {
     /**
      * 简单的计算
      * 只能进行单一的加减乘除运算
-     *
-     * @param expression 计算表达式
+     * 不能进行多次混合运算
+     * @param expression 计算表达式 例[1+1=或者2*3]
      * @return
      * @throws MyException
      */
