@@ -71,11 +71,12 @@ public class MathUtil extends NumberUtil {
      * 简单的计算
      * 只能进行单一的加减乘除运算
      * 不能进行多次混合运算
-     * @param expression 计算表达式 例[1+1=或者2*3]
+     * @param expression 计算表达式
+     *                   例[1+1=或者2*3]
      * @return
      * @throws MyException
      */
-    public static BigDecimal simpleOperation(String expression) throws MyException {
+    public static String simpleOperation(String expression) throws MyException {
         int i=strCountNum(expression,'+')
                 +strCountNum(expression,'-')
                 +strCountNum(expression,'*')
@@ -100,7 +101,19 @@ public class MathUtil extends NumberUtil {
         } else {
             throw new MyException("计算类型Operation", "Operation类型应为+、-、*、/");
         }
-        return bigDecimal;
+        return toStr(bigDecimal);
     }
 
+    /**
+     * 加减乘除混合运算
+     * @param expression 计算表达式
+     *                   例 (((12+3)-6)*2)/5
+     * @return
+     * @throws MyException
+     */
+    public static String operation(String expression) throws MyException {
+        if (expression.endsWith("="))
+            expression = expression.replace("=", "");
+        return toStr(calculate(expression));
+    }
 }

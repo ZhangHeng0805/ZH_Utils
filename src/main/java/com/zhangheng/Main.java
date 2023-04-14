@@ -7,11 +7,9 @@ import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.zhangheng.file.TxtOperation;
 import com.zhangheng.log.printLog.Log;
-import com.zhangheng.util.MathUtil;
 import com.zhangheng.util.TimeUtil;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -376,8 +374,10 @@ class Main {
 //            System.out.println(content);
 //        }
 
-        BigDecimal bigDecimal = MathUtil.simpleOperation("600000003*900002=");
-        System.out.println(bigDecimal.toString());
+//        String bigDecimal = MathUtil.simpleOperation("3.6*5=");
+//        String operation = MathUtil.operation("(((12+3)-6)*2)/5");
+//        System.out.println(operation);
+//        System.out.println(bigDecimal);
 
     }
 
