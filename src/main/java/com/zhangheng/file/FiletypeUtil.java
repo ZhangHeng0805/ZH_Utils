@@ -67,6 +67,7 @@ public class FiletypeUtil {
             {".sh",    "text"},
             {".wsdl",  "text"},
             {".xsd",   "text"},
+            {".sql",   "text"},
 
             {".class",  "application"},
             {".apk",    "application"},
