@@ -30,6 +30,7 @@ public class FileOperation {
             file.mkdirs();
         }
     }
+
     /**
      * 删除文件
      * 如果删除后文件夹为空，同时删除文件夹
@@ -88,6 +89,21 @@ public class FileOperation {
         }
         return false;
     }
+
+    /**
+     * 文件转base64
+     * @author ZhangHeng
+     * @date 2023/04/21 0021 16:17
+     * @param file 转换的文件
+     * @param isPerfix 是否加上data:xxx/xxx;base64,的前缀
+     * @return java.lang.String
+     */
+    public static String fileToBase64(File file,boolean isPerfix){
+        String prefix=isPerfix?"data:"+FiletypeUtil.getFileContentType(file.getName())+";base64,":"";
+        byte[] bytes = FileUtil.readBytes(file);
+        return prefix+Base64Encoder.encode(bytes);
+    }
+
     /**
      * 递归删除文件夹
      * @param path 文件夹路径

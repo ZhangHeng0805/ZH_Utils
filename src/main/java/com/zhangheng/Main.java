@@ -379,6 +379,11 @@ class Main {
 //        System.out.println(operation);
 //        System.out.println(bigDecimal);
 
+//        String filePath = "F:\\下载\\Image\\logo_XXXR.png";
+//        File file = new File(filePath);
+//        String s = FileOperation.fileToBase64(file,true);
+//        System.out.println(s);
+
     }
 
 

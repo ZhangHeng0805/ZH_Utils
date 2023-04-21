@@ -10,6 +10,7 @@ import java.io.File;
  * @date 2022-03-04 17:00
  */
 public class FiletypeUtil {
+
     public static final String[][] MIME_MapTable={
             //{后缀名，    类型}
             {".3gp",   "video"},
