@@ -1,7 +1,7 @@
 # ZH_Utils
 ## [API文档](https://apidoc.gitee.com/ZhangHeng0805/ZH_Utils)
 > **个人java开发工具包（持续更新中。。。）**
-> * 外部依赖：
+> * 参考依赖：
 >   * [```Hutool```](https://www.hutool.cn/docs/#/)[Java工具类库]
 >   * [```JSON-java```](https://github.com/stleary/JSON-java)[org.json]
 ### 实体类
