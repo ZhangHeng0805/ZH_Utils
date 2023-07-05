@@ -60,7 +60,7 @@ public class XMLParserConfiguration extends ParserConfiguration {
      */
     public XMLParserConfiguration () {
         super();
-        this.cDataTagName = "content";
+        this.cDataTagName = "#text";
         this.convertNilAttributeToNull = false;
         this.xsiTypeMap = Collections.emptyMap();
         this.forceList = Collections.emptySet();

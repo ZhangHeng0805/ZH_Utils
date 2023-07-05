@@ -1,9 +1,15 @@
 # ZH_Utils
 ## [API文档](https://apidoc.gitee.com/ZhangHeng0805/ZH_Utils)
-> **个人java开发工具包（持续更新中。。。）,内置[```Hutool```](https://www.hutool.cn/docs/#/)Java工具类库**
+> **个人java开发工具包（持续更新中。。。）**
+> * 外部依赖：
+>   * [```Hutool```](https://www.hutool.cn/docs/#/)[Java工具类库]
+>   * [```JSON-java```](https://github.com/stleary/JSON-java)[org.json]
 * 实体类
     * 消息实体```com.zhangheng.bean.Message```
     * 常量实体（没有上传）```com.zhangheng.bean.Const```
+* json和xml的相互转换
+    * xml转json：支持xml标签属性保留转换
+    * json转xml
 * 工具
     * 时间工具```com.zhangheng.util.TimeUtil```
     * 文件扫描```com.zhangheng.util.FolderFileScannerUtil```
