@@ -1,5 +1,6 @@
 package com.zhangheng.util;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -27,6 +28,7 @@ public class CusAccessObjectUtil {
             "X-Real-IP"
     };
 
+
     /**
      * 获取用户真实IP地址，不使用request.getRemoteAddr();的原因是有可能用户使用了代理软件方式避免真实IP地址,
      * <p>
@@ -42,23 +44,59 @@ public class CusAccessObjectUtil {
      * @return 请求用户的IP地址
      */
     public static String getIpAddress(HttpServletRequest request) {
-        String ip = request.getHeader("X-Forwarded-For");
+        String ip = null;
         for (String header : HEADERS_TO_TRY) {
             ip = request.getHeader(header);
             if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
-                return ip;
+                boolean ipv4 = FormatUtil.isIpv4(ip);
+                if (ipv4) {
+                    return ip;
+                } else {
+                    return ip.substring(0, ip.indexOf(','));
+                }
             }
         }
         //如果没有代理，则获取真实ip
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
-        return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip;
+        return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : FormatUtil.isIpv4(ip) ? ip : ip.substring(0, ip.indexOf(','));
     }
 
+    /**
+     * 获取请求行中的资源名称
+     *
+     * @param request
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    public static String getUri(HttpServletRequest request) throws UnsupportedEncodingException {
+        String uri = request.getRequestURI();//返回请求行中的资源名称
+        return URLDecoder.decode(uri, "UTF-8");
+    }
+
+    /**
+     * 判断Cookie中是否存在key-value
+     *
+     * @param request     请求
+     * @param cookieName  检查的cookie名
+     * @param cookieValue 价差的cookie值
+     * @return
+     */
+    public static Boolean isExitCookie(HttpServletRequest request, String cookieName, String cookieValue) {
+        for (Cookie cookie : request.getCookies()) {
+            if (cookie.getName().equals(cookieName)) {
+                if (cookie.getValue().equals(cookieValue)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     /**
      * 获取请求对象中的信息
+     *
      * @param request 请求对象
      * @return {
      * ip:请求ip,
@@ -70,32 +108,32 @@ public class CusAccessObjectUtil {
      * method:请求使用的HTTP方法,
      * }
      */
-    public static Map<String,Object> getRequestInfo(HttpServletRequest request) {
-        Map<String,Object> map=new HashMap<>();
+    public static Map<String, Object> getRequestInfo(HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<>();
         String ip = getIpAddress(request);//发出请求的IP地址
         map.put("ip", ip);
         String uri = request.getRequestURI();//返回请求行中的资源名称
         try {
-            map.put("uri", URLDecoder.decode(uri,"UTF-8"));
+            map.put("uri", URLDecoder.decode(uri, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             map.put("uri", uri);
         }
         String url = request.getRequestURL().toString();//获得客户端发送请求的完整url
         try {
-            map.put("url", URLDecoder.decode(url,"UTF-8"));
+            map.put("url", URLDecoder.decode(url, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             map.put("url", url);
         }
         String params = request.getQueryString();//返回请求行中的参数部分
-        map.put("params",params);
+        map.put("params", params);
         String host = request.getRemoteHost();//返回发出请求的客户端的主机名
-        map.put("host",host);
+        map.put("host", host);
         Integer port = request.getRemotePort();//返回发出请求的客户端的端口号。
-        map.put("port",port);
+        map.put("port", port);
         String method = request.getMethod();//请求使用的HTTP方法（例如：GET、POST、PUT）,
-        map.put("method",method);
+        map.put("method", method);
 //        System.out.println("IP地址:" + ip);
 //        System.out.println("完整url:" + url);
 //        System.out.println("资源名称:" + uri);
@@ -107,6 +145,7 @@ public class CusAccessObjectUtil {
 
     /**
      * 获取请求头中的User-Agent
+     *
      * @param request 请求对象
      * @return 请求头中的User-Agent
      */
@@ -118,6 +157,7 @@ public class CusAccessObjectUtil {
     /**
      * 获取指定格式请求信息
      * [ip] / User-Agent
+     *
      * @param request 请求对象
      * @return
      */
@@ -129,16 +169,17 @@ public class CusAccessObjectUtil {
     /**
      * 获取指定完整格式请求信息
      * <请求方式> [请求路径地址] (ip地址) {User-Agent}
+     *
      * @param request 请求对象
      * @return 完整格式请求信息
      */
-    public static String getCompleteRequest(HttpServletRequest request){
+    public static String getCompleteRequest(HttpServletRequest request) {
         Map<String, Object> requestInfo = getRequestInfo(request);
         StringBuilder sb = new StringBuilder();
-        sb.append("<"+requestInfo.get("method")+">\t");
-        sb.append("["+requestInfo.get("uri")+"]\t");
-        sb.append("("+requestInfo.get("ip")+")\t");
-        sb.append("{"+getUser_Agent(request)+"}\t");
+        sb.append("<" + requestInfo.get("method") + ">\t");
+        sb.append("[" + requestInfo.get("uri") + "]\t");
+        sb.append("(" + requestInfo.get("ip") + ")\t");
+        sb.append("{" + getUser_Agent(request) + "}\t");
         return sb.toString();
     }
 }

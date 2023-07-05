@@ -12,7 +12,7 @@ import java.net.UnknownHostException;
  * @email zhangheng.0805@qq.com
  * @date 2022-04-08 9:16
  */
-public class NetUtil {
+public class NetUtil extends cn.hutool.core.net.NetUtil {
     /**
      * 检查本机端口是否被使用
      * @param port 端口号

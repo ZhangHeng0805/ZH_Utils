@@ -7,6 +7,7 @@ import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.zhangheng.file.TxtOperation;
 import com.zhangheng.log.printLog.Log;
+import com.zhangheng.util.FormatUtil;
 import com.zhangheng.util.TimeUtil;
 
 import java.io.File;
@@ -380,9 +381,19 @@ class Main {
 //        System.out.println(bigDecimal);
 
 //        String filePath = "F:\\下载\\Image\\logo_XXXR.png";
-//        File file = new File(filePath);
-//        String s = FileOperation.fileToBase64(file,true);
-//        System.out.println(s);
+////        File file = new File(filePath);
+////        String s = FileOperation.fileToBase64(file,true);
+////        System.out.println(s);
+
+//        String ug="Mozilla/5.0 (iPhone; CPU iPhone OS 15_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 SP-engine/2.69.0 main%2F1.0 baiduboxapp/13.31.0.10 (Baidu; P2 15.4) NABar/1.0 themeUA=Theme/default";
+//        String ug="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.58";
+////        UserAgent parse = UserAgentUtil.parse(ug);
+////        System.out.println(JSONUtil.parse(parse).toStringPretty());
+
+        String ip = true ? "171.113.125.74, 172.16.4.2" : "0:0:0:0:0:0:0:1";
+        System.out.println(FormatUtil.isIpv4(ip));
+        String s = ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : FormatUtil.isIpv4(ip) ? ip : ip.substring(0, ip.indexOf(','));
+        System.out.println(s);
 
     }
 

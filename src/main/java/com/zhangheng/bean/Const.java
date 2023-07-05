@@ -85,5 +85,6 @@ public class Const {
 
     public static void main(String[] args) {
 //        EmailUtil.send()
+        System.out.println(EncryptUtil.deBase64Str(Email_password_163));
     }
 }
