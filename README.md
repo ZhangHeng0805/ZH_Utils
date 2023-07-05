@@ -8,7 +8,8 @@
    * 消息实体```com.zhangheng.bean.Message```
    * 常量实体（没有上传）```com.zhangheng.bean.Const```
 ### json和xml的相互转换
-   * 支持xml标签属性保留转换
+   * xml转json：```XML.toJSONObject("<a id=\"tag\">123</a>").toString()``` （支持xml标签属性保留转换）
+   * json转xml：```XML.toString(new JSONObject("{\"a\": {\"-id\": 1,\"#text\": 2,}}"))```（前缀为-的字段为标签属性，字段#text为标签内容）
    * 示例
    ```xml
    <a a_id="1" a_name="2">
