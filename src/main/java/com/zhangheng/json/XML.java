@@ -331,7 +331,7 @@ public class XML {
                 }
                 if (!GT.equals(token)) {
                     // zhangheng: xml转json标签带属性
-                    token = "_" + token;
+                    token = "-" + token;
                 }
                 // attribute = value
                 if (token instanceof String) {
@@ -864,9 +864,9 @@ public class XML {
 
                     // Emit a new tag <k>
 
-                } else if (key.startsWith("_")) {
+                } else if (key.startsWith("-")) {
                     //  zhangheng:满足标签带属性
-                    String strKey = key.replace("_", "");
+                    String strKey = key.replaceFirst("-", "");
                     sb.deleteCharAt(sb.length() - 1).toString();
                     sb.append(" " + strKey);
                     sb.append("=");

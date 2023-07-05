@@ -4,23 +4,56 @@
 > * 外部依赖：
 >   * [```Hutool```](https://www.hutool.cn/docs/#/)[Java工具类库]
 >   * [```JSON-java```](https://github.com/stleary/JSON-java)[org.json]
-* 实体类
-    * 消息实体```com.zhangheng.bean.Message```
-    * 常量实体（没有上传）```com.zhangheng.bean.Const```
-* json和xml的相互转换
-    * xml转json：支持xml标签属性保留转换
-    * json转xml
-* 工具
-    * 时间工具```com.zhangheng.util.TimeUtil```
-    * 文件扫描```com.zhangheng.util.FolderFileScannerUtil```
-    * 格式校验```com.zhangheng.util.FormatUtil```
-    * 随机字段及数字```com.zhangheng.util.RandomrUtil```
-    * 数学工具```com.zhangheng.util.MathUtil```
-    * 加密工具```com.zhangheng.util.EncryptUtil```
-    * 网络工具```com.zhangheng.util.NetUtil```
-    * 数组工具```com.zhangheng.util.ArrayUtil```
-    * 邮件工具```com.zhangheng.util.EmailUtil```
-* 日志
+### 实体类
+   * 消息实体```com.zhangheng.bean.Message```
+   * 常量实体（没有上传）```com.zhangheng.bean.Const```
+### json和xml的相互转换
+   * 支持xml标签属性保留转换
+   * 示例
+   ```xml
+   <a a_id="1" a_name="2">
+     <b b_id="b1">1</b>
+     <b b_id="b2">2</b>
+     <b>
+       <content>123</content>
+     </b>
+     <c xmlns:N1="abc">
+       <N1:c1>c1</N1:c1>
+     </c>
+   </a>
+   ```
+   ```json
+    {"a": {
+      "-a_id": 1,
+      "-a_name": 2,
+      "b": [
+        {
+          "-b_id": "b1",
+          "#text": 1
+        },
+        {
+          "-b_id": "b2",
+          "#text": 2
+        },
+        {"content": 123}
+      ],
+      "c": {
+        "-xmlns:N1": "abc",
+        "N1:c1": "c1"
+      }
+    }}
+   ```
+### 工具
+   * 时间工具```com.zhangheng.util.TimeUtil```
+   * 文件扫描```com.zhangheng.util.FolderFileScannerUtil```
+   * 格式校验```com.zhangheng.util.FormatUtil```
+   * 随机字段及数字```com.zhangheng.util.RandomrUtil```
+   * 数学工具```com.zhangheng.util.MathUtil```
+   * 加密工具```com.zhangheng.util.EncryptUtil```
+   * 网络工具```com.zhangheng.util.NetUtil```
+   * 数组工具```com.zhangheng.util.ArrayUtil```
+   * 邮件工具```com.zhangheng.util.EmailUtil```
+### 日志
   * 格式: ```2022-03-22 16:26:35:623 [INFO] c.z.u.ArrayUtil.main()[37] --- true```
   * 日志输出(控制台输出) [```com.zhangheng.log.Log```和```com.zhangheng.log.printLog.Log```]
     * Log.info(msg);
@@ -32,11 +65,11 @@
       * Log.Error(msg);
       * Log.Warn(msg);
       * Log.Debug(msg);
-* 系统
-    * windows关闭服务进程```com.zhangheng.system.KillServer```
-* 文件  
-    * 文件类型判断```com.zhangheng.file.FiletypeUtil```
-    * 文本文件操作（创建，读写）```com.zhangheng.file.TxtOperation```
+### 系统
+   * windows关闭服务进程```com.zhangheng.system.KillServer```
+### 文件  
+   * 文件类型判断```com.zhangheng.file.FiletypeUtil```
+   * 文本文件操作（创建，读写）```com.zhangheng.file.TxtOperation```
 # 一、工具
 ## 1.时间工具（TimeUtil）
 * 类路径：```com.zhangheng.util.TimeUtil```
@@ -114,24 +147,12 @@
     public static final int Day_Of_Year=0x0008;//一年的第几天
 ```
 ### 具体方法
-####  TimeUtil.toTime(Date date);
-> * 将日期转换为默认格式[yyyy-MM-dd HH:mm:ss]时间
-> * 例 TimeUtil.toTime(new Date()) 获取当前[yyyy-MM-dd HH:mm:ss]时间
-> * @param date 日期
-> * @return String
-
 ####  TimeUtil.toTime(Date date,String dateFormat);
 > * 将日期转换为指定格式时间
 > * 例 TimeUtil.toTime(new Date(),TimeUtil.cnDateFormat) 获取当前[yyyy年MM月dd日 HH:mm:ss]时间
 > * @param date 日期
 > * @param dateFormat 指定的时间格式 类似[yyyy年MM月dd日 HH:mm:ss]
 > * @return String
-
-####  TimeUtil.toDate(String time);
-> * 将默认格式的时间[yyyy-MM-dd HH:mm:ss]转换为日期
-> * 例 TimeUtil.toDate("2022-03-04 12:00:00") 将时间转为日期
-> * @param time 默认格式的时间
-> * @return Date
 
 ####  TimeUtil.Date toDate(String time,String dateFormat);
 > * 将指定格式的时间转换为日期
@@ -144,34 +165,6 @@
 > * 例 TimeUtil.getTime(TimeUtil.Week) 获取当前星期
 > * @param Type 不同类型的时间（年、月、日...）
 > * @return String
-
-####  TimeUtil.timeDifference(String time,int Type);
-> * 计算距离当前时间的差值
-> * @param time 计算的时间（默认格式）
-> * @param Type 差值类型（月，日，时，分，秒，毫秒）
-> * @return int （错误返回-1）
-
-####  TimeUtil.timeDifference(int Type,String time,String dateFormat);
-> * 计算距离当前时间的差值
-> * @param Type 差值类型（月，日，时，分，秒，毫秒）
-> * @param time 计算的时间（指定格式）
-> * @param dateFormat 计算的时间格式
-> * @return int （错误返回-1）
-
-####  TimeUtil.TimeDifference(String time1,String time2,int Type);
-> * 比较两个时间之间的差值（默认格式）
-> * @param time1 时间1
-> * @param time2 时间2
-> * @param Type 差值类型（月，日，时，分，秒，毫秒）
-> * @return int （错误返回-1）
-
-####  TimeUtil.timeDifference(String time1,String time2,String dateFormat,int Type);
-> * 计算两个时间之间的差值（相同的指定格式）
-> * @param time1 时间1
-> * @param time2 时间2
-> * @param dateFormat 两个时间的格式
-> * @param Type 差值类型（月，日，时，分，秒，毫秒）
-> * @return int （错误返回-1）
 
 ####  TimeUtil.timeDifference(String time1,String dateFormat1,String time2,String dateFormat2,int Type);
 > * 计算两个时间之间的差值（不同格式的时间）
@@ -188,13 +181,6 @@
 > * @param toDate 截止日期
 > * @param Type 差值类型（月，日，时，分，秒，毫秒）
 > * @return int （错误返回-1）
-
-####  TimeUtil.fewDaysAgo(String time,int i);
-> * 计算某个时间前半个月前某一天的时间 （默认格式）
-> * 例 imeUtil.fewDaysAgo("2022-03-04 12:00:00", 10) 计算2022-03-04 12:00:00 十天前的时间
-> * @param time 默认格式的时间
-> * @param i [0,15] 前几天
-> * @return String
 
 ####  TimeUtil.fewDaysAgo(String time,String dateFormat,int i);
 > * 计算某个时间前半个月前某一天的时间 （指定格式）
@@ -248,12 +234,6 @@
 > * @param max 最大值（包含）
 > * @return int
 
-####  RandomrUtil.createRandom(int max);
-> * 生成1~max范围的随机数
-> * 例 createRandom(33)  生成1(包含)到33(包含)的随机数 [1,33]
-> * @param max 最大值（包含）
-> * @return int
-
 ## 3.数学工具（MathUtil）
 * 类路径：```com.zhangheng.util.MathUtil```
 ### 具体方法
@@ -302,104 +282,32 @@
 
 ## 6.文件类型工具（FiletypeUtil）
 * 类路径：```com.zhangheng.file.FiletypeUtil```
-### 常量格式
-```java
-public static final String[][] MIME_MapTable={
-            //{后缀名，    类型}
-            {".3gp",   "video"},
-            {".m4u",   "video"},
-            {".m4v",   "video"},
-            {".mov",   "video"},
-            {".mpe",   "video"},
-            {".mpeg",  "video"},
-            {".mpg",   "video"},
-            {".mpg4",  "video"},
-            {".mp4",   "video"},
-            {".asf",   "video"},
-            {".avi",   "video"},
-
-            {".m3u8",   "audio"},
-            {".m4a",   "audio"},
-            {".m4b",   "audio"},
-            {".m4p",   "audio"},
-            {".mp2",   "audio"},
-            {".mp3",   "audio"},
-            {".mpga",  "audio"},
-            {".rmvb",  "audio"},
-            {".aac",   "audio"},
-            {".ogg",   "audio"},
-            {".wav",   "audio"},
-            {".wma",   "audio"},
-            {".wmv",   "audio"},
-
-            {".gif",   "image"},
-            {".bmp",   "image"},
-            {".jpeg",  "image"},
-            {".png",   "image"},
-            {".jpg",   "image"},
-
-            {".txt",   "text"},
-            {".c",     "text"},
-            {".xml",   "text"},
-            {".conf",  "text"},
-            {".cpp",   "text"},
-            {".doc",   "text"},
-            {".pdf",   "text"},
-            {".h",     "text"},
-            {".ppt",   "text"},
-            {".xls",   "text"},
-            {".xlsx",  "text"},
-            {".docx",  "text"},
-            {".md",    "text"},
-            {".prop",  "text"},
-            {".htm",   "text"},
-            {".html",  "text"},
-            {".java",  "text"},
-            {".js",    "text"},
-            {".rc",    "text"},
-            {".log",   "text"},
-            {".sh",    "text"},
-
-            {".class",  "application"},
-            {".apk",    "application"},
-            {".bin",    "application"},
-            {".exe",    "application"},
-            {".gtar",   "application"},
-            {".gz",     "application"},
-            {".jar",    "application"},
-            {".mpc",    "application"},
-            {".msg",    "application"},
-            {".pps",    "application"},
-            {".rar",    "application"},
-            {".rtf",    "application"},
-            {".tar",    "application"},
-            {".tgz",    "application"},
-            {".wps",    "application"},
-            {".z",      "application"},
-            {".zip",    "application"},
-
-            {"",        "unknown"}
-    };
-```
 ### 具体方法
-####  FiletypeUtil.getFileType(File file);
+####  FiletypeUtil.getFileType(String filename,String[][] MIME_MapTable,String defaultType);
 > * 判断文件类型
-> * 例 FiletypeUtil.getFileType(new File(./img.png)) 绝对或相对路径 //image
-> * @param file 判断的文件
-> * @return String
-####  FiletypeUtil.getFileType(String filename);
-> * 判断文件类型
-> * 例 FiletypeUtil.getFileType("img.png") 绝对或相对路径 //image
-> * @param file 判断的文件全称（含后缀名）
-> * @return String
+> * 例 FiletypeUtil.getFileType("img.png",FiletypeUtil.MIME_MapTable,"unknown")) 绝对或相对路径 //image
+> * @param filename 文件全称（含后缀名）
+> * @param MIME_MapTable 类型映射二维数组
+> * @param defaultType 当没右匹配值时，返回默认类型
+> * @return
+
 
 ## 7.加密工具（EncryptUtil）
 * 类路径：```com.zhangheng.util.EncryptUtil```
 ### 常量格式
 ```java
-    public static final String SHA = "SHA";
-    public static final String SHA1 = "SHA1";
-    public static final String MD5 = "MD5";
+    /**
+         * （加密类型）SHA
+         */
+        public final static String SHA = "SHA";
+        /**
+         * （加密类型）SHA256
+         */
+        public final static String SHA256 = "SHA-256";
+        /**
+         * （加密类型）MD5
+         */
+        public final static String MD5 = "MD5";
 ```
 ### 具体方法
 ####  EncryptUtil.encrypt(String source,String algorithm);
@@ -409,12 +317,12 @@ public static final String[][] MIME_MapTable={
 > * @param algorithm 加密算法 （从上面常量选）
 > * @return String
 ####  EncryptUtil.getSHA(String source);
-> * SHA加密 并转换为16进制大写字符串
+> * SHA加密 并转换字符串
 > * 例 EncryptUtil.getSHA("123")
 > * @param source 加密对象
 > * @return String
-####  EncryptUtil.getSHA1(String source);
-> * SHA1加密 并转换为16进制大写字符串
+####  EncryptUtil.getSHA256(String source);
+> * SHA256加密 并转换字符串
 > * 例 EncryptUtil.getSHA1("123")
 > * @param source 加密对象
 > * @return String
@@ -431,16 +339,13 @@ public static final String[][] MIME_MapTable={
 > * 例 EncryptUtil.getMd5("123")
 > * @param str 加密对象
 > * @return String
-####  EncryptUtil.getSignature(String data,String key);
+####  EncryptUtil.getSignature(String data, String key, String type,String charset);
 > * 生成签名数据
-> * 例 EncryptUtil.getSignature("123","456")
+> * 例 EncryptUtil.getSignature("张三","abc456",EncryptUtil.SAH256,"UTF-8")
 > * @param data 待加密的数据
 > * @param key  加密使用的key
-> * @return String
-####  EncryptUtil.getMyMd5(String encodestr);
-> * 改造md5加密方法
-> * 例 EncryptUtil.getMyMd5("123")
-> * @param encodestr 加密的字符串
+> * @param type 加密类型
+> * @param charset 字符编码
 > * @return String
 ####  EncryptUtil.getMyMd5(String encodestr,String key);
 > * 改造md5加密方法
