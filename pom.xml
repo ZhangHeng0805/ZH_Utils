@@ -47,11 +47,11 @@
             <scope>provided</scope>
         </dependency>
         <!--基于JNA的操作系统和硬件信息库-->
-        <dependency>
-            <groupId>com.github.oshi</groupId>
-            <artifactId>oshi-core</artifactId>
-            <version>5.6.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.oshi</groupId>-->
+<!--            <artifactId>oshi-core</artifactId>-->
+<!--            <version>5.6.1</version>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -68,16 +68,23 @@
         </dependency>
 
         <!--mysql数据库驱动 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.32</version>
-        </dependency>
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-            <version>3.2.7</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>mysql</groupId>-->
+<!--            <artifactId>mysql-connector-java</artifactId>-->
+<!--            <version>8.0.32</version>-->
+<!--        </dependency>-->
+        <!--动态代理-->
+<!--        <dependency>-->
+<!--            <groupId>cglib</groupId>-->
+<!--            <artifactId>cglib</artifactId>-->
+<!--            <version>3.2.7</version>-->
+<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+<!--        <dependency>-->
+<!--            <groupId>org.json</groupId>-->
+<!--            <artifactId>json</artifactId>-->
+<!--            <version>20230618</version>-->
+<!--        </dependency>-->
     </dependencies>
     <build>
 <!--        <resources>-->
