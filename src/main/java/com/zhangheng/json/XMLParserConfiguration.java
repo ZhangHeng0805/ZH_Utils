@@ -22,10 +22,10 @@ public class XMLParserConfiguration extends ParserConfiguration {
      */
 //    public static final int DEFAULT_MAXIMUM_NESTING_DEPTH = 512; // We could override
 
-    /** Original Configuration of the XML Parser. */
+    /** Original Configuration of the XML Parser.XML解析器的原始配置 */
     public static final XMLParserConfiguration ORIGINAL
         = new XMLParserConfiguration();
-    /** Original configuration of the XML Parser except that values are kept as strings. */
+    /** Original configuration of the XML Parser except that values are kept as strings.XML解析器的原始配置，除了值保持为字符串之外 */
     public static final XMLParserConfiguration KEEP_STRINGS
         = new XMLParserConfiguration().withKeepStrings(true);
 

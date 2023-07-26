@@ -4,10 +4,10 @@
 > * 参考依赖：
 >   * [```Hutool```](https://www.hutool.cn/docs/#/)[Java工具类库]
 >   * [```JSON-java```](https://github.com/stleary/JSON-java)[org.json]
-### 实体类
+### 实体```[com.zhangheng.bean]```
    * 消息实体```com.zhangheng.bean.Message```
    * 常量实体（没有上传）```com.zhangheng.bean.Const```
-### json和xml的相互转换
+### json和xml的相互转换 ```[com.zhangheng.json]```
    * xml转json：```XML.toJSONObject("<a id=\"tag\">123</a>").toString()``` （支持xml标签属性保留转换）
    * json转xml：```XML.toString(new JSONObject("{\"a\": {\"-id\": 1,\"#text\": 2,}}"))```（前缀为-的字段为标签属性，字段#text为标签内容）
    * 示例
@@ -44,7 +44,7 @@
       }
     }}
    ```
-### 工具
+### 工具```[com.zhangheng.util]```
    * 时间工具```com.zhangheng.util.TimeUtil```
    * 文件扫描```com.zhangheng.util.FolderFileScannerUtil```
    * 格式校验```com.zhangheng.util.FormatUtil```
@@ -54,7 +54,7 @@
    * 网络工具```com.zhangheng.util.NetUtil```
    * 数组工具```com.zhangheng.util.ArrayUtil```
    * 邮件工具```com.zhangheng.util.EmailUtil```
-### 日志
+### 日志```[com.zhangheng.log]```
   * 格式: ```2022-03-22 16:26:35:623 [INFO] c.z.u.ArrayUtil.main()[37] --- true```
   * 日志输出(控制台输出) [```com.zhangheng.log.Log```和```com.zhangheng.log.printLog.Log```]
     * Log.info(msg);
@@ -66,9 +66,9 @@
       * Log.Error(msg);
       * Log.Warn(msg);
       * Log.Debug(msg);
-### 系统
+### 系统```[com.zhangheng.system]```
    * windows关闭服务进程```com.zhangheng.system.KillServer```
-### 文件  
+### 文件 ```[com.zhangheng.file]```
    * 文件类型判断```com.zhangheng.file.FiletypeUtil```
    * 文本文件操作（创建，读写）```com.zhangheng.file.TxtOperation```
 # 一、工具

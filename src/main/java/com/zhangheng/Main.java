@@ -1,13 +1,15 @@
 package com.zhangheng;
 
+import cn.hutool.captcha.generator.MathGenerator;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import com.zhangheng.captcha.ZHGifCaptcha;
 import com.zhangheng.file.TxtOperation;
 import com.zhangheng.log.printLog.Log;
-import com.zhangheng.util.FormatUtil;
+import com.zhangheng.util.MathUtil;
 import com.zhangheng.util.TimeUtil;
 
 import java.io.File;
@@ -313,23 +315,28 @@ class Main {
 
 
         //定义图形验证码的长、宽、验证码字符数、干扰线宽度
-//        ShearCaptcha captcha = CaptchaUtil.createShearCaptcha(200, 100, 4, 5);
-//        CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(200, 100, 6, 200);
-//        LineCaptcha captcha = CaptchaUtil.createLineCaptcha(200, 100);
+//        扭曲线条遮挡
+//        ShearCaptcha captcha = CaptchaUtil.createShearCaptcha(200, 100, 6, 15);
+//        复杂线圈背景
+//        CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(200, 100, 8, 200);
+//        复杂断线背景
+//        LineCaptcha captcha = CaptchaUtil.createLineCaptcha(200, 100,6,1000);
+//        动图显示
+        ZHGifCaptcha captcha=new ZHGifCaptcha(200,100,60,30);
         //图形验证码写出，可以写出到文件，也可以写出到流
         // 自定义验证码内容为四则运算方式
-//        captcha.setGenerator(new MathGenerator());
+        captcha.setGenerator(new MathGenerator());
 //
 //        String random=new String(RandomUtil.CAPITAL_LETTER)+new String(RandomUtil.LOWERCASE_LETTER)+new String(RandomUtil.NUMBER);
 //        captcha.setGenerator(new RandomGenerator(random, 5));
-//        captcha.createCode();
-//        captcha.write("res/shear.png");
-//        String code = captcha.getCode();
-//        Integer eval = Convert.toInt(ScriptUtil.eval(code.replace("=", "")));
-//        System.out.println(code);
+        captcha.createCode();
+        String code = captcha.getCode();
+        String eval = MathUtil.operation(code);
+        captcha.write("res/"+eval+".gif");
+        System.out.println(code);
         //验证图形验证码的有效性，返回boolean值
 //        System.out.println(captcha.verify("1234"));
-//        System.out.println(eval);
+        System.out.println(eval);
 
 
 //        SimpleServer server = HttpUtil.createServer(8888)
@@ -390,10 +397,10 @@ class Main {
 ////        UserAgent parse = UserAgentUtil.parse(ug);
 ////        System.out.println(JSONUtil.parse(parse).toStringPretty());
 
-        String ip = true ? "171.113.125.74, 172.16.4.2" : "0:0:0:0:0:0:0:1";
-        System.out.println(FormatUtil.isIpv4(ip));
-        String s = ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : FormatUtil.isIpv4(ip) ? ip : ip.substring(0, ip.indexOf(','));
-        System.out.println(s);
+//        String ip = true ? "171.113.125.74, 172.16.4.2" : "0:0:0:0:0:0:0:1";
+//        System.out.println(FormatUtil.isIpv4(ip));
+//        String s = ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : FormatUtil.isIpv4(ip) ? ip : ip.substring(0, ip.indexOf(','));
+//        System.out.println(s);
 
     }
 

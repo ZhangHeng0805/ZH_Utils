@@ -17,6 +17,7 @@ public class Message {
     private String title;//标题
     private String message;//内容
     private Object obj;//附加对象
+    private Boolean success;//消息是否成功
 
     /**
      *
@@ -26,15 +27,17 @@ public class Message {
      * @param message 内容
      * @param obj 附加对象
      */
-    public Message(String time, int code, String title, String message, Object obj) {
+    public Message(String time, int code, String title, String message, Boolean success,Object obj) {
         this.time = time;
         this.code = code;
         this.title = title;
         this.message = message;
         this.obj = obj;
+        this.success = success;
     }
 
     public Message() {
+        this.time=TimeUtil.getNowTime();
     }
 
     /**
@@ -69,6 +72,7 @@ public class Message {
      */
     public void setCode(int code) {
         this.code = code;
+        this.success=code==200;
     }
 
     /**
@@ -120,6 +124,22 @@ public class Message {
     }
 
     /**
+     * 获取消息是否成功
+     * @return
+     */
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    /**
+     * 设置消息是否成功
+     * @param success
+     */
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
+
+    /**
      * 字符串格式化对象
      * @return 字符串对象信息
      */
@@ -130,7 +150,8 @@ public class Message {
                 ", code=" + code +
                 ", title='" + title + '\'' +
                 ", message='" + message + '\'' +
-                ", obj=" + obj.toString() +
+                ", obj=" + obj +
+                ", success=" + success +
                 '}';
     }
 

@@ -1026,6 +1026,7 @@ public class JSONObject {
     }
 
     /**
+     * 获取与键关联的可选值。
      * Get an optional value associated with a key.
      *
      * @param key

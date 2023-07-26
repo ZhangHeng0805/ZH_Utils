@@ -2,14 +2,11 @@
   <artifact type="jar" name="ZH_Utils:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/ZH_Utils_jar</output-path>
     <root id="archive" name="ZH_Utils.jar">
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jsoup/jsoup/1.15.3/jsoup-1.15.3.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/github/biezhi/TinyPinyin/2.0.3.RELEASE/TinyPinyin-2.0.3.RELEASE.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/hutool-all-5.8.9.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar" path-in-jar="/" />
       <element id="module-output" name="ZH_Utils" />
-      <element id="library" level="project" name="Maven: com.github.oshi:oshi-core:5.6.1" />
       <element id="file-copy" path="$PROJECT_DIR$/使用说明.txt" />
+      <element id="library" level="project" name="Maven: io.github.biezhi:TinyPinyin:2.0.3.RELEASE" />
+      <element id="library" level="project" name="lib" />
+      <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.15.3" />
     </root>
   </artifact>
 </component>

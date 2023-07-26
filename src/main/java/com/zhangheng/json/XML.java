@@ -54,6 +54,11 @@ public class XML {
     public static final String NULL_ATTR = "xsi:nil";
 
     public static final String TYPE_ATTR = "xsi:type";
+    /**
+     * 属性字段名前缀
+     */
+    public static final String ATTR_Prefix = "-";
+
 
     /**
      * Creates an iterator for navigating Code Points in a string instead of
@@ -96,6 +101,7 @@ public class XML {
     }
 
     /**
+     * 用XML转义符替换特殊字符
      * Replace special characters with XML escapes:
      *
      * <pre>{@code
@@ -169,6 +175,7 @@ public class XML {
     }
 
     /**
+     * 从字符串中删除XML转义符。
      * Removes XML escapes from the string.
      *
      * @param string
@@ -202,7 +209,8 @@ public class XML {
     /**
      * Throw an exception if the string contains whitespace. Whitespace is not
      * allowed in tagNames and attributes.
-     *
+     * 如果字符串包含空白，则引发异常。空白处不是
+     * tagNames和attributes中允许。
      * @param string
      *            A string.
      * @throws JSONException Thrown if the string contains whitespace or is empty.
@@ -221,6 +229,7 @@ public class XML {
     }
 
     /**
+     * 扫描命名标记后面的内容，将其附加到上下文。
      * Scan the content following the named tag, attaching it to the context.
      *
      * @param x
@@ -331,7 +340,7 @@ public class XML {
                 }
                 if (!GT.equals(token)) {
                     // zhangheng: xml转json标签带属性
-                    token = "-" + token;
+                    token = ATTR_Prefix + token;
                 }
                 // attribute = value
                 if (token instanceof String) {
@@ -344,11 +353,11 @@ public class XML {
                         }
 
                         if (config.isConvertNilAttributeToNull()
-                                && NULL_ATTR.equals(string)
+                                && (ATTR_Prefix+NULL_ATTR).equals(string)
                                 && Boolean.parseBoolean((String) token)) {
                             nilAttributeFound = true;
                         } else if(config.getXsiTypeMap() != null && !config.getXsiTypeMap().isEmpty()
-                                && TYPE_ATTR.equals(string)) {
+                                && (ATTR_Prefix+TYPE_ATTR).equals(string)) {
                             xmlXsiTypeConverter = config.getXsiTypeMap().get(token);
                         } else if (!nilAttributeFound) {
                             jsonObject.accumulate(string,
@@ -448,6 +457,7 @@ public class XML {
     }
 
     /**
+     * 此方法尝试将给定的字符串值转换为目标对象
      * This method tries to convert the given string value to the target object
      * @param string String to convert
      * @param typeConverter value converter to convert string to integer, boolean e.t.c
@@ -864,9 +874,9 @@ public class XML {
 
                     // Emit a new tag <k>
 
-                } else if (key.startsWith("-")) {
+                } else if (key.startsWith(ATTR_Prefix)) {
                     //  zhangheng:满足标签带属性
-                    String strKey = key.replaceFirst("-", "");
+                    String strKey = key.replaceFirst(ATTR_Prefix, "");
                     sb.deleteCharAt(sb.length() - 1).toString();
                     sb.append(" " + strKey);
                     sb.append("=");

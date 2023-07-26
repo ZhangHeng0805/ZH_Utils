@@ -1,5 +1,6 @@
 package com.zhangheng.util;
 
+import cn.hutool.core.collection.ListUtil;
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
 import com.zhangheng.bean.Const;
@@ -81,4 +82,8 @@ public class EmailUtil {
         return true;
     }
 
+    public static void main(String[] args) {
+        EmailUtil emailUtil = new EmailUtil(mailAccount163);
+        emailUtil.send(ListUtil.of("zhangh@keyvalues.cn"),"测试标题",TimeUtil.getNowTime());
+    }
 }
