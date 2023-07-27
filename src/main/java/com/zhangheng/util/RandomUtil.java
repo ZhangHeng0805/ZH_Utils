@@ -9,7 +9,7 @@ import java.util.Random;
  * @author: 张恒
  * @create: 2022-01-14 14:17
  */
-public class RandomUtil {
+public class RandomUtil extends cn.hutool.core.util.RandomUtil {
 
 //    enum Type{
 //        //数字类型（type）

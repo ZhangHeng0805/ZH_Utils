@@ -1,11 +1,13 @@
 package com.zhangheng;
 
+
 import cn.hutool.captcha.generator.MathGenerator;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import com.zhangheng.captcha.AbstractCaptcha;
 import com.zhangheng.captcha.ZHGifCaptcha;
 import com.zhangheng.file.TxtOperation;
 import com.zhangheng.log.printLog.Log;
@@ -322,7 +324,7 @@ class Main {
 //        复杂断线背景
 //        LineCaptcha captcha = CaptchaUtil.createLineCaptcha(200, 100,6,1000);
 //        动图显示
-        ZHGifCaptcha captcha=new ZHGifCaptcha(200,100,60,30);
+        AbstractCaptcha captcha=new ZHGifCaptcha(200,100,6,10);
         //图形验证码写出，可以写出到文件，也可以写出到流
         // 自定义验证码内容为四则运算方式
         captcha.setGenerator(new MathGenerator());
@@ -332,7 +334,7 @@ class Main {
         captcha.createCode();
         String code = captcha.getCode();
         String eval = MathUtil.operation(code);
-        captcha.write("res/"+eval+".gif");
+        captcha.write("res/"+code+eval+".gif");
         System.out.println(code);
         //验证图形验证码的有效性，返回boolean值
 //        System.out.println(captcha.verify("1234"));
