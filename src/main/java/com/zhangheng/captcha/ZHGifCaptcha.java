@@ -117,7 +117,7 @@ public class ZHGifCaptcha extends AbstractCaptcha {
         gifEncoder.start(out);
         gifEncoder.setQuality(quality);//设置量化器取样间隔
         // 帧延迟 (默认100)
-        int delay = 300;
+        int delay = 400;
         gifEncoder.setDelay(delay);//设置帧延迟
         gifEncoder.setRepeat(repeat);//帧循环次数
         BufferedImage frame;
@@ -158,7 +158,7 @@ public class ZHGifCaptcha extends AbstractCaptcha {
         AlphaComposite ac;
         // 字符的y坐标
         float y = (height >> 1) + (font.getSize() >> 1);
-        y += RandomUtil.randomDouble(-height * 0.25, height * 0.25);
+        y += RandomUtil.randomDouble(-height * 0.15, height * 0.15);
         int length = words.length;
         float m = 1.0f * (width - (length * font.getSize())) / length;
         //字符的x坐标
@@ -173,10 +173,14 @@ public class ZHGifCaptcha extends AbstractCaptcha {
         float alpha;
         for (int i = 0; i < length; i++) {
             alpha = 1.0f;
-            if (i != length - 1)
-                alpha = getAlpha(length, flag, i);
-            if (i==2&&flag%2==0)
-                alpha=0;
+            if (i== RandomUtil.randomInt(length-1)) {
+//                if (flag%2==0) {
+                    alpha = 0;
+//                }
+            }else {
+                if (i != length - 1)
+                    alpha = getAlpha(length, flag, i);
+            }
             ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
             g2d.setComposite(ac);
             g2d.setColor(ImgUtil.randomColor(random));
@@ -184,7 +188,7 @@ public class ZHGifCaptcha extends AbstractCaptcha {
             // 绘制字符
             g2d.drawString(words[i] + "", x + (font.getSize() + m) * i, y);
             //扭曲
-//            shear(g2d,this.width, this.height, ObjectUtil.defaultIfNull(this.background, Color.black));
+//            shear(g2d,this.width, this.height, ObjectUtil.defaultIfNull(this.background, Color.white));
             //干扰
             drawInterfere(g2d);
         }
@@ -200,7 +204,7 @@ public class ZHGifCaptcha extends AbstractCaptcha {
     private void drawInterfere(Graphics2D g) {
         final ThreadLocalRandom random = RandomUtil.getRandom();
         for (int i = 0; i < this.interfereCount; i++) {
-//            g.setColor(ImgUtil.randomColor(random));
+            g.setColor(ImgUtil.randomColor(random));
             g.drawOval(random.nextInt(width), random.nextInt(height), random.nextInt(height >> 1), random.nextInt(height >> 1));
         }
     }
@@ -215,7 +219,7 @@ public class ZHGifCaptcha extends AbstractCaptcha {
      */
     private void shear(Graphics g, int w1, int h1, Color color) {
         shearX(g, w1, h1, color);
-//        shearY(g, w1, h1, color);
+        shearY(g, w1, h1, color);
     }
 
     /**
@@ -269,7 +273,9 @@ public class ZHGifCaptcha extends AbstractCaptcha {
 
     /**
      * 获取透明度,从0到1,自动计算步长
-     *
+     * @param v 字符数
+     * @param i 第几帧画面
+     * @param j 第几个字符
      * @return float 透明度
      */
     private float getAlpha(int v, int i, int j) {
