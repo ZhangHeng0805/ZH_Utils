@@ -25,6 +25,7 @@ public class Message {
      * @param code 状态码(200:成功; 100:提示; 404:警告; 500:错误）
      * @param title 标题
      * @param message 内容
+     * @param success 是否成功
      * @param obj 附加对象
      */
     public Message(String time, int code, String title, String message, Boolean success,Object obj) {
@@ -34,6 +35,22 @@ public class Message {
         this.message = message;
         this.obj = obj;
         this.success = success;
+    }
+    public Message(int code, String title, String message,Object obj) {
+        this.time = TimeUtil.getNowTime();
+        this.code = code;
+        this.title = title;
+        this.message = message;
+        this.obj = obj;
+        this.success=code==200;
+    }
+    public Message(int code, String title, String message) {
+        this.time = TimeUtil.getNowTime();
+        this.code = code;
+        this.title = title;
+        this.message = message;
+        this.obj = null;
+        this.success=code==200;
     }
 
     public Message() {

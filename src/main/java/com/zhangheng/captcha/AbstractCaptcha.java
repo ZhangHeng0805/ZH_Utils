@@ -1,14 +1,15 @@
 package com.zhangheng.captcha;
 
-import cn.hutool.captcha.ICaptcha;
-import cn.hutool.captcha.generator.CodeGenerator;
-import cn.hutool.captcha.generator.RandomGenerator;
+
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.URLUtil;
+import com.zhangheng.captcha.generator.CodeGenerator;
+import com.zhangheng.captcha.generator.RandomGenerator;
 import com.zhangheng.file.FileUtil;
+import com.zhangheng.util.RandomUtil;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,6 +17,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author: ZhangHeng
@@ -103,6 +105,81 @@ public abstract class AbstractCaptcha implements ICaptcha {
         ImgUtil.writePng(createImage(this.code), out);
         this.imageBytes = out.toByteArray();
     }
+    /**
+     * 画随机干扰
+     *
+     * @param g {@link Graphics2D}
+     */
+    protected void drawInterfere(Graphics2D g) {
+        final ThreadLocalRandom random = RandomUtil.getRandom();
+        for (int i = 0; i < this.interfereCount; i++) {
+            g.setColor(ImgUtil.randomColor(random));
+            g.drawOval(random.nextInt(width), random.nextInt(height), random.nextInt(height >> 1), random.nextInt(height >> 1));
+        }
+    }
+    /**
+     * 扭曲
+     *
+     * @param g {@link Graphics}
+     * @param w1 w1
+     * @param h1 h1
+     * @param color 颜色
+     */
+    protected void shear(Graphics g, int w1, int h1, Color color) {
+        shearX(g, w1, h1, color);
+        shearY(g, w1, h1, color);
+    }
+
+    /**
+     * X坐标扭曲
+     *
+     * @param g {@link Graphics}
+     * @param w1 宽
+     * @param h1 高
+     * @param color 颜色
+     */
+    private void shearX(Graphics g, int w1, int h1, Color color) {
+
+        int period = com.zhangheng.util.RandomUtil.randomInt(this.width);
+
+        int frames = 1;
+        int phase = com.zhangheng.util.RandomUtil.randomInt(2);
+
+        for (int i = 0; i < h1; i++) {
+            double d = (double) (period >> 1) * Math.sin((double) i / (double) period + (6.2831853071795862D * (double) phase) / (double) frames);
+            g.copyArea(0, i, w1, 1, (int) d, 0);
+            g.setColor(color);
+            g.drawLine((int) d, i, 0, i);
+            g.drawLine((int) d + w1, i, w1, i);
+        }
+
+    }
+
+    /**
+     * Y坐标扭曲
+     *
+     * @param g {@link Graphics}
+     * @param w1 宽
+     * @param h1 高
+     * @param color 颜色
+     */
+    private void shearY(Graphics g, int w1, int h1, Color color) {
+
+        int period = com.zhangheng.util.RandomUtil.randomInt(this.height >> 1);
+
+        int frames = 20;
+        int phase = 7;
+        for (int i = 0; i < w1; i++) {
+            double d = (double) (period >> 1) * Math.sin((double) i / (double) period + (6.2831853071795862D * (double) phase) / (double) frames);
+            g.copyArea(i, 0, 1, h1, 0, (int) d);
+            g.setColor(color);
+            // 擦除原位置的痕迹
+            g.drawLine(i, (int) d, i, 0);
+            g.drawLine(i, (int) d + h1, i, h1);
+        }
+
+    }
+
 
     /**
      * 生成验证码字符串
