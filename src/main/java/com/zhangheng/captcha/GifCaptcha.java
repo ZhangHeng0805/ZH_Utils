@@ -188,7 +188,11 @@ public class GifCaptcha extends AbstractCaptcha {
 //        }
 
         boolean b = RandomUtil.randomBoolean();
-        int alphaIndex = RandomUtil.randomInt(length - 1);
+        int alphaIndex;
+        if (code.charAt(length - 1)=='=')
+            alphaIndex= RandomUtil.randomInt(length - 1);
+        else
+            alphaIndex = RandomUtil.randomInt(length);
         for (int i = 0; i < length; i++) {
             alpha = 1.0f;
             if (b && i == alphaIndex) {
