@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class CusAccessObjectUtil {
 
-    private static final String[] HEADERS_TO_TRY = {
+    public static final String[] HEADERS_TO_TRY = {
             "X-Forwarded-For",
             "Proxy-Client-IP",
             "WL-Proxy-Client-IP",
@@ -25,7 +25,8 @@ public class CusAccessObjectUtil {
             "HTTP_FORWARDED",
             "HTTP_VIA",
             "REMOTE_ADDR",
-            "X-Real-IP"
+            "X-Real-IP",
+            "X-Ngrok-IP",
     };
 
 
@@ -41,18 +42,22 @@ public class CusAccessObjectUtil {
      * 用户真实IP为： 192.168.1.110
      *
      * @param request 请求对象
+     * @param headerNames ip地址的头部名称
      * @return 请求用户的IP地址
      */
-    public static String getIpAddress(HttpServletRequest request) {
+    public static String getClientIp(HttpServletRequest request, String[] headerNames) {
         String ip = null;
-        for (String header : HEADERS_TO_TRY) {
+        for (String header : headerNames) {
             ip = request.getHeader(header);
             if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
                 boolean ipv4 = FormatUtil.isIpv4(ip);
                 if (ipv4) {
                     return ip;
                 } else {
-                    return ip.substring(0, ip.indexOf(','));
+                    if (ip.indexOf(',') > 0)
+                        return ip.substring(0, ip.indexOf(','));
+                    else
+                        return ip;
                 }
             }
         }
@@ -61,6 +66,10 @@ public class CusAccessObjectUtil {
             ip = request.getRemoteAddr();
         }
         return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : FormatUtil.isIpv4(ip) ? ip : ip.substring(0, ip.indexOf(','));
+    }
+
+    public static String getClientIp(HttpServletRequest request) {
+        return getClientIp(request, HEADERS_TO_TRY);
     }
 
     /**
@@ -110,7 +119,7 @@ public class CusAccessObjectUtil {
      */
     public static Map<String, Object> getRequestInfo(HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
-        String ip = getIpAddress(request);//发出请求的IP地址
+        String ip = getClientIp(request);//发出请求的IP地址
         map.put("ip", ip);
         String uri = request.getRequestURI();//返回请求行中的资源名称
         try {
@@ -162,7 +171,7 @@ public class CusAccessObjectUtil {
      * @return
      */
     public static String getRequst(HttpServletRequest request) {
-        String s = "[" + getIpAddress(request) + "] / " + getUser_Agent(request);
+        String s = "[" + getClientIp(request) + "] / " + getUser_Agent(request);
         return s;
     }
 
