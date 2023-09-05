@@ -20,7 +20,7 @@ public class FileParse {
      * @param encoding 文件编码（有中文，通常使用UTF-8）
      * @return List<Sting>  昵称备注:电话号码
      */
-    public static List<String> parseVCF(String path,String encoding){
+    public static List<String> parseVCF(String path,String encoding) throws Exception {
         List<String> list = TxtOperation.readTxtFile(new File(path),encoding);
         List<String> strings = new ArrayList<String>();
         for (int i=0;i<list.size();i++){
@@ -49,7 +49,7 @@ public class FileParse {
      * @param path 文件路径
      * @return List<Sting>  昵称备注:电话号码
      */
-    public static List<String> parseVCF(String path){
+    public static List<String> parseVCF(String path) throws Exception {
         return parseVCF(path,"UTF-8");
     }
 

@@ -4,7 +4,7 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -27,9 +27,8 @@ public class TxtOperation {
      * @param encoding 文件编码
      * @return 文本每行数据集合
      */
-    public static List<String> readTxtFile(File file, String encoding) {
-        List<String> list = new ArrayList<>();
-        try {
+    public static List<String> readTxtFile(File file, String encoding) throws Exception {
+        List<String> list = new LinkedList<>();
             if (file.isFile() && file.exists()) { //判断文件是否存在
                 InputStreamReader read = new InputStreamReader(
                         new FileInputStream(file), encoding);//考虑到编码格式
@@ -42,10 +41,7 @@ public class TxtOperation {
             } else {
                 throw new Exception("找不到<" + file.getPath() + ">该文件！cannot find file");
             }
-        } catch (Exception e) {
-            System.err.println("读取文件内容出错");
-            e.printStackTrace();
-        }
+
         return list;
     }
 
@@ -55,7 +51,7 @@ public class TxtOperation {
      * @param filePath 文件路径
      * @return 文本每行数据集合
      */
-    public static List<String> readTxtFile(String filePath) {
+    public static List<String> readTxtFile(String filePath) throws Exception {
         String encoding = CharsetUtil.defaultCharsetName();
         File file = new File(filePath);
         return readTxtFile(file, encoding);
@@ -68,7 +64,7 @@ public class TxtOperation {
      * @param encoding 文件编码
      * @return 文本每行数据集合
      */
-    public static List<String> readTxtFile(String filePath, String encoding) {
+    public static List<String> readTxtFile(String filePath, String encoding) throws Exception {
         File file = new File(filePath);
         return readTxtFile(file, encoding);
     }

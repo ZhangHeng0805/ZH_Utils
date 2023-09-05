@@ -6,8 +6,6 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
-import com.zhangheng.captcha.AbstractCaptcha;
-import com.zhangheng.captcha.CircleCaptcha;
 import com.zhangheng.file.TxtOperation;
 import com.zhangheng.log.printLog.Log;
 import com.zhangheng.util.TimeUtil;
@@ -322,22 +320,22 @@ class Main {
 //        复杂断线背景
 //        LineCaptcha captcha = CaptchaUtil.createLineCaptcha(200, 100,6,1000);
 //        动图显示
-        AbstractCaptcha captcha=new CircleCaptcha(200,100,4,80);
-        //图形验证码写出，可以写出到文件，也可以写出到流
-        // 自定义验证码内容为四则运算方式
-//        captcha.setGenerator(new MathGenerator());
-//
-//        String random=new String(RandomUtil.CAPITAL_LETTER)+new String(RandomUtil.LOWERCASE_LETTER)+new String(RandomUtil.NUMBER);
-//        captcha.setGenerator(new RandomGenerator(random, 5));
-        captcha.createCode();
-        String code = captcha.getCode();
-//        String eval = MathUtil.operation(code);
-        String eval = "";
-        captcha.write("res/"+code+eval+".png");
-        System.out.println(code);
-        //验证图形验证码的有效性，返回boolean值
-//        System.out.println(captcha.verify("1234"));
-        System.out.println(eval);
+//        AbstractCaptcha captcha=new CircleCaptcha(200,100,4,80);
+//        //图形验证码写出，可以写出到文件，也可以写出到流
+//        // 自定义验证码内容为四则运算方式
+////        captcha.setGenerator(new MathGenerator());
+////
+////        String random=new String(RandomUtil.CAPITAL_LETTER)+new String(RandomUtil.LOWERCASE_LETTER)+new String(RandomUtil.NUMBER);
+////        captcha.setGenerator(new RandomGenerator(random, 5));
+//        captcha.createCode();
+//        String code = captcha.getCode();
+////        String eval = MathUtil.operation(code);
+//        String eval = "";
+//        captcha.write("res/"+code+eval+".png");
+//        System.out.println(code);
+//        //验证图形验证码的有效性，返回boolean值
+////        System.out.println(captcha.verify("1234"));
+//        System.out.println(eval);
 
 
 //        SimpleServer server = HttpUtil.createServer(8888)
@@ -403,6 +401,10 @@ class Main {
 //        String s = ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : FormatUtil.isIpv4(ip) ? ip : ip.substring(0, ip.indexOf(','));
 //        System.out.println(s);
 
+        for (int i = 0; i < 20; i++) {
+            Log.Info(i);
+//            Thread.sleep(2);
+        }
     }
 
 
@@ -422,7 +424,7 @@ class Main {
      *
      * @param str
      */
-    public static void findWord(String str) {
+    public static void findWord(String str) throws Exception {
         String path = "./res/百度分词词库.txt";
         File file = new File(path);
         List<String> list = TxtOperation.readTxtFile(file, "UTF-8");

@@ -1,5 +1,7 @@
 package com.zhangheng.log;
 
+import java.io.Console;
+
 /**
  * 日志输出（控制台输出）
  *
@@ -14,7 +16,10 @@ public class Log extends Logger {
     private static String className;
     private static String methodName;
     private static Integer lineNumber;
-
+    private static Boolean isConsole;
+    static {
+        isConsole=isConsoleOutputConnected();
+    }
     private static void init() {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         className = stackTrace[stackTrace.length - 1].getClassName();
@@ -144,10 +149,16 @@ public class Log extends Logger {
      * @param type_color
      */
     private static void print(String message,String type_color){
-        //彩色输出（程序控制台输出）
-//        System.out.println(type_color+message+Default_Color);
+        if (isConsole)
         //普通输出
         System.out.println(message);
+        else
+        //彩色输出（程序控制台输出）
+        System.out.println(type_color+message+Default_Color);
     }
-
+    // 判断方法：检查标准输出是否连接到控制台
+    private static boolean isConsoleOutputConnected() {
+        Console console = System.console();
+        return console != null;
+    }
 }

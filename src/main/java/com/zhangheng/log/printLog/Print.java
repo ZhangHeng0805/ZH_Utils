@@ -18,21 +18,22 @@ class Print {
     //单个log文件的最大值(Mb)
     private static final double MaxSize=3;
     //日志文件的存储位置
-    private static final String baseDir="./log日志/";
+    private static final String baseDir="./zh-log日志/";
     private static String fileName;
 
     static void print(final StringBuffer buffer){
+        String name = null;
+        try {
+            name = getPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        final String finalName = name;
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String name = null;
                 try {
-                    name = getPath();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    TxtOperation.writeTxtFile(buffer.toString(), name);
+                    TxtOperation.writeTxtFile(buffer.toString(), finalName);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

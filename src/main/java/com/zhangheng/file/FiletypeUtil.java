@@ -93,6 +93,7 @@ public class FiletypeUtil {
 
     public static final String[][] Content_Type={
             {".txt",  "text/plain"},
+            {".log",  "text/plain"},
             {".htm",  "text/html"},
             {".html",  "text/html"},
             {".shtml",  "text/html"},

@@ -27,10 +27,20 @@ public class TimeUtil extends DateUtil{
      */
     public static final String EnDateFormat = "yyyy-MM-dd HH:mm:ss";
     /**
+     * 英文的时间格式（带时区）
+     * yyyy-MM-dd'T'HH:mm:ssXXX
+     */
+    public static final String EnZoneDateFormat = "yyyy-MM-dd'T'HH:mm:ssXXX";
+    /**
      * 英文的时间格式(精确到毫秒)
      * yyyy-MM-dd HH:mm:ss:SSS
      */
     public static final String EnDateFormat_Detailed = "yyyy-MM-dd HH:mm:ss:SSS";
+    /**
+     * 英文的时间格式(精确到毫秒,带时区)
+     * yyyy-MM-dd'T'HH:mm:ss:SSSXXX
+     */
+    public static final String EnZoneDateFormat_Detailed = "yyyy-MM-dd'T'HH:mm:ss:SSSXXX";
     /**
      * 中文格式的时间格式
      * yyyy年MM月dd日 HH:mm:ss
@@ -42,6 +52,9 @@ public class TimeUtil extends DateUtil{
      */
     protected static String DefaultDateFormat = EnDateFormat;
 
+    public static void main(String[] args) {
+        System.out.println(toTime(new Date(),"yyyy-MM-dd'T'HH:mm:ssZ"));
+    }
     /**
      * 星期名数组
      * {"星期日","星期一","星期二","星期三","星期四","星期五","星期六"}
@@ -59,6 +72,7 @@ public class TimeUtil extends DateUtil{
         put(Minutes, "mm");
         put(Second, "ss");
         put(MilliSecond, "SSS");
+        put(Week, "EEE");
     }};
 
     /**

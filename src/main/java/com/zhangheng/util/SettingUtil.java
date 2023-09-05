@@ -26,7 +26,7 @@ public class SettingUtil {
      * 根据配置文件路径构造
      * @param path 配置文件的路径
      */
-    public SettingUtil(String path) {
+    public SettingUtil(String path) throws Exception {
         List<String> data = TxtOperation.readTxtFile(path);
         analysis();
     }
@@ -35,7 +35,7 @@ public class SettingUtil {
      * @param path 配置文件的路径
      * @param encoding 配置文件的编码格式
      */
-    public SettingUtil(String path,String encoding){
+    public SettingUtil(String path,String encoding) throws Exception {
         data = TxtOperation.readTxtFile(path,encoding);
         analysis();
     }
