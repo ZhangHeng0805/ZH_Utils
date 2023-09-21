@@ -1,5 +1,6 @@
 项目作者：星曦向荣
 邮箱：zhangheng_0805@163.com
+微信公众号：星曦向荣
 
 项目链接：
 -GitHub: https://github.com/ZhangHeng0805/ZH_Utils
@@ -7,4 +8,4 @@
 
 API文档: https://apidoc.gitee.com/ZhangHeng0805/ZH_Utils
 
-版本：V23.08.06
+版本：V23.09.21
