@@ -1,6 +1,6 @@
 package com.zhangheng.file;
 
-import cn.hutool.core.util.StrUtil;
+import java.util.regex.Pattern;
 
 /**
  * 文件工具类
@@ -80,20 +80,22 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
      * @return 过滤后的文件名
      */
     public static String filterFileName(String fileName){
-        String[] illegal={"\\","/",":","*","?","\"","<",">","|"};
-        StringBuilder name=new StringBuilder();
-        fileName=fileName.replace("\\","/");
-        String[] split = fileName.split("/");
-        if (split.length>1){
-            name.append(fileName.substring(0,fileName.lastIndexOf("/")+1)+split[split.length-1]);
-        }else {
-            name.append(split[0]);
-        }
-
-        for (String s : illegal) {
-            name.replace(0,name.length(), StrUtil.removeAll(name,s));
-        }
-        return name.toString();
+        Pattern ILLEGAL_CHARACTERS_PATTERN = Pattern.compile("[\\\\/:*?\"<>|]");
+        return ILLEGAL_CHARACTERS_PATTERN.matcher(fileName).replaceAll("");
+//        String[] illegal={"\\","/",":","*","?","\"","<",">","|"};
+//        StringBuilder name=new StringBuilder();
+//        fileName=fileName.replace("\\","/");
+//        String[] split = fileName.split("/");
+//        if (split.length>1){
+//            name.append(fileName.substring(0,fileName.lastIndexOf("/")+1)+split[split.length-1]);
+//        }else {
+//            name.append(split[0]);
+//        }
+//
+//        for (String s : illegal) {
+//            name.replace(0,name.length(), StrUtil.removeAll(name,s));
+//        }
+//        return name.toString();
     }
 
     /**

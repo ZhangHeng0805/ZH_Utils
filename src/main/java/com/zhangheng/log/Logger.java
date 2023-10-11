@@ -183,6 +183,7 @@ public class Logger {
         String classPathName = hadnleClassName(classPath);
 
         time= TimeUtil.toTime(new Date(),TimeUtil.EnDateFormat_Detailed);
+//        time= "123";
 
         if (msg==null){
             msg="null";

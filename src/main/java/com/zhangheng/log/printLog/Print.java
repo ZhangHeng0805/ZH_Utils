@@ -1,7 +1,7 @@
 package com.zhangheng.log.printLog;
 
-import com.zhangheng.util.TimeUtil;
 import com.zhangheng.file.TxtOperation;
+import com.zhangheng.util.TimeUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +21,7 @@ class Print {
     private static final String baseDir="./zh-log日志/";
     private static String fileName;
 
-    static void print(final StringBuffer buffer){
+    static void print(final StringBuilder buffer){
         String name = null;
         try {
             name = getPath();
@@ -56,4 +56,16 @@ class Print {
         return baseDir+fileName;
     }
 
+    public static void main(String[] args) {
+        long start=System.nanoTime();
+        for (int i = 0; i < 10; i++) {
+//            System.out.println(DateUtil.now());
+//            System.out.println(TimeUtil.getNowTime());
+//            System.out.println(TimeUtil.toTime(new Date(System.currentTimeMillis())));
+//            Log.debug(i);
+            Log.Info(i);
+//            System.out.println(i);
+        }
+        System.out.println("耗时(ms):"+Double.valueOf(System.nanoTime() -start)/1000000);
+    }
 }

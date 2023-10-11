@@ -15,6 +15,7 @@ public class Log extends com.zhangheng.log.Log {
     private static String className;
     private static String methodName;
     private static Integer lineNumber;
+    private static StringBuilder bufferMsg=new StringBuilder();
 
 
     private static Logger init(Object object) {
@@ -26,7 +27,12 @@ public class Log extends com.zhangheng.log.Log {
         log.setMethod(methodName);
         log.setLineNumber(lineNumber);
         log.setMsg(object);
+        clearMsg();
         return log;
+    }
+    private static void clearMsg(){
+        bufferMsg.setLength(0);
+        bufferMsg.trimToSize();
     }
 
     /**
@@ -37,8 +43,8 @@ public class Log extends com.zhangheng.log.Log {
     public static String Info(Object msg){
         Logger init = init(msg);
         String info = Info(init);
-        StringBuffer buffer=new StringBuffer(info);
-        Print.print(buffer);
+        bufferMsg.append(info);
+        Print.print(bufferMsg);
         return info;
     }
 
@@ -50,7 +56,7 @@ public class Log extends com.zhangheng.log.Log {
     public static String Error(Object msg){
         Logger init = init(msg);
         String error = Error(init);
-        StringBuffer buffer=new StringBuffer(error);
+        StringBuilder buffer=new StringBuilder(error);
         Print.print(buffer);
         return error;
     }
@@ -63,7 +69,7 @@ public class Log extends com.zhangheng.log.Log {
     public static String Warn(Object msg){
         Logger init = init(msg);
         String warn = Warn(init);
-        StringBuffer buffer=new StringBuffer(warn);
+        StringBuilder buffer=new StringBuilder(warn);
         Print.print(buffer);
         return warn;
     }
@@ -76,7 +82,7 @@ public class Log extends com.zhangheng.log.Log {
     public static String Debug(Object msg){
         Logger init = init(msg);
         String debug = Debug(init);
-        StringBuffer buffer=new StringBuffer(debug);
+        StringBuilder buffer=new StringBuilder(debug);
         Print.print(buffer);
         return debug;
     }

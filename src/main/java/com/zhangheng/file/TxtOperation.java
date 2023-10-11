@@ -152,7 +152,8 @@ public class TxtOperation {
      * @return 是否写入成功
      * @throws IOException
      */
-    public static boolean writeTxtFile(String newStr, File file, String charsetName, boolean isContinuation) throws IOException {
+
+    public synchronized static boolean writeTxtFile(String newStr, File file, String charsetName, boolean isContinuation) throws IOException {
         // 先读取原有文件内容，然后进行写入操作
         boolean flag = false;
         String filein = newStr + "\r\n";
