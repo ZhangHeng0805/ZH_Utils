@@ -1,9 +1,8 @@
-package com.zhangheng.util;
+package com.zhangheng.system;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
+import java.util.Enumeration;
 
 /**
  * 网络工具
@@ -45,5 +44,41 @@ public class NetUtil extends cn.hutool.core.net.NetUtil {
             //捕获异常后，什么也不用做
         }
         return flag;
+    }
+
+    /**
+     * Linux和Windows通用获取本机内网地址
+     * @return
+     */
+    public static String getLocalIpAddress() {
+        try {
+            Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface.getNetworkInterfaces();
+            InetAddress ip = null;
+            while (allNetInterfaces.hasMoreElements()) {
+                NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
+                if (netInterface.isLoopback() || netInterface.isVirtual() || !netInterface.isUp()) {
+                    continue;
+                } else {
+                    Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
+                    while (addresses.hasMoreElements()) {
+                        ip = addresses.nextElement();
+                        if (ip != null && ip instanceof Inet4Address) {
+                            return ip.getHostAddress();
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("IP地址获取失败" + e.toString());
+        }
+        return "";
+    }
+
+    /**
+     * 获取本机主机名
+     * @return
+     */
+    public static String getLocalHostName() {
+        return getLocalhost().getHostName();
     }
 }
