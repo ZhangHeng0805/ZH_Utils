@@ -6,9 +6,18 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.system.oshi.CpuInfo;
+import cn.hutool.system.oshi.OshiUtil;
+import com.zhangheng.file.FileUtil;
 import com.zhangheng.file.TxtOperation;
 import com.zhangheng.log.printLog.Log;
+import com.zhangheng.util.MathUtil;
 import com.zhangheng.util.TimeUtil;
+import oshi.hardware.ComputerSystem;
+import oshi.hardware.GlobalMemory;
+import oshi.hardware.HWDiskStore;
+import oshi.hardware.Sensors;
+import oshi.software.os.OperatingSystem;
 
 import java.io.File;
 import java.text.ParseException;
@@ -401,10 +410,36 @@ class Main {
 //        String s = ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : FormatUtil.isIpv4(ip) ? ip : ip.substring(0, ip.indexOf(','));
 //        System.out.println(s);
 
-        for (int i = 0; i < 20; i++) {
-            Log.Info(i);
-//            Thread.sleep(2);
+//        for (int i = 0; i < 20; i++) {
+//            Log.Info(i);
+////            Thread.sleep(2);
+//        }
+        GlobalMemory memory = OshiUtil.getMemory();
+        long available = memory.getAvailable();
+        System.out.println("可用内存："+FileUtil.fileSizeStr(available));
+        long total = memory.getTotal();
+        System.out.println("总内存："+FileUtil.fileSizeStr(total));
+        System.out.println("内存使用百分比："+MathUtil.formatPercent(MathUtil.div(MathUtil.sub(total, available) , total),2));
+        CpuInfo cpuInfo = OshiUtil.getCpuInfo(3000);
+        System.out.println("CPU核数:"+cpuInfo.getCpuNum());
+        System.out.println("CPU利用率:"+cpuInfo.getUsed());
+        System.out.println("CPU当前空闲率:"+cpuInfo.getFree());
+        Sensors sensors = OshiUtil.getSensors();
+        System.out.println("CPU温度："+ MathUtil.numerFormat(sensors.getCpuTemperature())+"℃");
+        List<HWDiskStore> diskStores = OshiUtil.getDiskStores();
+        //System.out.println(JSONUtil.toJsonPrettyStr(diskStores));
+        for (int i = 0; i < diskStores.size(); i++) {
+            System.out.println("硬盘【"+diskStores.get(i).getModel()+"】："+FileUtil.fileSizeStr(diskStores.get(i).getSize()));
         }
+        ComputerSystem system = OshiUtil.getSystem();
+        System.out.println("主板信息："+system.getBaseboard().toString());
+        System.out.println("固件信息："+system.getFirmware().toString());
+        System.out.println("制作商："+system.getManufacturer());
+        System.out.println("序列号："+system.getSerialNumber());
+        System.out.println("硬件ID："+system.getHardwareUUID());
+        OperatingSystem os = OshiUtil.getOs();
+        System.out.println("系统位数："+os.getBitness());
+
     }
 
 

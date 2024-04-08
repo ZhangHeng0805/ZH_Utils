@@ -13,10 +13,11 @@ import java.util.regex.Pattern;
 public class FileUtil extends cn.hutool.core.io.FileUtil {
     /**
      * 文件字节转B/KB/MB/GB/TB 保留两位小数四舍五入
-     *
+     * 已废弃，替代方法fileSizeStr()
      * @param size 字节长度
      * @return 文件大小
      */
+    @Deprecated
     public static String getFileSizeString(Long size) {
         double length = Double.valueOf(String.valueOf(size));
         //如果字节数少于1024，则直接以B为单位，否则先除于1024，后3位因太少意义
@@ -60,7 +61,7 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
      */
     public static String fileSizeStr(Long size) {
         double length = Double.valueOf(String.valueOf(size));
-        String[] unit = new String[]{"B", "KB", "MB", "GB", "TB"};
+        String[] unit = new String[]{"B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
         int i = 0;
         while (true) {
             if (length < 1024) {
