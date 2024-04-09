@@ -18,8 +18,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static com.zhangheng.file.FileUtil.fileSizeStr;
-
 /**
  * @author: ZhangHeng
  * @email: zhangheng_0805@163.com
@@ -42,7 +40,7 @@ public class FileSplitDownload {
     /**
      * 分片大小
      */
-    private static int BLOCK_SIZE=2*1024*1024;
+    private static int BLOCK_SIZE=20*1024*1024;
     /**
      * 临时缓存文件后缀
      */
@@ -66,7 +64,7 @@ public class FileSplitDownload {
     /**
      * 线程数
      */
-    private static int THREAD_NUM = 10;
+    private static int THREAD_NUM = 16;
 
     /**
      * 构造
@@ -148,8 +146,12 @@ public class FileSplitDownload {
 
         // 获取连接 得到完整文件的长度
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        String eTag = getResponseHeaders(connection).get("ETag");
+        if (StrUtil.isNotBlank(eTag))
+            md5=eTag;
         long fileSize = connection.getContentLengthLong();
-        String fileSizeStr=fileSizeStr(fileSize);
+
+//        String fileSizeStr=fileSizeStr(fileSize);
         // windows 跟 linux 层级分隔符
         String separator = File.separator;
         String filesDirectoryPath,tempDirectoryPath;
@@ -173,7 +175,7 @@ public class FileSplitDownload {
 //        System.out.println("Temporary file directory path:"+tempDirectoryPath);
 //        System.out.println("Complete file save directory:"+DOWNLOAD_PATH);
 
-        transferLisenter.start(new Date(),DOWNLOAD_PATH,FILE_NAME,fileSize);
+        transferLisenter.start(new Date(),DOWNLOAD_PATH,FILE_NAME,fileSize,md5);
 
 
         // 将下载文件的大小和分片数量计算出来
@@ -299,47 +301,64 @@ public class FileSplitDownload {
      * @throws IOException ioexception
      */
     private static void downloadSplit(String url, int splitIndex, File temporaryFiles) throws IOException {
+        HttpURLConnection connection =null;
+        InputStream in = null;
+        RandomAccessFile out = null;
+        try {
+            connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setRequestMethod("GET");
+            long startByte = (long) splitIndex * BLOCK_SIZE;
+            long endByte = (long) (splitIndex + 1) * BLOCK_SIZE - 1;
 
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setRequestMethod("GET");
-        long startByte = (long) splitIndex * BLOCK_SIZE;
-        long endByte = (long) (splitIndex + 1) * BLOCK_SIZE - 1;
-
-        // 这里判断进行断点续传
-        if (temporaryFiles.exists()) {
-            // 获取此临时文件还缺少的的部分
-            long downloadedBytes = temporaryFiles.length();
-            startByte = startByte + downloadedBytes;
-            connection.setRequestProperty("Range", "bytes=" + startByte + "-" + endByte);
-        } else {
-            // 文件不存在说明是第一次下载，不用续传
-            connection.setRequestProperty("Range", "bytes=" + startByte + "-" + endByte);
-        }
+            // 这里判断进行断点续传
+            if (temporaryFiles.exists()) {
+                // 获取此临时文件还缺少的的部分
+                long downloadedBytes = temporaryFiles.length();
+                startByte = startByte + downloadedBytes;
+                connection.setRequestProperty("Range", "bytes=" + startByte + "-" + endByte);
+            } else {
+                // 文件不存在说明是第一次下载，不用续传
+                connection.setRequestProperty("Range", "bytes=" + startByte + "-" + endByte);
+            }
 
 
         /*log.info(">>>此临时文件的起始位置 :_{}", startByte);
         log.info(">>>此临时文件的结束位置 :_{}", endByte);*/
 
-        InputStream in = connection.getInputStream();
-        RandomAccessFile out = new RandomAccessFile(temporaryFiles, "rw");
-        byte[] buffer = new byte[1024];
-        int len;
+            int responseCode = connection.getResponseCode();
+            if (responseCode != HttpURLConnection.HTTP_PARTIAL && responseCode != HttpURLConnection.HTTP_OK)
+                return;
 
-        if (temporaryFiles.exists()) {
-            // 从尾部继续写入
-            out.seek(out.length());
-        }
-        // 开始写入
-        // log.info(">>>开始写入到此临时文件 :_{}", temporaryFiles);
-        while ((len = in.read(buffer)) != -1) {
-            out.write(buffer, 0, len);
-        }
-        // 关闭流
-        out.close();
-        in.close();
+            in = connection.getInputStream();
+            out = new RandomAccessFile(temporaryFiles, "rw");
+            byte[] buffer = new byte[1024];
+            int len;
 
-        // 关闭此连接
-        connection.disconnect();
+            if (temporaryFiles.exists()) {
+                // 从尾部继续写入
+                out.seek(out.length());
+            }
+            // 开始写入
+            // log.info(">>>开始写入到此临时文件 :_{}", temporaryFiles);
+            while ((len = in.read(buffer)) != -1) {
+                out.write(buffer, 0, len);
+            }
+        }catch (IOException e){
+            throw e;
+        }finally {
+            // 关闭流
+            if (in != null) {
+                in.close();
+            }
+            if (out != null) {
+                out.close();
+            }
+            if (connection != null) {
+                // 关闭此连接
+                connection.disconnect();
+            }
+        }
+
     }
 
 
@@ -353,7 +372,7 @@ public class FileSplitDownload {
     private static void mergeChunks(String tempDirectoryPath, String md5) throws IOException {
         File chunksDir = new File(tempDirectoryPath);
         // 获取分片文件列表
-        List<File> chunkFiles = Arrays.stream(Objects.requireNonNull(chunksDir.listFiles((dir, name) -> name.endsWith(".tmp"))))
+        List<File> chunkFiles = Arrays.stream(Objects.requireNonNull(chunksDir.listFiles((dir, name) -> name.endsWith(TEMP_FILE_SUFFIX))))
                 .collect(Collectors.toList());
         // 按文件名升序排序
         chunkFiles = chunkFiles.stream().sorted(Comparator.comparingInt(file -> Integer.parseInt(StrUtil.subBefore(file.getName(), StrPool.UNDERLINE, false))))
@@ -419,7 +438,7 @@ public class FileSplitDownload {
      */
     private static boolean isAllChunksDownloaded(String tempDirectoryPath, int totalChunks) {
         File chunksDir = new File(tempDirectoryPath);
-        File[] files = chunksDir.listFiles(file -> file.getName().endsWith(".tmp"));
+        File[] files = chunksDir.listFiles(file -> file.getName().endsWith(TEMP_FILE_SUFFIX));
         return files != null && files.length == totalChunks;
     }
 
@@ -452,9 +471,10 @@ public class FileSplitDownload {
      * @return
      */
     public static boolean isRangeDownloadSupported(String urlStr) {
+        HttpURLConnection connection =null;
         try {
             URL url = new URL(urlStr);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             Map<String, String> responseHeaders = getResponseHeaders(connection);
 //            System.out.println(responseHeaders);
@@ -468,6 +488,7 @@ public class FileSplitDownload {
 //                String flag=acceptRanges+" "+ start + "-" + end+"/"+Length;
 //                if (flag.equals(Range)) {
                     int responseCode = connection.getResponseCode();
+
                     return responseCode == HttpURLConnection.HTTP_PARTIAL || responseCode == HttpURLConnection.HTTP_OK;
 //                }else
 //                    return false;
@@ -477,6 +498,9 @@ public class FileSplitDownload {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }finally {
+            if (connection != null)
+                connection.disconnect();
         }
     }
 
@@ -526,7 +550,7 @@ public class FileSplitDownload {
 //    }
 
     public interface ZHTransferLisenter{
-        void start(Date now,String path,String fileName,Long fileSize);
+        void start(Date now,String path,String fileName,Long fileSize,String md5);
         void running(Date now,int consuming_ms,Long Transferred,Long fileSize,String progress);
         void end(Date now,String save_path,String md5,Boolean verify_result);
     }
