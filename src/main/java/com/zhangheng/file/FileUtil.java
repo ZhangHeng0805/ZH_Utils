@@ -60,15 +60,18 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
      * @return 格式化字符串
      */
     public static String fileSizeStr(Long size) {
+        if (size == null) {
+            return "0";
+        }
         double length = Double.valueOf(String.valueOf(size));
         String[] unit = new String[]{"B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
         int i = 0;
         while (true) {
             if (length < 1024) {
                 if (i == 0)
-                    return length + unit[i];
+                    return length +" "+ unit[i];
                 else
-                    return Math.round(length * 100) / 100.0+unit[i];
+                    return Math.round(length * 100) / 100.0+" "+unit[i];
             } else {
                 length = length / 1024.0;
             }

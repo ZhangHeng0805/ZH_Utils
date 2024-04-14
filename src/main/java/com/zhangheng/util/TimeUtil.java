@@ -461,7 +461,9 @@ public class TimeUtil extends DateUtil{
      * @return 00:00:00 / 00:00 格式的时间
      */
     public static String formatMS(int ms) {
-        if (ms < 60000) {
+        if (ms < 1000) {
+            return ms+"ms";
+        }else if (ms < 60000) {
             return "00:" + getString((ms % 60000) / 1000);
         } else if (ms < 3600000) {
             return getString((ms % 3600000) / 60000) + ":" + getString((ms % 60000) / 1000);
@@ -477,7 +479,9 @@ public class TimeUtil extends DateUtil{
      * @return xx天xx时xx分xx秒格式时间
      */
     public static String formatMSToCn(int ms) {
-        if (ms < (60 * 1000)) {
+        if (ms<1000){
+            return ms+"毫秒";
+        }else if (ms < (60 * 1000)) {
             return getString(((ms % (60 * 1000)) / 1000)) + "秒";
         } else if (ms < 60 * 60 * 1000) {
             return getString((ms % (60 * 60 * 1000)) / (60 * 1000)) + "分" + getString((ms % (60 * 1000)) / 1000) + "秒";
