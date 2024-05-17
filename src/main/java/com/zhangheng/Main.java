@@ -6,20 +6,15 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.system.oshi.CpuInfo;
-import cn.hutool.system.oshi.OshiUtil;
-import com.zhangheng.file.FileUtil;
 import com.zhangheng.file.TxtOperation;
 import com.zhangheng.log.printLog.Log;
-import com.zhangheng.util.MathUtil;
 import com.zhangheng.util.TimeUtil;
-import oshi.hardware.ComputerSystem;
-import oshi.hardware.GlobalMemory;
-import oshi.hardware.HWDiskStore;
-import oshi.hardware.Sensors;
-import oshi.software.os.OperatingSystem;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.text.ParseException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -325,25 +320,25 @@ class Main {
 //        扭曲线条遮挡
 //        ShearCaptcha captcha = CaptchaUtil.createShearCaptcha(200, 100, 6, 15);
 //        复杂线圈背景
-//        CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(200, 100, 8, 200);
+//        CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(200, 100, 4, 200);
 //        复杂断线背景
 //        LineCaptcha captcha = CaptchaUtil.createLineCaptcha(200, 100,6,1000);
 //        动图显示
 //        AbstractCaptcha captcha=new CircleCaptcha(200,100,4,80);
-//        //图形验证码写出，可以写出到文件，也可以写出到流
-//        // 自定义验证码内容为四则运算方式
-////        captcha.setGenerator(new MathGenerator());
-////
-////        String random=new String(RandomUtil.CAPITAL_LETTER)+new String(RandomUtil.LOWERCASE_LETTER)+new String(RandomUtil.NUMBER);
-////        captcha.setGenerator(new RandomGenerator(random, 5));
+        //图形验证码写出，可以写出到文件，也可以写出到流
+        // 自定义验证码内容为四则运算方式
+//        captcha.setGenerator(new MathGenerator());
+//
+//        String random=new String(RandomUtil.CAPITAL_LETTER)+new String(RandomUtil.LOWERCASE_LETTER)+new String(RandomUtil.NUMBER);
+//        captcha.setGenerator(new RandomGenerator(random, 5));
 //        captcha.createCode();
 //        String code = captcha.getCode();
-////        String eval = MathUtil.operation(code);
+//        String eval = MathUtil.operation(code);
 //        String eval = "";
 //        captcha.write("res/"+code+eval+".png");
 //        System.out.println(code);
-//        //验证图形验证码的有效性，返回boolean值
-////        System.out.println(captcha.verify("1234"));
+        //验证图形验证码的有效性，返回boolean值
+//        System.out.println(captcha.verify("1234"));
 //        System.out.println(eval);
 
 
@@ -414,31 +409,74 @@ class Main {
 //            Log.Info(i);
 ////            Thread.sleep(2);
 //        }
-        GlobalMemory memory = OshiUtil.getMemory();
-        long available = memory.getAvailable();
-        System.out.println("可用内存："+FileUtil.fileSizeStr(available));
-        long total = memory.getTotal();
-        System.out.println("总内存："+FileUtil.fileSizeStr(total));
-        System.out.println("内存使用百分比："+MathUtil.formatPercent(MathUtil.div(MathUtil.sub(total, available) , total),2));
-        CpuInfo cpuInfo = OshiUtil.getCpuInfo(3000);
-        System.out.println("CPU核数:"+cpuInfo.getCpuNum());
-        System.out.println("CPU利用率:"+cpuInfo.getUsed());
-        System.out.println("CPU当前空闲率:"+cpuInfo.getFree());
-        Sensors sensors = OshiUtil.getSensors();
-        System.out.println("CPU温度："+ MathUtil.numerFormat(sensors.getCpuTemperature())+"℃");
-        List<HWDiskStore> diskStores = OshiUtil.getDiskStores();
-        //System.out.println(JSONUtil.toJsonPrettyStr(diskStores));
-        for (int i = 0; i < diskStores.size(); i++) {
-            System.out.println("硬盘【"+diskStores.get(i).getModel()+"】："+FileUtil.fileSizeStr(diskStores.get(i).getSize()));
+
+//        GlobalMemory memory = OshiUtil.getMemory();
+//        long available = memory.getAvailable();
+//        System.out.println("可用内存："+FileUtil.fileSizeStr(available));
+//        long total = memory.getTotal();
+//        System.out.println("总内存："+FileUtil.fileSizeStr(total));
+//        System.out.println("内存使用百分比："+MathUtil.formatPercent(MathUtil.div(MathUtil.sub(total, available) , total),2));
+//        CpuInfo cpuInfo = OshiUtil.getCpuInfo(3000);
+//        System.out.println("CPU核数:"+cpuInfo.getCpuNum());
+//        System.out.println("CPU利用率:"+cpuInfo.getUsed());
+//        System.out.println("CPU当前空闲率:"+cpuInfo.getFree());
+//        Sensors sensors = OshiUtil.getSensors();
+//        System.out.println("CPU温度："+ MathUtil.numerFormat(sensors.getCpuTemperature())+"℃");
+//        List<HWDiskStore> diskStores = OshiUtil.getDiskStores();
+//        //System.out.println(JSONUtil.toJsonPrettyStr(diskStores));
+//        for (int i = 0; i < diskStores.size(); i++) {
+//            System.out.println("硬盘【"+diskStores.get(i).getModel()+"】："+ FileUtil.fileSizeStr(diskStores.get(i).getSize()));
+//        }
+//        ComputerSystem system = OshiUtil.getSystem();
+//        System.out.println("主板信息："+system.getBaseboard().toString());
+//        System.out.println("固件信息："+system.getFirmware().toString());
+//        System.out.println("制作商："+system.getManufacturer());
+//        System.out.println("序列号："+system.getSerialNumber());
+//        System.out.println("硬件ID："+system.getHardwareUUID());
+//        OperatingSystem os = OshiUtil.getOs();
+//        System.out.println("系统位数："+os.getBitness());
+
+
+
+        String serverAddress = "www.baidu.com"; // 替换为要测试的服务器地址
+        int serverPort = 80; // 替换为要测试的服务器端口
+        int bufferSize = 1024; // 缓冲区大小，可以根据需要进行调整
+        int timeout = 5000; // 超时时间，单位为毫秒
+
+        try {
+            Socket socket = new Socket(serverAddress, serverPort);
+            socket.setSoTimeout(timeout); // 设置超时时间
+            InputStream in = socket.getInputStream();
+            OutputStream out = socket.getOutputStream();
+
+            byte[] buffer = new byte[bufferSize];
+            long totalBytesRead = 0;
+
+            long startTime = System.currentTimeMillis();
+
+            while (true) {
+                int bytesRead = in.read(buffer);
+                if (bytesRead == -1) {
+                    break;
+                }
+                totalBytesRead += bytesRead;
+            }
+
+            long endTime = System.currentTimeMillis();
+            long elapsedTime = endTime - startTime;
+
+            double bandwidth = (totalBytesRead / 1024.0) / (elapsedTime / 1000.0); // 计算带宽，单位为KB/s
+
+            System.out.println("Data received successfully.");
+            System.out.println("Total bytes received: " + totalBytesRead + " bytes");
+            System.out.println("Elapsed time: " + elapsedTime + " ms");
+            System.out.println("Bandwidth: " + bandwidth + " KB/s");
+
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        ComputerSystem system = OshiUtil.getSystem();
-        System.out.println("主板信息："+system.getBaseboard().toString());
-        System.out.println("固件信息："+system.getFirmware().toString());
-        System.out.println("制作商："+system.getManufacturer());
-        System.out.println("序列号："+system.getSerialNumber());
-        System.out.println("硬件ID："+system.getHardwareUUID());
-        OperatingSystem os = OshiUtil.getOs();
-        System.out.println("系统位数："+os.getBitness());
+
 
 
 

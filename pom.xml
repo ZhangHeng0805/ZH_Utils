@@ -69,11 +69,11 @@
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.hierynomus/sshj -->
         <!-- added SFTP and Shell command support -->
-<!--        <dependency>-->
-<!--            <groupId>com.hierynomus</groupId>-->
-<!--            <artifactId>sshj</artifactId>-->
-<!--            <version>0.35.0</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.hierynomus</groupId>
+            <artifactId>sshj</artifactId>
+            <version>0.35.0</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
         <!-- added FTP and FTPS support -->
 <!--        <dependency>-->
