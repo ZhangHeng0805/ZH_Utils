@@ -19,7 +19,33 @@ public class ThrowableUtil {
     public static String toString(Throwable e) {
         StringWriter stringWriter = new StringWriter();
         e.printStackTrace(new PrintWriter(stringWriter));
-        String errorMsg = stringWriter.toString();
-        return errorMsg;
+        return stringWriter.toString();
+    }
+
+    /**
+     * 将异常错误解析为字符串
+     * @param e
+     * @param limit 指定长度
+     * @return
+     */
+    public static String toString(Throwable e, int limit) {
+        String string = toString(e);
+        if (limit > string.length()) {
+            return string;
+        }
+        return string.substring(0, limit);
+    }
+
+    /**
+     * 获取异常的根本原因
+     * @param throwable
+     * @return
+     */
+    public static Throwable getCase(Throwable throwable) {
+        Throwable cause = throwable.getCause();
+        if (cause != null) {
+            return getCase(cause);
+        }
+        return throwable;
     }
 }
