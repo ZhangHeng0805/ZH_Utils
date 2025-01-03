@@ -154,7 +154,7 @@ public class FileSplitDownload {
         // 获取文件名（不包含后缀）
         String name = filename.substring(0, filename.lastIndexOf("."));
 
-        long fileSize = MapUtil.getLong(downloadInfo, "size",0L);
+        long fileSize = MapUtil.getLong(downloadInfo, "size", 0L);
         // windows 跟 linux 层级分隔符
         String separator = File.separator;
         String filesDirectoryPath, tempDirectoryPath;
@@ -503,27 +503,26 @@ public class FileSplitDownload {
      * @param urlStr
      * @return
      */
-    public static Map<String,Object> getRangeDownloadInfo(String urlStr, String md5Head) throws Exception {
+    public static Map<String, Object> getRangeDownloadInfo(String urlStr, String md5Head) throws Exception {
         HttpURLConnection connection = null;
         try {
             URL url = new URL(urlStr);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("HEAD");
+            int responseCode = connection.getResponseCode();
+            if (responseCode != HttpURLConnection.HTTP_OK && responseCode != HttpURLConnection.HTTP_PARTIAL) {
+                throw new MyException("Response", responseCode+" "+connection.getResponseMessage());
+            }
             Map<String, String> responseHeaders = getResponseHeaders(connection);
 //            System.out.println(responseHeaders);
             String Length = responseHeaders.get("Content-Length");
             String acceptRanges = responseHeaders.get("Accept-Ranges");
-            int contentLength = Integer.parseInt(Length);
+            long contentLength = Long.parseLong(Length);
             if (acceptRanges != null && contentLength > 0) {
-                int responseCode = connection.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_PARTIAL) {
-                    Map<String,Object> map=new HashMap<>();
-                    map.put("md5",responseHeaders.get(md5Head));
-                    map.put("size",contentLength);
-                    return map;
-                } else {
-                    throw new MyException("Response",connection.getResponseMessage());
-                }
+                Map<String, Object> map = new HashMap<>();
+                map.put("md5", responseHeaders.get(md5Head));
+                map.put("size", contentLength);
+                return map;
             } else {
                 throw new MyException("URL does not support sharded download（不不支持分片下载）: " + url);
             }

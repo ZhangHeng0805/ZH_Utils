@@ -15,7 +15,7 @@ import java.util.*;
  * @email zhangheng.0805@qq.com
  * @date 2022-03-04 13:24
  */
-public class TimeUtil extends DateUtil{
+public class TimeUtil extends DateUtil {
 
     /**
      * 格林威治时间-北京时区
@@ -125,7 +125,6 @@ public class TimeUtil extends DateUtil{
 
 
     private static Calendar cal;
-
 
     /**
      * 将日期转换为默认格式时间
@@ -251,7 +250,7 @@ public class TimeUtil extends DateUtil{
      * @return
      */
     public static String getTimeInfo(Integer Type) {
-        cal=Calendar.getInstance();
+        cal = Calendar.getInstance();
         String t;
         int i = -1;
         switch (Type) {
@@ -396,10 +395,10 @@ public class TimeUtil extends DateUtil{
                     difference = (long) ((to - from) * 1.0 / ((long) 1000 * 60 * 60 * 24 * 30));
                     break;
                 case Day:
-                    difference = (long) ((to - from) * 1.0 / (1000 * 60 * 60 * 24));
+                    difference = (long) ((to - from) * 1.0 / ((long) 1000 * 60 * 60 * 24));
                     break;
                 case Hour:
-                    difference = (long) ((to - from) * 1.0 / (1000 * 60 * 60));
+                    difference = (long) ((to - from) * 1.0 / ((long) 1000 * 60 * 60));
                     break;
                 case Minutes:
                     difference = (long) ((to - from) * 1.0 / (1000 * 60));
@@ -408,7 +407,7 @@ public class TimeUtil extends DateUtil{
                     difference = (long) ((to - from) * 1.0 / (1000));
                     break;
                 case MilliSecond:
-                    difference = (long) (to - from);
+                    difference = to - from;
                     break;
                 default:
                     return difference;
@@ -439,14 +438,13 @@ public class TimeUtil extends DateUtil{
      */
     public static String fewDaysAgo(String time, String dateFormat, int i) throws Exception {
         String day = null;
-        SimpleDateFormat simpleFormat = new SimpleDateFormat(dateFormat);
         Date fromDate = toDate(time, dateFormat);
         long days = -1;
-        if (i > 15 && i < 0)
+        if (i > 15 || i < 0)
             throw new Exception("[method:fewDaysAgo(...,int i) 'i' is error]参数'i'范围错误，参数'i'的范围：0~15。");
         if (fromDate != null) {
             long data = fromDate.getTime();
-            long d = 1000 * 60 * 60 * 24 * i;
+            long d = (long) 1000 * 60 * 60 * 24 * i;
             days = data - d;
             Date date = new Date(days);
             day = toTime(date, dateFormat);
@@ -462,8 +460,8 @@ public class TimeUtil extends DateUtil{
      */
     public static String formatMS(int ms) {
         if (ms < 1000) {
-            return ms+"ms";
-        }else if (ms < 60000) {
+            return ms + "ms";
+        } else if (ms < 60000) {
             return "00:" + getString((ms % 60000) / 1000);
         } else if (ms < 3600000) {
             return getString((ms % 3600000) / 60000) + ":" + getString((ms % 60000) / 1000);
@@ -479,9 +477,9 @@ public class TimeUtil extends DateUtil{
      * @return xx天xx时xx分xx秒格式时间
      */
     public static String formatMSToCn(int ms) {
-        if (ms<1000){
-            return ms+"毫秒";
-        }else if (ms < (60 * 1000)) {
+        if (ms < 1000) {
+            return ms + "毫秒";
+        } else if (ms < (60 * 1000)) {
             return getString(((ms % (60 * 1000)) / 1000)) + "秒";
         } else if (ms < 60 * 60 * 1000) {
             return getString((ms % (60 * 60 * 1000)) / (60 * 1000)) + "分" + getString((ms % (60 * 1000)) / 1000) + "秒";
@@ -510,5 +508,35 @@ public class TimeUtil extends DateUtil{
             m = "00";
         }
         return m;
+    }
+
+    public static Date addYears(final Date date, final int amount) {
+        return add(date, Calendar.YEAR, amount);
+    }
+
+    public static Date addMonths(final Date date, final int amount) {
+        return add(date, Calendar.MONTH, amount);
+    }
+
+    public static Date addDays(final Date date, final int amount) {
+        return add(date, Calendar.DAY_OF_MONTH, amount);
+    }
+
+    public static Date addHours(final Date date, final int amount) {
+        return add(date, Calendar.HOUR_OF_DAY, amount);
+    }
+
+    public static Date addMinutes(final Date date, final int amount) {
+        return add(date, Calendar.MINUTE, amount);
+    }
+
+    private static Date add(final Date date, final int calendarField, final int amount) {
+        if (date == null) {
+            return null;
+        }
+        final Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(calendarField, amount);
+        return c.getTime();
     }
 }

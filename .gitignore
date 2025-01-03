@@ -1,8 +1,7 @@
 libraries
-.idea/
-out/
-files/
-res/
+out
+files
+res
 target
 zh-log日志
 .idea

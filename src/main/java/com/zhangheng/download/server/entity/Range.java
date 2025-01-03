@@ -34,7 +34,7 @@ public class Range {
 
     public static long subLong(String value, int beginIndex, int endIndex) {
         String substring = value.substring(beginIndex, endIndex);
-        return (substring.length() > 0) ? Long.parseLong(substring) : -1;
+        return (!substring.isEmpty()) ? Long.parseLong(substring) : -1;
     }
 
     public static void copy(RandomAccessFile randomAccessFile, OutputStream output, long fileSize, long start, long length) throws IOException {

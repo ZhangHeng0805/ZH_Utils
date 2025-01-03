@@ -11,10 +11,6 @@ import com.zhangheng.log.printLog.Log;
 import com.zhangheng.util.TimeUtil;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
 import java.text.ParseException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -435,49 +431,6 @@ class Main {
 //        System.out.println("硬件ID："+system.getHardwareUUID());
 //        OperatingSystem os = OshiUtil.getOs();
 //        System.out.println("系统位数："+os.getBitness());
-
-
-
-        String serverAddress = "www.baidu.com"; // 替换为要测试的服务器地址
-        int serverPort = 80; // 替换为要测试的服务器端口
-        int bufferSize = 1024; // 缓冲区大小，可以根据需要进行调整
-        int timeout = 5000; // 超时时间，单位为毫秒
-
-        try {
-            Socket socket = new Socket(serverAddress, serverPort);
-            socket.setSoTimeout(timeout); // 设置超时时间
-            InputStream in = socket.getInputStream();
-            OutputStream out = socket.getOutputStream();
-
-            byte[] buffer = new byte[bufferSize];
-            long totalBytesRead = 0;
-
-            long startTime = System.currentTimeMillis();
-
-            while (true) {
-                int bytesRead = in.read(buffer);
-                if (bytesRead == -1) {
-                    break;
-                }
-                totalBytesRead += bytesRead;
-            }
-
-            long endTime = System.currentTimeMillis();
-            long elapsedTime = endTime - startTime;
-
-            double bandwidth = (totalBytesRead / 1024.0) / (elapsedTime / 1000.0); // 计算带宽，单位为KB/s
-
-            System.out.println("Data received successfully.");
-            System.out.println("Total bytes received: " + totalBytesRead + " bytes");
-            System.out.println("Elapsed time: " + elapsedTime + " ms");
-            System.out.println("Bandwidth: " + bandwidth + " KB/s");
-
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
 
 
     }
