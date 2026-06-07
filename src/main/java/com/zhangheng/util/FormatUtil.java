@@ -113,7 +113,7 @@ public class FormatUtil extends Validator {
      */
     public static boolean isNumber(String number){
         //判断字符串是否为空
-        if (number!=null&&number.length()>0) {
+        if (number!=null&& !number.isEmpty()) {
             //判断字付串开头是否以（-、+、数字）开头
             if (number.startsWith("-") || number.startsWith("+") || Character.isDigit(number.charAt(0))) {
                 //+出现次数小于2

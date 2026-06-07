@@ -6,7 +6,7 @@ package com.zhangheng.bean;
  * @date: 2023/01/31 0031 09:39
  * @description: 自定义异常类
  */
-public class MyException extends Exception{
+public class MyException extends RuntimeException{
     public MyException(String type,String message) {
         super(type+"Exception: "+message);
     }

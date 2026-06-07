@@ -19,7 +19,7 @@ import java.util.Map;
  * @date 2022-12-05 00:22
  */
 public class SettingUtil {
-    private List<String> data;
+    private final List<String> data;
     private Map<String, Object> map;
 
     /**
@@ -27,7 +27,7 @@ public class SettingUtil {
      * @param path 配置文件的路径
      */
     public SettingUtil(String path) throws Exception {
-        List<String> data = TxtOperation.readTxtFile(path);
+        data = TxtOperation.readTxtFile(path);
         analysis();
     }
     /**

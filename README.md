@@ -358,8 +358,8 @@
 ## 8.数组工具（ArrayUtil）
 * 类路径：```com.zhangheng.util.ArrayUtil```
 ### 具体方法
-####  ArrayUtil.exist(Object[] arr,Object obj);
+####  ArrayUtil.exist(Object[] arr,Object data);
 > * 检查数组里是否存在对象
 > * @param arr 目标数组
-> * @param obj 检查对象
+> * @param data 检查对象
 > * @return boolean

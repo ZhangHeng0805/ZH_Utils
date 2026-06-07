@@ -25,8 +25,7 @@ public class MathUtil extends NumberUtil {
     public static double twoDecimalPlaces(double num) {
         DecimalFormat df = new DecimalFormat("#########.00");
         String format = df.format(num);
-        Double aDouble = Double.valueOf(format);
-        return aDouble;
+        return Double.parseDouble(format);
     }
 
     /**
@@ -37,7 +36,7 @@ public class MathUtil extends NumberUtil {
      * @param num 数据
      * @return 结果
      */
-    public static String numerFormat(double num) {
+    public static String numberFormat(double num) {
         String format;
         if (num > 10000) {
             DecimalFormat df = new DecimalFormat(",###");
@@ -115,5 +114,17 @@ public class MathUtil extends NumberUtil {
         if (expression.endsWith("="))
             expression = expression.replace("=", "");
         return toStr(calculate(expression));
+    }
+    /**
+     * 数字补 0 到两位
+     */
+    public static String pad2(int value) {
+        return (value < 10) ? "0" + value : String.valueOf(value);
+    }
+    /**
+     * 数字补 0 到三位
+     */
+    public static String pad3(int value) {
+        return String.format("%03d", value);
     }
 }

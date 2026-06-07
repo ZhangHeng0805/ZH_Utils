@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.zhangheng</groupId>
     <artifactId>ZH_Utils</artifactId>
-    <version>22.11.16-SNAPSHOT</version>
+    <version>26.06.07-SNAPSHOT</version>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
@@ -34,11 +34,11 @@
             <version>1.15.3</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>commons-io</groupId>-->
+<!--            <artifactId>commons-io</artifactId>-->
+<!--            <version>2.11.0</version>-->
+<!--        </dependency>-->
         <!-- javax.servlet-api -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -48,11 +48,11 @@
         </dependency>
 
         <!--基于JNA的操作系统和硬件信息库-->
-        <dependency>
-            <groupId>com.github.oshi</groupId>
-            <artifactId>oshi-core</artifactId>
-            <version>5.6.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.oshi</groupId>-->
+<!--            <artifactId>oshi-core</artifactId>-->
+<!--            <version>5.6.1</version>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -69,11 +69,11 @@
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.hierynomus/sshj -->
         <!-- added SFTP and Shell command support -->
-        <dependency>
-            <groupId>com.hierynomus</groupId>
-            <artifactId>sshj</artifactId>
-            <version>0.35.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.hierynomus</groupId>-->
+<!--            <artifactId>sshj</artifactId>-->
+<!--            <version>0.35.0</version>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
         <!-- added FTP and FTPS support -->
 <!--        <dependency>-->

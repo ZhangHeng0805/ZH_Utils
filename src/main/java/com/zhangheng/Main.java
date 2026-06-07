@@ -1,6 +1,7 @@
 package com.zhangheng;
 
 
+import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -12,10 +13,7 @@ import com.zhangheng.util.TimeUtil;
 
 import java.io.File;
 import java.text.ParseException;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 class Main {
@@ -529,7 +527,7 @@ class Main {
             String windpower = jsonObject.get("windpower").toString();//风力
             String humidity = jsonObject.get("humidity").toString();//湿度
             String reporttime = jsonObject.get("reporttime").toString();//更新时间
-            return province + "[" + city + "]当前天气：" + weather + " " + temperature + "℃，" + winddirection + "风" + windpower + "级,湿度：" + humidity + "%（更新与：" + TimeUtil.timeDifference(reporttime, TimeUtil.Minutes) + "分钟前）";
+            return province + "[" + city + "]当前天气：" + weather + " " + temperature + "℃，" + winddirection + "风" + windpower + "级,湿度：" + humidity + "%（更新与：" + TimeUtil.between(TimeUtil.toDate(reporttime),new Date(), DateUnit.MINUTE,true) + "分钟前）";
         }
         return null;
     }

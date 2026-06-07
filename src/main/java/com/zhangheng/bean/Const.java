@@ -19,7 +19,7 @@ public class Const {
     /**
      * 高德地图天气查询key
      */
-    public static final String AMap_key1 = "OWZmNjRmYzczYjA4YWE3NTRjNjUyYjM4YjU2YWE4NWY=";//高德地图天气查询key
+    public static final String AMap_key1 = "***";//高德地图天气查询key
 
     /**
      * `
@@ -37,18 +37,18 @@ public class Const {
     /**
      * 邮件发件人
      */
-    private static final String Email_from_163 = "星曦向荣<zhangheng_0805@163.com>";//网易邮件发件人
-    private static final String Email_from_qq="星曦向荣<zhangheng.0805@qq.com>";//qq邮件发件人
+    private static final String Email_from_163 = "xx<xxxx@163.com>";//网易邮件发件人
+    private static final String Email_from_qq="xx<xxxx@qq.com>";//qq邮件发件人
     /**
      * 网易邮件用户名
      */
-    private static final String Email_user_163 = "zhangheng_0805";//网易邮件用户名
-    private static final String Email_user_qq="zhangheng.0805";//qq邮件用户名
+    private static final String Email_user_163 = "xxxx";//网易邮件用户名
+    private static final String Email_user_qq="xxxx";//qq邮件用户名
     /**
      * 网易邮件密码（授权码）
      */
-    private static final String Email_password_163 = "SlhZT1pNWldGWlJRWVNQVQ==";//网易邮件密码（授权码）
-    private static final String Email_password_qq="d2phcGxncHZoc2xxZGNnZA==";//qq邮件密码（授权码）
+    private static final String Email_password_163 = "***";//网易邮件密码（授权码）
+    private static final String Email_password_qq="***";//qq邮件密码（授权码）
 
     /**
      * 获取构建网易的MailAccount对象
