@@ -4,6 +4,7 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class TxtOperation {
         List<String> list = new LinkedList<>();
             if (file.isFile() && file.exists()) { //判断文件是否存在
                 InputStreamReader read = new InputStreamReader(
-                        new FileInputStream(file), encoding);//考虑到编码格式
+                        Files.newInputStream(file.toPath()), encoding);//考虑到编码格式
                 BufferedReader bufferedReader = new BufferedReader(read);
                 String lineTxt = null;
                 while ((lineTxt = bufferedReader.readLine()) != null) {
@@ -53,8 +54,7 @@ public class TxtOperation {
      */
     public static List<String> readTxtFile(String filePath) throws Exception {
         String encoding = CharsetUtil.defaultCharsetName();
-        File file = new File(filePath);
-        return readTxtFile(file, encoding);
+        return readTxtFile(filePath, encoding);
     }
 
     /**
@@ -93,7 +93,6 @@ public class TxtOperation {
      * @throws IOException
      */
     public static File creatTxtFile(String path, String name, String type, boolean isCheckType) throws IOException {
-//        File flag = null;
         name = FileUtil.filterFileName(name);
         String filenameTemp = "";
         String fileType = FiletypeUtil.getFileType(name + "." + type);

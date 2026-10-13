@@ -41,7 +41,7 @@ public class CusAccessObjectUtil {
      * <p>
      * 用户真实IP为： 192.168.1.110
      *
-     * @param request 请求对象
+     * @param request     请求对象
      * @param headerNames ip地址的头部名称
      * @return 请求用户的IP地址
      */
@@ -49,7 +49,7 @@ public class CusAccessObjectUtil {
         String ip = null;
         for (String header : headerNames) {
             ip = request.getHeader(header);
-            if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
+            if (ip != null && !ip.isEmpty() && !"unknown".equalsIgnoreCase(ip)) {
                 boolean ipv4 = FormatUtil.isIpv4(ip);
                 if (ipv4) {
                     return ip;
@@ -62,9 +62,13 @@ public class CusAccessObjectUtil {
             }
         }
         //如果没有代理，则获取真实ip
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
+        return clientIPFormat(ip);
+    }
+
+    public static String clientIPFormat(String ip) {
         return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : FormatUtil.isIpv4(ip) ? ip : ip.substring(0, ip.indexOf(','));
     }
 
@@ -159,8 +163,7 @@ public class CusAccessObjectUtil {
      * @return 请求头中的User-Agent
      */
     public static String getUser_Agent(HttpServletRequest request) {
-        String ua = request.getHeader("User-Agent");
-        return ua;
+        return request.getHeader("User-Agent");
     }
 
     /**
@@ -171,8 +174,7 @@ public class CusAccessObjectUtil {
      * @return
      */
     public static String getRequst(HttpServletRequest request) {
-        String s = "[" + getClientIp(request) + "] / " + getUser_Agent(request);
-        return s;
+        return "[" + getClientIp(request) + "] / " + getUser_Agent(request);
     }
 
     /**
@@ -185,10 +187,10 @@ public class CusAccessObjectUtil {
     public static String getCompleteRequest(HttpServletRequest request) {
         Map<String, Object> requestInfo = getRequestInfo(request);
         StringBuilder sb = new StringBuilder();
-        sb.append("<" + requestInfo.get("method") + ">\t");
-        sb.append("[" + requestInfo.get("uri") + "]\t");
-        sb.append("(" + requestInfo.get("ip") + ")\t");
-        sb.append("{" + getUser_Agent(request) + "}\t");
+        sb.append("<").append(requestInfo.get("method")).append(">\t");
+        sb.append("[").append(requestInfo.get("uri")).append("]\t");
+        sb.append("(").append(requestInfo.get("ip")).append(")\t");
+        sb.append("{").append(getUser_Agent(request)).append("}\t");
         return sb.toString();
     }
 }
